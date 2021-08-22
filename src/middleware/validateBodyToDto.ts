@@ -9,6 +9,7 @@ function validateDto(schema) {
                 next();
             })
             .catch((errors) => {
+                console.log(errors);
                 res.send({
                     status: 404,
                     error: 'Invalid data provided!'

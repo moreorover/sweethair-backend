@@ -4,10 +4,12 @@ import itemRoutes = require('./routes/item.routes');
 import roleRoutes = require('./routes/role.routes');
 import authRoutes = require('./routes/auth.routes');
 const bodyParser = require('body-parser');
-const all_routes = require('express-list-endpoints');
-const cookieParser = require('cookie-parser');
+import all_routes = require('express-list-endpoints');
 var cron = require('node-cron');
 var cors = require('cors');
+import redis = require('redis');
+import session = require('express-session');
+require('dotenv').config();
 
 const express = require('express');
 
@@ -16,9 +18,22 @@ const main = async () => {
 
     const app = express();
 
-    app.use(bodyParser.json());
-    app.use(cookieParser());
+    const RedisStore = require('connect-redis')(session);
+    const redisClient = redis.createClient({ host: process.env.REDIS_HOST });
+
+    app.use(
+        session({
+            name: 'squid',
+            store: new RedisStore({ client: redisClient, disableTouch: true }),
+            cookie: { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true, secure: false, sameSite: 'lax' },
+            saveUninitialized: false,
+            secret: process.env.JWT_ACCESS_TOKEN,
+            resave: false
+        })
+    );
+
     app.use(cors({ credentials: true, origin: true }));
+    app.use(bodyParser.json());
 
     app.get('/', (req, res) => {
         res.send('Hello World!');

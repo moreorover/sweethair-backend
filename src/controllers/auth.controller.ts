@@ -4,7 +4,6 @@ import { UserService } from '../services/user.service';
 import { UserCreateDto } from './dtos/user/user-create.dto';
 import { UserLoginDto } from './dtos/user/user-login.dto';
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const login = async (req, res) => {
@@ -29,17 +28,19 @@ const login = async (req, res) => {
 
     const { password, ...result } = user;
 
-    const accessToken = jwt.sign(result, process.env.JWT_ACCESS_TOKEN);
-
-    res.cookie('jwt', accessToken, { httpOnly: true });
+    req.session.user = result;
 
     res.json(result);
 };
 
 const me = async (req, res) => {
-    const jwt_access_token = req.cookies.jwt;
-    const data = jwt.verify(jwt_access_token, process.env.JWT_ACCESS_TOKEN);
-    res.json(data);
+    if (req.session.user) {
+        return res.json(req.session.user);
+    }
+    return res.json({
+        status: 404,
+        message: 'You are not authorized.'
+    });
 };
 
 const register = async (req, res) => {
@@ -67,16 +68,15 @@ const register = async (req, res) => {
     const results: User = await service.findOne({ id: savedUser.id }, ['role']);
     let { password, ...result } = results;
 
-    const accessToken = jwt.sign(result, process.env.JWT_ACCESS_TOKEN);
-
-    res.cookie('jwt', accessToken, { httpOnly: true });
+    req.session.user = result;
 
     return res.json(result);
 };
 
 const logout = async (req, res) => {
-    res.clearCookie('jwt');
-    return res.json({ message: 'Success' });
+    req.session.destroy();
+    res.clearCookie('squid');
+    res.status(200).send();
 };
 
 module.exports = {
