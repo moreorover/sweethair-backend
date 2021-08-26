@@ -3,6 +3,7 @@ import userRoutes = require('./routes/user.routes');
 import itemRoutes = require('./routes/item.routes');
 import roleRoutes = require('./routes/role.routes');
 import authRoutes = require('./routes/auth.routes');
+import customerRoutes = require('./routes/customer.routes');
 const bodyParser = require('body-parser');
 import all_routes = require('express-list-endpoints');
 var cron = require('node-cron');
@@ -43,6 +44,7 @@ const main = async () => {
     app.use('/roles', roleRoutes);
     app.use('/auth', authRoutes);
     app.use('/items', itemRoutes);
+    app.use('/customers', customerRoutes);
 
     console.log(all_routes(app));
 
