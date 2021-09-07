@@ -15,6 +15,6 @@ export class Customer extends BaseEntity {
     @Column({ default: '', unique: true })
     email: string;
 
-    @Column({ default: '', unique: true })
+    @Column({ default: '' })
     instagram: string;
 }

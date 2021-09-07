@@ -4,11 +4,12 @@ import { CustomerService } from '../services/customer.service';
 import { PaginateDto } from './dtos/common/paginate.dto';
 import { CustomerCreateDto } from './dtos/customer/customer-create.dto';
 import { CustomerUpdateDto } from './dtos/customer/customer-update.dto';
+import { Request, Response } from 'express';
 
-const all = async (req, res): Promise<Customer[]> => {
+const all = async (req: Request, res: Response) => {
     const service: CustomerService = new CustomerService(Customer);
     const results = await service.all();
-    return res.send(results);
+    return res.json(results);
 };
 
 const paginate = async (req, res) => {

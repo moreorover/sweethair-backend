@@ -6,7 +6,6 @@ import authRoutes = require('./routes/auth.routes');
 import customerRoutes = require('./routes/customer.routes');
 const bodyParser = require('body-parser');
 import all_routes = require('express-list-endpoints');
-var cron = require('node-cron');
 var cors = require('cors');
 import redis = require('redis');
 import session = require('express-session');
@@ -26,14 +25,14 @@ const main = async () => {
         session({
             name: 'squid',
             store: new RedisStore({ client: redisClient, disableTouch: true }),
-            cookie: { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true, secure: false, sameSite: 'lax' },
+            cookie: { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true, secure: false, sameSite: 'none' },
             saveUninitialized: false,
             secret: process.env.JWT_ACCESS_TOKEN,
             resave: false
         })
     );
 
-    app.use(cors({ credentials: true, origin: true }));
+    app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
     app.use(bodyParser.json());
 
     app.get('/', (req, res) => {
