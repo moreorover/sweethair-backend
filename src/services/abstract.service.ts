@@ -36,7 +36,8 @@ export class AbstractService<T> {
     }
 
     public async update(id: string | number, data): Promise<any> {
-        return this.repository.update(id, data);
+        await this.repository.update(id, data);
+        return this.findOne({ id });
     }
 
     public async delete(id: string | number): Promise<any> {
