@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Appointment } from './Appointment';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 import { BaseEntity } from '../BaseEntity';
 
 @Entity()
@@ -17,4 +18,8 @@ export class Customer extends BaseEntity {
 
     @Column({ default: '' })
     instagram: string;
+
+    @ManyToMany(() => Appointment, (appointment) => appointment.customers)
+    @JoinTable({ name: 'customer_appointments' })
+    appointments: Appointment[];
 }

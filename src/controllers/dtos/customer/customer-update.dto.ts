@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { ArrayNotEmpty, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { Appointment } from '../../../entity/hair/Appointment';
 
 export class CustomerUpdateDto {
     @IsOptional()
@@ -17,4 +18,8 @@ export class CustomerUpdateDto {
     @IsOptional()
     @IsNotEmpty()
     instagram: string;
+
+    @IsOptional()
+    @ArrayNotEmpty()
+    appointments: Appointment[];
 }

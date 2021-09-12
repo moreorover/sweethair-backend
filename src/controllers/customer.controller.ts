@@ -8,20 +8,20 @@ import { Request, Response } from 'express';
 
 const all = async (req: Request, res: Response) => {
     const service: CustomerService = new CustomerService(Customer);
-    const results = await service.all();
+    const results = await service.all(['appointments']);
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: CustomerService = new CustomerService(Customer);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page);
+    const result = await service.paginate(page, ['appointments']);
     return res.send(result);
 };
 
 const findById = async (req, res): Promise<Customer[]> => {
     const service: CustomerService = new CustomerService(Customer);
-    const results = await service.findOne({ id: req.params.id });
+    const results = await service.findOne({ id: req.params.id }, ['appointments']);
     return res.send(results);
 };
 

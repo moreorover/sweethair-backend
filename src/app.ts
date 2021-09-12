@@ -1,4 +1,5 @@
 import { createConnection } from 'typeorm';
+import appointmentRoutes = require('./routes/appointment.routes');
 import userRoutes = require('./routes/user.routes');
 import itemRoutes = require('./routes/item.routes');
 import roleRoutes = require('./routes/role.routes');
@@ -39,6 +40,7 @@ const main = async () => {
         res.send('Hello World!');
     });
 
+    app.use('/appointments', appointmentRoutes);
     app.use('/users', userRoutes);
     app.use('/roles', roleRoutes);
     app.use('/auth', authRoutes);
