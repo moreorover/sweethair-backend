@@ -13,15 +13,13 @@ const login = async (req, res) => {
     const user = await service.findOne({ email: body.email }, ['role']);
 
     if (!user) {
-        return res.send({
-            status: 404,
+        return res.status(404).send({
             message: 'User does not exist.'
         });
     }
 
     if (!(await bcrypt.compare(body.password, user.password))) {
-        return res.send({
-            status: 404,
+        return res.status(404).send({
             message: 'Incorrect password.'
         });
     }
@@ -37,8 +35,7 @@ const me = async (req, res) => {
     if (req.session.user) {
         return res.json(req.session.user);
     }
-    return res.json({
-        status: 404,
+    return res.status(404).json({
         message: 'You are not authorized.'
     });
 };
@@ -50,15 +47,13 @@ const register = async (req, res) => {
     const user = await service.findOne({ email: body.email });
 
     if (user) {
-        return res.send({
-            status: 404,
+        return res.status(404).send({
             message: 'User already exists.'
         });
     }
 
     if (body.password != body.passwordConfirm) {
-        return res.send({
-            status: 404,
+        return res.status(404).send({
             message: 'Passwords do not match.'
         });
     }
