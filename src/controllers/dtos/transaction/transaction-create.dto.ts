@@ -1,10 +1,14 @@
 import { Appointment } from './../../../entity/hair/Appointment';
 import { Customer } from './../../../entity/hair/Customer';
-import { IsDateString, IsNumber, IsOptional } from 'class-validator';
+import { IsBoolean, IsDateString, IsNumber, IsOptional } from 'class-validator';
 
 export class TransactionCreateDto {
     @IsNumber()
     total: number;
+
+    @IsOptional()
+    @IsBoolean()
+    isPaid: boolean;
 
     @IsDateString()
     date: Date;
