@@ -1,7 +1,10 @@
-import { ArrayNotEmpty, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { ArrayNotEmpty, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Appointment } from '../../../entity/hair/Appointment';
 
 export class CustomerUpdateDto {
+    @IsString()
+    id: string;
+
     @IsOptional()
     @IsNotEmpty()
     firstName: string;
