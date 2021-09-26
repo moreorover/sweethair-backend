@@ -14,6 +14,9 @@ export class Transaction extends BaseEntity {
     @Column({ default: false, type: 'boolean' })
     isPaid: boolean;
 
+    @Column({ default: null })
+    date: Date;
+
     @ManyToOne(() => Customer, (customer) => customer.transactions)
     customer: Customer;
 
