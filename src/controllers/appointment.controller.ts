@@ -34,7 +34,7 @@ const create = async (req, res): Promise<Appointment> => {
 
 const update = async (req, res): Promise<Appointment> => {
     const service: AppointmentService = new AppointmentService(Appointment);
-    const body: AppointmentUpdateDto = plainToClass(AppointmentUpdateDto, req.body);
+    const body: AppointmentUpdateDto = plainToClass(AppointmentUpdateDto, req.body, { strategy: 'excludeAll' });
     const savedCustomer = await service.update(req.params.id, body);
     return res.send(savedCustomer);
 };

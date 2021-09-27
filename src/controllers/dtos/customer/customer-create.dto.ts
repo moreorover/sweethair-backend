@@ -1,5 +1,7 @@
+import { Transaction } from './../../../entity/hair/Transaction';
 import { Appointment } from './../../../entity/hair/Appointment';
-import { ArrayNotEmpty, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CustomerCreateDto {
     @IsOptional()
@@ -20,6 +22,12 @@ export class CustomerCreateDto {
     instagram: string;
 
     @IsOptional()
-    @ArrayNotEmpty()
+    @IsArray()
+    @Type(() => Appointment)
     appointments: Appointment[];
+
+    @IsOptional()
+    @IsArray()
+    @Type(() => Transaction)
+    transactions: Transaction[];
 }

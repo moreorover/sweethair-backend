@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
 export class UserUpdateDto {
@@ -22,4 +23,10 @@ export class UserUpdateDto {
 
     @IsOptional()
     role_id: number;
+
+    @Exclude()
+    createdOn: Date;
+
+    @Exclude()
+    modifiedOn: Date;
 }

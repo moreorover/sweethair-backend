@@ -1,5 +1,6 @@
 import { Customer } from './../../../entity/hair/Customer';
-import { ArrayNotEmpty, IsArray, IsDateString, IsOptional } from 'class-validator';
+import { IsArray, IsDateString, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class AppointmentCreateDto {
     @IsDateString()
@@ -7,5 +8,6 @@ export class AppointmentCreateDto {
 
     @IsOptional()
     @IsArray()
+    @Type(() => Customer)
     customers: Customer[];
 }

@@ -34,7 +34,7 @@ const create = async (req, res): Promise<Transaction> => {
 
 const update = async (req, res): Promise<Transaction> => {
     const service: TransactionService = new TransactionService(Transaction);
-    const body: TransactionUpdateDto = plainToClass(TransactionUpdateDto, req.body);
+    const body: TransactionUpdateDto = plainToClass(TransactionUpdateDto, req.body, { strategy: 'excludeAll' });
     const savedCustomer = await service.update(req.params.id, body);
     return res.send(savedCustomer);
 };

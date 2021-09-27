@@ -34,8 +34,9 @@ const create = async (req, res): Promise<Customer> => {
 
 const update = async (req, res): Promise<Customer> => {
     const service: CustomerService = new CustomerService(Customer);
-    const body: CustomerUpdateDto = plainToClass(CustomerUpdateDto, req.body);
-    const savedCustomer = await service.update(req.params.id, body);
+    const body: CustomerUpdateDto = plainToClass(CustomerUpdateDto, req.body, { strategy: 'excludeAll' });
+    await service.update(req.params.id, body);
+    const savedCustomer = await service.findOne({ id: req.params.id }, ['appointments', 'transactions']);
     return res.send(savedCustomer);
 };
 

@@ -1,6 +1,7 @@
 import { Appointment } from './../../../entity/hair/Appointment';
 import { Customer } from './../../../entity/hair/Customer';
 import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Exclude, Type } from 'class-transformer';
 
 export class TransactionUpdateDto {
     @IsString()
@@ -17,8 +18,16 @@ export class TransactionUpdateDto {
     date: Date;
 
     @IsOptional()
+    @Type(() => Customer)
     customer: Customer;
 
     @IsOptional()
+    @Type(() => Appointment)
     appointment: Appointment;
+
+    @Exclude()
+    createdOn: Date;
+
+    @Exclude()
+    modifiedOn: Date;
 }
