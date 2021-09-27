@@ -8,14 +8,14 @@ import { TransactionUpdateDto } from './dtos/transaction/transaction-update.dto'
 
 const all = async (req: Request, res: Response) => {
     const service: TransactionService = new TransactionService(Transaction);
-    const results = await service.all(['customer', 'appointment']);
+    const results = await service.all(['customer', 'appointment'], { date: 'DESC' });
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: TransactionService = new TransactionService(Transaction);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['customer', 'appointment']);
+    const result = await service.paginate(page, ['customer', 'appointment'], {}, { date: 'DESC' });
     return res.send(result);
 };
 

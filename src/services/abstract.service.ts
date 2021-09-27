@@ -7,18 +7,19 @@ export class AbstractService<T> {
         this.repository = getRepository<T>(repo);
     }
 
-    public async all(relations = []): Promise<T[]> {
-        return await this.repository.find({ relations });
+    public async all(relations = [], order = {}): Promise<T[]> {
+        return await this.repository.find({ relations, order });
     }
 
-    public async paginate(page = 1, relations = [], where = {}) {
+    public async paginate(page = 1, relations = [], where = {}, order = {}) {
         const take = 15;
 
         const [data, total] = await this.repository.findAndCount({
             take,
             skip: (page - 1) * take,
             relations,
-            where
+            where,
+            order
         });
 
         return {
