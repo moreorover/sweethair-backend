@@ -16,6 +16,8 @@ export class Appointment extends BaseEntity {
     @ManyToMany(() => Customer, (customer) => customer.appointments)
     customers: Customer[];
 
-    @OneToMany(() => Transaction, (transaction) => transaction.appointment)
+    @OneToMany(() => Transaction, (transaction) => transaction.appointment, {
+        cascade: true
+    })
     transactions: Transaction[];
 }

@@ -24,6 +24,8 @@ export class Customer extends BaseEntity {
     @JoinTable({ name: 'customer_appointments' })
     appointments: Appointment[];
 
-    @OneToMany(() => Transaction, (transaction) => transaction.customer)
+    @OneToMany(() => Transaction, (transaction) => transaction.customer, {
+        cascade: true
+    })
     transactions: Transaction[];
 }
