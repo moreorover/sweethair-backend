@@ -2,8 +2,10 @@ import { Transaction } from './Transaction';
 import { Appointment } from './Appointment';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { BaseEntity } from '../BaseEntity';
+import { Expose } from 'class-transformer';
 
 @Entity()
+@Expose()
 export class Customer extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

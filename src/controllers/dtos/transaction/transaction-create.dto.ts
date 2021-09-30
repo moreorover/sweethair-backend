@@ -1,8 +1,9 @@
 import { Appointment } from './../../../entity/hair/Appointment';
 import { Customer } from './../../../entity/hair/Customer';
 import { IsBoolean, IsDateString, IsNumber, IsOptional } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 
+@Expose()
 export class TransactionCreateDto {
     @IsNumber()
     total: number;

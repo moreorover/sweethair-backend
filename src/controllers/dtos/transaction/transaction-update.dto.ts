@@ -1,8 +1,9 @@
 import { Appointment } from './../../../entity/hair/Appointment';
 import { Customer } from './../../../entity/hair/Customer';
 import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
-import { Exclude, Type } from 'class-transformer';
+import { Exclude, Expose, Type } from 'class-transformer';
 
+@Expose()
 export class TransactionUpdateDto {
     @IsString()
     id: string;
