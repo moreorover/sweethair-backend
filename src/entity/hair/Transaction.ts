@@ -10,7 +10,7 @@ export class Transaction extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('decimal', { precision: 11, scale: 2 })
+    @Column('float', { precision: 11, scale: 2 })
     total: number;
 
     @Column({ default: false, type: 'boolean' })
