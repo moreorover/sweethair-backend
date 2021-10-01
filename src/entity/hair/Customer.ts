@@ -16,10 +16,10 @@ export class Customer extends BaseEntity {
     @Column({ default: '' })
     lastName: string;
 
-    @Column({ default: '', unique: true })
+    @Column({ type: 'text', unique: true, nullable: true })
     email: string;
 
-    @Column({ default: '' })
+    @Column({ type: 'text', unique: true, nullable: true })
     instagram: string;
 
     @ManyToMany(() => Appointment, (appointment) => appointment.customers)
