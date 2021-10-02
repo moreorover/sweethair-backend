@@ -8,7 +8,7 @@ import { AppointmentUpdateDto } from './dtos/appointment/appointment-update.dto'
 
 const all = async (req: Request, res: Response) => {
     const service: AppointmentService = new AppointmentService(Appointment);
-    const results = await service.all(['customers', 'transactions'], { start: 'DESC' });
+    const results = await service.all(['customers', 'transactions', 'customers.transactions', 'customers.transactions.appointment', 'transactions.customer'], { start: 'DESC' });
     return res.json(results);
 };
 
@@ -35,7 +35,8 @@ const create = async (req, res): Promise<Appointment> => {
 const update = async (req, res): Promise<Appointment> => {
     const service: AppointmentService = new AppointmentService(Appointment);
     const body: AppointmentUpdateDto = plainToClass(AppointmentUpdateDto, req.body, { strategy: 'excludeAll' });
-    const savedCustomer = await service.update(req.params.id, body);
+    await service.update(req.params.id, body);
+    const savedCustomer = await service.findOne({ id: req.params.id }, ['customers', 'transactions']);
     return res.send(savedCustomer);
 };
 
