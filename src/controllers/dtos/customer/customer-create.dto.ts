@@ -1,8 +1,9 @@
 import { Transaction } from './../../../entity/hair/Transaction';
 import { Appointment } from './../../../entity/hair/Appointment';
 import { IsArray, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 
+@Expose()
 export class CustomerCreateDto {
     @IsOptional()
     @IsNotEmpty()
