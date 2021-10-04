@@ -28,15 +28,17 @@ const findById = async (req, res): Promise<Transaction[]> => {
 const create = async (req, res): Promise<Transaction> => {
     const service: TransactionService = new TransactionService(Transaction);
     const body: TransactionCreateDto = plainToClass(TransactionCreateDto, req.body);
-    const savedCustomer = await service.create(body);
-    return res.send(savedCustomer);
+    const saved = await service.create(body);
+    const savedTransaction = service.findOne(saved.id, ['customer', 'appointment']);
+    return res.send(savedTransaction);
 };
 
 const update = async (req, res): Promise<Transaction> => {
     const service: TransactionService = new TransactionService(Transaction);
     const body: TransactionUpdateDto = plainToClass(TransactionUpdateDto, req.body, { strategy: 'excludeAll' });
-    const savedCustomer = await service.update(req.params.id, body);
-    return res.send(savedCustomer);
+    await service.update(req.params.id, body);
+    const savedTransaction = await service.findOne(body.id, ['customer', 'appointment']);
+    return res.send(savedTransaction);
 };
 
 const deleteById = async (req, res): Promise<Boolean | object> => {
