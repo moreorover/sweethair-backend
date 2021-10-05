@@ -29,7 +29,7 @@ const create = async (req, res): Promise<Transaction> => {
     const service: TransactionService = new TransactionService(Transaction);
     const body: TransactionCreateDto = plainToClass(TransactionCreateDto, req.body);
     const saved = await service.create(body);
-    const savedTransaction = service.findOne(saved.id, ['customer', 'appointment']);
+    const savedTransaction = await service.findOne(saved.id, ['customer', 'appointment']);
     return res.send(savedTransaction);
 };
 
