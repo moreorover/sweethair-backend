@@ -5,7 +5,7 @@ import { Expose, Type } from 'class-transformer';
 @Expose()
 export class AppointmentCreateDto {
     @IsDateString()
-    start: Date;
+    scheduledAt: Date;
 
     @IsOptional()
     @IsArray()

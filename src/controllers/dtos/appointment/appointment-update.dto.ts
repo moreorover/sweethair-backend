@@ -9,7 +9,7 @@ export class AppointmentUpdateDto {
     id: string;
 
     @IsDateString()
-    start: Date;
+    scheduledAt: Date;
 
     @IsOptional()
     @IsArray()

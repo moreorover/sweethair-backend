@@ -10,8 +10,8 @@ export class Appointment extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ default: null })
-    start: Date;
+    @Column()
+    scheduledAt: Date;
 
     @ManyToMany(() => Customer, (customer) => customer.appointments)
     customers: Customer[];
