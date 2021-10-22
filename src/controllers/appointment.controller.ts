@@ -8,7 +8,7 @@ import { AppointmentUpdateDto } from './dtos/appointment/appointment-update.dto'
 
 const all = async (req: Request, res: Response) => {
     const service: AppointmentService = new AppointmentService(Appointment);
-    const results = await service.all(['customers', 'transactions', 'customers.transactions', 'customers.transactions.appointment', 'transactions.customer'], { start: 'DESC' });
+    const results = await service.all(['customers', 'transactions'], { start: 'DESC' });
     return res.json(results);
 };
 
