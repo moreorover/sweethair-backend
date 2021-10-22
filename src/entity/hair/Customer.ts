@@ -10,7 +10,7 @@ export class Customer extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ default: '', nullable: false, unique: false })
+    @Column({ default: '', nullable: false, unique: true })
     fullName: string;
 
     @Column({ default: '', nullable: true })
