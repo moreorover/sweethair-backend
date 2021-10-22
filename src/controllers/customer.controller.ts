@@ -8,14 +8,14 @@ import { Request, Response } from 'express';
 
 const all = async (req: Request, res: Response) => {
     const service: CustomerService = new CustomerService(Customer);
-    const results = await service.all(['appointments', 'transactions'], { firstName: 'ASC' });
+    const results = await service.all(['appointments', 'transactions'], { fullName: 'ASC' });
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: CustomerService = new CustomerService(Customer);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['appointments', 'transactions'], {}, { firstName: 'ASC' });
+    const result = await service.paginate(page, ['appointments', 'transactions'], {}, { fullName: 'ASC' });
     return res.send(result);
 };
 
