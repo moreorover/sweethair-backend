@@ -5,13 +5,16 @@ import { Expose, Type } from 'class-transformer';
 
 @Expose()
 export class CustomerCreateDto {
-    @IsOptional()
     @IsNotEmpty()
-    firstName: string;
+    fullName: string;
 
     @IsOptional()
     @IsNotEmpty()
-    lastName: string;
+    location: string;
+
+    @IsOptional()
+    @IsNotEmpty()
+    about: string;
 
     @IsOptional()
     @IsNotEmpty()

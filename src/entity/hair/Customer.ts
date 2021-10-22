@@ -10,11 +10,14 @@ export class Customer extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ default: '' })
-    firstName: string;
+    @Column({ default: '', nullable: false, unique: false })
+    fullName: string;
 
-    @Column({ default: '' })
-    lastName: string;
+    @Column({ default: '', nullable: true })
+    location: string;
+
+    @Column({ default: '', nullable: true })
+    about: string;
 
     @Column({ type: 'text', unique: true, nullable: true })
     email: string;
