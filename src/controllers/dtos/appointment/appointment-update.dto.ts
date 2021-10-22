@@ -1,5 +1,5 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsArray, IsDateString, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsDateString, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Customer } from '../../../entity/hair/Customer';
 import { Transaction } from '../../../entity/hair/Transaction';
 
@@ -10,6 +10,10 @@ export class AppointmentUpdateDto {
 
     @IsDateString()
     scheduledAt: Date;
+
+    @IsOptional()
+    @IsNotEmpty()
+    title: string;
 
     @IsOptional()
     @IsArray()

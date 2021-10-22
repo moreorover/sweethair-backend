@@ -13,6 +13,9 @@ export class Appointment extends BaseEntity {
     @Column()
     scheduledAt: Date;
 
+    @Column({ default: '', nullable: true })
+    title: string;
+
     @ManyToMany(() => Customer, (customer) => customer.appointments)
     customers: Customer[];
 
