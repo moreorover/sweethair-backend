@@ -9,11 +9,9 @@ export class CustomerCreateDto {
     fullName: string;
 
     @IsOptional()
-    @IsNotEmpty()
     location: string;
 
     @IsOptional()
-    @IsNotEmpty()
     about: string;
 
     @IsOptional()
@@ -22,7 +20,6 @@ export class CustomerCreateDto {
     email: string;
 
     @IsOptional()
-    @IsNotEmpty()
     instagram: string;
 
     @IsOptional()

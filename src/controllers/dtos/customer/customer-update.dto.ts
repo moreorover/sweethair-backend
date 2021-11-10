@@ -14,11 +14,9 @@ export class CustomerUpdateDto extends BaseEntity {
     fullName: string;
 
     @IsOptional()
-    @IsNotEmpty()
     location: string;
 
     @IsOptional()
-    @IsNotEmpty()
     about: string;
 
     @IsOptional()
@@ -27,7 +25,6 @@ export class CustomerUpdateDto extends BaseEntity {
     email: string;
 
     @IsOptional()
-    @IsNotEmpty()
     instagram: string;
 
     @IsOptional()
