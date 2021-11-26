@@ -16,7 +16,7 @@ export class TransactionUpdateDto {
     isPaid: boolean;
 
     @IsDateString()
-    date: Date;
+    scheduledAt: Date;
 
     @IsOptional()
     @Type(() => Customer)

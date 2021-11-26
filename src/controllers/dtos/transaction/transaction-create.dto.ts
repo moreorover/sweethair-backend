@@ -13,7 +13,7 @@ export class TransactionCreateDto {
     isPaid: boolean;
 
     @IsDateString()
-    date: Date;
+    scheduledAt: Date;
 
     @IsOptional()
     @Type(() => Customer)

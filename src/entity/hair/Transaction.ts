@@ -17,7 +17,7 @@ export class Transaction extends BaseEntity {
     isPaid: boolean;
 
     @Column({ default: null })
-    date: Date;
+    scheduledAt: Date;
 
     @ManyToOne(() => Customer, (customer) => customer.transactions)
     customer: Customer;
