@@ -8,14 +8,14 @@ import { AppointmentUpdateDto } from './dtos/appointment/appointment-update.dto'
 
 const all = async (req: Request, res: Response) => {
     const service: AppointmentService = new AppointmentService(Appointment);
-    const results = await service.all(['customers', 'transactions'], { scheduledAt: 'DESC' });
+    const results = await service.all(['customers', 'transactions'], { scheduledAt: 'ASC' });
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: AppointmentService = new AppointmentService(Appointment);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['customers', 'transactions'], {}, { scheduledAt: 'DESC' });
+    const result = await service.paginate(page, ['customers', 'transactions'], {}, { scheduledAt: 'ASC' });
     return res.send(result);
 };
 
