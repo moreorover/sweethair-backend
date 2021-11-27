@@ -1,5 +1,5 @@
 import { plainToClass } from 'class-transformer';
-import { Item } from '../entity/scraper/Item';
+import { Item } from '../entity/hair/Item';
 import { ItemService } from '../services/item.service';
 import { PaginateDto } from './dtos/common/paginate.dto';
 
