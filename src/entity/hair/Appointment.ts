@@ -21,9 +21,4 @@ export class Appointment extends DataEntity {
         cascade: true
     })
     transactions: Transaction[];
-
-    @OneToMany(() => Item, (item) => item.appointment, {
-        cascade: true
-    })
-    items: Item[];
 }
