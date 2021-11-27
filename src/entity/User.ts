@@ -1,12 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { BaseEntity } from './BaseEntity';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { DataEntity } from './DataEntity';
 import { Role } from './Role';
 
 @Entity()
-export class User extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
+export class User extends DataEntity {
     @Column()
     firstName: string;
 

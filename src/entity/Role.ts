@@ -1,11 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from 'typeorm/repository/BaseEntity';
+import { Column, Entity } from 'typeorm';
+import { DataEntity } from './DataEntity';
 
 @Entity()
-export class Role extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
+export class Role extends DataEntity {
     @Column()
     name: string;
 }

@@ -1,15 +1,12 @@
 import { Customer } from './Customer';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany } from 'typeorm';
-import { BaseEntity } from '../BaseEntity';
+import { Entity, Column, ManyToMany, OneToMany } from 'typeorm';
+import { DataEntity } from '../DataEntity';
 import { Transaction } from './Transaction';
 import { Expose } from 'class-transformer';
 
 @Entity()
 @Expose()
-export class Appointment extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
+export class Appointment extends DataEntity {
     @Column()
     scheduledAt: Date;
 

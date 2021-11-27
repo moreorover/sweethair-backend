@@ -1,15 +1,12 @@
 import { Transaction } from './Transaction';
 import { Appointment } from './Appointment';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
-import { BaseEntity } from '../BaseEntity';
+import { Entity, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
+import { DataEntity } from '../DataEntity';
 import { Expose } from 'class-transformer';
 
 @Entity()
 @Expose()
-export class Customer extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
+export class Customer extends DataEntity {
     @Column({ default: '', nullable: false, unique: true })
     fullName: string;
 

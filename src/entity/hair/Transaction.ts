@@ -1,16 +1,13 @@
 import { Customer } from './Customer';
 import { Appointment } from './Appointment';
 import { Invoice } from './Invoice';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../BaseEntity';
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { DataEntity } from '../DataEntity';
 import { Expose } from 'class-transformer';
 
 @Entity()
 @Expose()
-export class Transaction extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
+export class Transaction extends DataEntity {
     @Column('float', { precision: 11, scale: 2 })
     total: number;
 
