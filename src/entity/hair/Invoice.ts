@@ -1,3 +1,4 @@
+import { Item } from './Item';
 import { Transaction } from './Transaction';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../BaseEntity';
@@ -25,4 +26,9 @@ export class Invoice extends BaseEntity {
         cascade: true
     })
     transactions: Transaction[];
+
+    @OneToMany(() => Item, (item) => item.invoice, {
+        cascade: true
+    })
+    items: Item[];
 }
