@@ -1,6 +1,6 @@
 import { Item } from './Item';
 import { Transaction } from './Transaction';
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { DataEntity } from '../DataEntity';
 import { Expose } from 'class-transformer';
 
@@ -24,8 +24,7 @@ export class Invoice extends DataEntity {
     })
     transactions: Transaction[];
 
-    @OneToMany(() => Item, (item) => item.invoice, {
-        cascade: true
-    })
+    @ManyToMany(() => Item, (item) => item.invoices)
+    @JoinTable({ name: 'invoice_items' })
     items: Item[];
 }
