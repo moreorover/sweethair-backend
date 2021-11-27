@@ -3,6 +3,7 @@ import { Appointment } from './Appointment';
 import { Entity, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { DataEntity } from '../DataEntity';
 import { Expose } from 'class-transformer';
+import { Item } from './Item';
 
 @Entity()
 @Expose()
@@ -30,4 +31,9 @@ export class Customer extends DataEntity {
         cascade: true
     })
     transactions: Transaction[];
+
+    @OneToMany(() => Item, (item) => item.customer, {
+        cascade: true
+    })
+    items: Item[];
 }
