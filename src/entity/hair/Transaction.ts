@@ -1,5 +1,6 @@
 import { Customer } from './Customer';
 import { Appointment } from './Appointment';
+import { Invoice } from './Invoice';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../BaseEntity';
 import { Expose } from 'class-transformer';
@@ -24,4 +25,7 @@ export class Transaction extends BaseEntity {
 
     @ManyToOne(() => Appointment, (appointment) => appointment.transactions)
     appointment: Appointment;
+
+    @ManyToOne(() => Invoice, (invoice) => invoice.transactions)
+    invoice: Invoice;
 }
