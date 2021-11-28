@@ -11,10 +11,10 @@ export class Invoice extends DataEntity {
     total: number;
 
     @Column({ default: false, type: 'boolean' })
-    received: boolean;
+    isReceived: boolean;
 
     @Column({ default: false, type: 'boolean' })
-    paid: boolean;
+    idPaid: boolean;
 
     @Column({ default: null })
     scheduledAt: Date;

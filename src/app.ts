@@ -4,6 +4,7 @@ import userRoutes = require('./routes/user.routes');
 import itemRoutes = require('./routes/item.routes');
 import roleRoutes = require('./routes/role.routes');
 import authRoutes = require('./routes/auth.routes');
+import invoiceRoutes = require('./routes/invoice.routes');
 import customerRoutes = require('./routes/customer.routes');
 import transactionRoutes = require('./routes/transaction.routes');
 const bodyParser = require('body-parser');
@@ -49,6 +50,7 @@ const main = async () => {
     app.use('/items', itemRoutes);
     app.use('/customers', customerRoutes);
     app.use('/transactions', transactionRoutes);
+    app.use('/invoices', invoiceRoutes);
 
     console.log(all_routes(app));
 

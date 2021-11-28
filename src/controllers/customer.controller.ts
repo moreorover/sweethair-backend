@@ -8,20 +8,20 @@ import { Request, Response } from 'express';
 
 const all = async (req: Request, res: Response) => {
     const service: CustomerService = new CustomerService(Customer);
-    const results = await service.all(['appointments', 'transactions'], { fullName: 'ASC' });
+    const results = await service.all(['appointments', 'transactions', 'items'], { fullName: 'ASC' });
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: CustomerService = new CustomerService(Customer);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['appointments', 'transactions'], {}, { fullName: 'ASC' });
+    const result = await service.paginate(page, ['appointments', 'transactions', 'items'], {}, { fullName: 'ASC' });
     return res.send(result);
 };
 
 const findById = async (req, res): Promise<Customer[]> => {
     const service: CustomerService = new CustomerService(Customer);
-    const results = await service.findOne({ id: req.params.id }, ['appointments', 'transactions']);
+    const results = await service.findOne({ id: req.params.id }, ['appointments', 'transactions', 'items']);
     return res.send(results);
 };
 
@@ -36,7 +36,7 @@ const update = async (req, res): Promise<Customer> => {
     const service: CustomerService = new CustomerService(Customer);
     const body: CustomerUpdateDto = plainToClass(CustomerUpdateDto, req.body, { strategy: 'excludeAll' });
     await service.update(req.params.id, body);
-    const savedCustomer = await service.findOne({ id: req.params.id }, ['appointments', 'transactions']);
+    const savedCustomer = await service.findOne({ id: req.params.id }, ['appointments', 'transactions', 'items']);
     return res.send(savedCustomer);
 };
 

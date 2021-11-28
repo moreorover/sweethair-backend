@@ -1,11 +1,11 @@
-import { BaseEntity } from 'typeorm/repository/BaseEntity';
-import { Transaction } from './../../../entity/hair/Transaction';
 import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
-import { Appointment } from '../../../entity/hair/Appointment';
 import { Exclude, Expose, Type } from 'class-transformer';
+import { Appointment } from '../../../entity/hair/Appointment';
+import { Item } from '../../../entity/hair/Item';
+import { Transaction } from './../../../entity/hair/Transaction';
 
 @Expose()
-export class CustomerUpdateDto extends BaseEntity {
+export class CustomerUpdateDto {
     @IsPositive()
     id: number;
 
@@ -36,6 +36,11 @@ export class CustomerUpdateDto extends BaseEntity {
     @IsArray()
     @Type(() => Transaction)
     transactions: Transaction[];
+
+    @IsOptional()
+    @IsArray()
+    @Type(() => Item)
+    items: Item[];
 
     @Exclude()
     createdOn: Date;

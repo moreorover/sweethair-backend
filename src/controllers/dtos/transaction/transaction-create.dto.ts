@@ -1,7 +1,8 @@
-import { Appointment } from './../../../entity/hair/Appointment';
-import { Customer } from './../../../entity/hair/Customer';
 import { IsBoolean, IsDateString, IsNumber, IsOptional } from 'class-validator';
 import { Expose, Type } from 'class-transformer';
+import { Appointment } from './../../../entity/hair/Appointment';
+import { Customer } from './../../../entity/hair/Customer';
+import { Invoice } from '../../../entity/hair/Invoice';
 
 @Expose()
 export class TransactionCreateDto {
@@ -22,4 +23,8 @@ export class TransactionCreateDto {
     @IsOptional()
     @Type(() => Appointment)
     appointment: Appointment;
+
+    @IsOptional()
+    @Type(() => Invoice)
+    invoice: Invoice;
 }

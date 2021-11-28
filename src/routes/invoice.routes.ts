@@ -1,9 +1,9 @@
-import { ItemUpdateDto } from './../controllers/dtos/item/item-update.dto';
-import { ItemCreateDto } from './../controllers/dtos/item/item-create.dto';
 import { Router } from 'express';
 import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
+import { ItemCreateDto } from '../controllers/dtos/item/item-create.dto';
+import { ItemUpdateDto } from '../controllers/dtos/item/item-update.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-const { all, paginate, findById, create, update, deleteById } = require('../controllers/item.controller');
+const { all, paginate, findById, create, update, deleteById } = require('../controllers/invoice.controller');
 const { validateDto } = require('../middleware/validateBodyToDto');
 
 const router = Router();
