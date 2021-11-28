@@ -15,13 +15,13 @@ const all = async (req: Request, res: Response) => {
 const paginate = async (req, res) => {
     const service: InvoiceService = new InvoiceService(Invoice);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['transactions', 'items'],, {}, { scheduledAt: 'ASC' });
+    const result = await service.paginate(page, ['transactions', 'items'], {}, { scheduledAt: 'ASC' });
     return res.send(result);
 };
 
 const findById = async (req, res): Promise<Invoice[]> => {
     const service: InvoiceService = new InvoiceService(Invoice);
-    const results = await service.findOne({ id: req.params.id }, ['transactions', 'items'],);
+    const results = await service.findOne({ id: req.params.id }, ['transactions', 'items']);
     return res.send(results);
 };
 
@@ -36,7 +36,7 @@ const update = async (req, res): Promise<Invoice> => {
     const service: InvoiceService = new InvoiceService(Invoice);
     const body: InvoiceUpdateDto = plainToClass(InvoiceUpdateDto, req.body, { strategy: 'excludeAll' });
     await service.update(req.params.id, body);
-    const savedInvoice = await service.findOne({ id: req.params.id }, ['transactions', 'items'],);
+    const savedInvoice = await service.findOne({ id: req.params.id }, ['transactions', 'items']);
     return res.send(savedInvoice);
 };
 
