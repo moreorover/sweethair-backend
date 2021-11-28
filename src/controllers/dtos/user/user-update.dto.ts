@@ -1,9 +1,9 @@
 import { Exclude } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsPositive, Length } from 'class-validator';
 
 export class UserUpdateDto {
-    @IsString()
-    id: string;
+    @IsPositive()
+    id: number;
 
     @IsOptional()
     @IsNotEmpty()

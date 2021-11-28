@@ -1,13 +1,13 @@
 import { BaseEntity } from 'typeorm/repository/BaseEntity';
 import { Transaction } from './../../../entity/hair/Transaction';
-import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
 import { Appointment } from '../../../entity/hair/Appointment';
 import { Exclude, Expose, Type } from 'class-transformer';
 
 @Expose()
 export class CustomerUpdateDto extends BaseEntity {
-    @IsString()
-    id: string;
+    @IsPositive()
+    id: number;
 
     @IsOptional()
     @IsNotEmpty()

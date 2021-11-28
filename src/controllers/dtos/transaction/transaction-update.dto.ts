@@ -1,12 +1,12 @@
 import { Appointment } from './../../../entity/hair/Appointment';
 import { Customer } from './../../../entity/hair/Customer';
-import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsDateString, IsNumber, IsOptional, IsPositive } from 'class-validator';
 import { Exclude, Expose, Type } from 'class-transformer';
 
 @Expose()
 export class TransactionUpdateDto {
-    @IsString()
-    id: string;
+    @IsPositive()
+    id: number;
 
     @IsNumber()
     total: number;
