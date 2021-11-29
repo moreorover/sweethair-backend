@@ -27,6 +27,7 @@
         "@types/express-list-endpoints": "^4.0.1",
         "@types/express-session": "^1.17.4",
         "@types/redis": "^2.8.31",
+        "eslint-plugin-tsdoc": "^0.2.14",
         "nodemon": "^2.0.12",
         "prettier": "2.3.2",
         "typescript": "^4.3.5"
