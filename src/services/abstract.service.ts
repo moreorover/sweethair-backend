@@ -37,7 +37,8 @@ export class AbstractService<T> {
     }
 
     public async update(id: string | number, data): Promise<any> {
-        await this.repository.save(data);
+        const toUpdate = await this.findOne({ id });
+        await this.repository.save({ ...toUpdate, ...data });
         return this.findOne({ id });
     }
 
