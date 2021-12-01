@@ -13,7 +13,9 @@
         "typeorm:generate": "npm run typeorm migration:generate -- -n",
         "typeorm:run": "npm run typeorm migration:run",
         "typeorm:revert": "npm run typeorm migration:revert",
-        "typeorm:show": "npm run typeorm migration:show"
+        "typeorm:show": "npm run typeorm migration:show",
+        "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+        "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
     },
     "repository": {
         "type": "git",
@@ -32,6 +34,7 @@
         "@types/express": "^4.17.13",
         "@types/express-list-endpoints": "^4.0.1",
         "@types/express-session": "^1.17.4",
+        "@types/faker": "^5.5.9",
         "@types/redis": "^2.8.31",
         "eslint-plugin-tsdoc": "^0.2.14",
         "nodemon": "^2.0.12",
@@ -50,11 +53,13 @@
         "express": "^4.17.1",
         "express-list-endpoints": "^6.0.0",
         "express-session": "^1.17.2",
+        "faker": "^5.5.3",
         "jsonwebtoken": "^8.5.1",
         "mysql": "^2.18.1",
         "node-cron": "^3.0.0",
         "redis": "^3.1.2",
         "reflect-metadata": "^0.1.13",
-        "typeorm": "^0.2.36"
+        "typeorm": "^0.2.36",
+        "typeorm-seeding": "^1.6.1"
     }
 }
