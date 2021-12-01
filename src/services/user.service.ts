@@ -1,10 +1,10 @@
 import { User } from '../entity/User';
 import { AbstractService } from './abstract.service';
-const bcrypt = require('bcrypt');
+import argon2 = require('argon2');
 
 export class UserService extends AbstractService<User> {
     public async create(data): Promise<any> {
-        data.password = await bcrypt.hash(data.password, 12);
+        data.password = await argon2.hash(data.password);
         return this.repository.save({ ...data, role: { id: 2 } });
     }
 

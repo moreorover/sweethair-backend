@@ -3,7 +3,7 @@ import { User } from '../entity/User';
 import { UserService } from '../services/user.service';
 import { UserCreateDto } from './dtos/user/user-create.dto';
 import { UserLoginDto } from './dtos/user/user-login.dto';
-const bcrypt = require('bcrypt');
+import argon2 = require('argon2');
 require('dotenv').config();
 
 const login = async (req, res) => {
@@ -18,7 +18,7 @@ const login = async (req, res) => {
         });
     }
 
-    if (!(await bcrypt.compare(body.password, user.password))) {
+    if (!(await argon2.verify(user.password, body.password))) {
         return res.status(404).send({
             message: 'Incorrect password.'
         });
