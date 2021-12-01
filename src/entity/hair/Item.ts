@@ -1,3 +1,4 @@
+import { Appointment } from './Appointment';
 import { Entity, Column, ManyToMany, ManyToOne } from 'typeorm';
 import { DataEntity } from '../DataEntity';
 import { Customer } from './Customer';
@@ -16,4 +17,7 @@ export class Item extends DataEntity {
 
     @ManyToOne(() => Customer, (customer) => customer.items)
     customer: Customer;
+
+    @ManyToOne(() => Appointment, (appointment) => appointment.items)
+    appointment: Appointment;
 }
