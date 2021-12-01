@@ -14,7 +14,7 @@ export class Invoice extends DataEntity {
     isReceived: boolean;
 
     @Column({ default: false, type: 'boolean' })
-    idPaid: boolean;
+    isPaid: boolean;
 
     @Column({ default: null })
     scheduledAt: Date;
