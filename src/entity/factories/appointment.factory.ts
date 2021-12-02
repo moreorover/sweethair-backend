@@ -1,7 +1,7 @@
 import { Appointment } from './../hair/Appointment';
 import { define } from 'typeorm-seeding';
-import * as Faker from 'faker';
-import moment from 'moment';
+import Faker from 'faker';
+import * as moment from 'moment';
 
 define(Appointment, (faker: typeof Faker) => {
     const appointment = new Appointment();

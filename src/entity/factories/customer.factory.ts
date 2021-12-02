@@ -1,6 +1,6 @@
 import { define } from 'typeorm-seeding';
 import { Customer } from '../hair/Customer';
-import * as Faker from 'faker';
+import Faker from 'faker';
 
 define(Customer, (faker: typeof Faker) => {
     const firstName = faker.name.firstName(0);
