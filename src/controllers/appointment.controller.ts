@@ -8,20 +8,20 @@ import { AppointmentUpdateDto } from './dtos/appointment/appointment-update.dto'
 
 const all = async (req: Request, res: Response) => {
     const service: AppointmentService = new AppointmentService(Appointment);
-    const results = await service.all(['customers', 'transactions'], { scheduledAt: 'ASC' });
+    const results = await service.all(['customers', 'transactions', 'items'], { scheduledAt: 'ASC' });
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: AppointmentService = new AppointmentService(Appointment);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['customers', 'transactions'], {}, { scheduledAt: 'ASC' });
+    const result = await service.paginate(page, ['customers', 'transactions', 'items'], {}, { scheduledAt: 'ASC' });
     return res.send(result);
 };
 
 const findById = async (req, res): Promise<Appointment[]> => {
     const service: AppointmentService = new AppointmentService(Appointment);
-    const results = await service.findOne({ id: req.params.id }, ['customers', 'transactions']);
+    const results = await service.findOne({ id: req.params.id }, ['customers', 'transactions', 'items']);
     return res.send(results);
 };
 
@@ -36,7 +36,7 @@ const update = async (req, res): Promise<Appointment> => {
     const service: AppointmentService = new AppointmentService(Appointment);
     const body: AppointmentUpdateDto = plainToClass(AppointmentUpdateDto, req.body, { strategy: 'excludeAll' });
     await service.update(req.params.id, body);
-    const savedCustomer = await service.findOne({ id: req.params.id }, ['customers', 'transactions']);
+    const savedCustomer = await service.findOne({ id: req.params.id }, ['customers', 'transactions', 'items']);
     return res.send(savedCustomer);
 };
 
