@@ -1,8 +1,8 @@
 import { IsArray, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
-import { Type } from 'class-transformer';
-import { Customer } from '../../../entity/hair/Customer';
+import { Expose, Type } from 'class-transformer';
 import { Invoice } from './../../../entity/hair/Invoice';
 
+@Expose()
 export class ItemCreateDto {
     @IsNotEmpty()
     title: string;
@@ -14,9 +14,4 @@ export class ItemCreateDto {
     @IsArray()
     @Type(() => Invoice)
     invoices: Invoice[];
-
-    @IsOptional()
-    @IsArray()
-    @Type(() => Customer)
-    customers: Customer[];
 }
