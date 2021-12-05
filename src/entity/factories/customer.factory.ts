@@ -3,8 +3,8 @@ import { Customer } from '../hair/Customer';
 import Faker from 'faker';
 
 define(Customer, (faker: typeof Faker) => {
-    const firstName = faker.name.firstName(0);
-    const lastName = faker.name.lastName(0);
+    const firstName = faker.name.firstName(1);
+    const lastName = faker.name.lastName(1);
     const customer = new Customer();
     customer.fullName = `${firstName} ${lastName}`;
     customer.location = faker.address.city();
