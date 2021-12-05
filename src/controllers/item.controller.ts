@@ -8,20 +8,20 @@ import { ItemUpdateDto } from './dtos/item/item-update.dto';
 
 const all = async (req: Request, res: Response) => {
     const service: ItemService = new ItemService(Item);
-    const results = await service.all(['invoices', 'customer'], { title: 'ASC' });
+    const results = await service.all(['invoices', 'customer', 'appointment'], { title: 'ASC' });
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: ItemService = new ItemService(Item);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['invoices', 'customer'], {}, { title: 'ASC' });
+    const result = await service.paginate(page, ['invoices', 'customer', 'appointment'], {}, { title: 'ASC' });
     return res.send(result);
 };
 
 const findById = async (req, res): Promise<Item[]> => {
     const service: ItemService = new ItemService(Item);
-    const results = await service.findOne({ id: req.params.id }, ['invoices', 'customer']);
+    const results = await service.findOne({ id: req.params.id }, ['invoices', 'customer', 'appointment']);
     return res.send(results);
 };
 
@@ -36,7 +36,7 @@ const update = async (req, res): Promise<Item> => {
     const service: ItemService = new ItemService(Item);
     const body: ItemUpdateDto = plainToClass(ItemUpdateDto, req.body, { strategy: 'excludeAll' });
     await service.update(req.params.id, body);
-    const savedItem = await service.findOne({ id: req.params.id }, ['invoices', 'customer']);
+    const savedItem = await service.findOne({ id: req.params.id }, ['invoices', 'customer', 'appointment']);
     return res.send(savedItem);
 };
 
