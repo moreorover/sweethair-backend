@@ -3,8 +3,10 @@ import { Entity, Column, ManyToMany, ManyToOne } from 'typeorm';
 import { DataEntity } from '../DataEntity';
 import { Customer } from './Customer';
 import { Invoice } from './Invoice';
+import { Expose } from 'class-transformer';
 
 @Entity()
+@Expose()
 export class Item extends DataEntity {
     @Column()
     title: string;
