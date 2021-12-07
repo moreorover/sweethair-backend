@@ -8,14 +8,14 @@ import { ItemUpdateDto } from './dtos/item/item-update.dto';
 
 const all = async (req: Request, res: Response) => {
     const service: ItemService = new ItemService(Item);
-    const results = await service.all(['invoice', 'customer', 'appointment'], { title: 'ASC' });
+    const results = await service.all(['invoice', 'customer', 'appointment'], { id: 'ASC' });
     return res.json(results);
 };
 
 const paginate = async (req, res) => {
     const service: ItemService = new ItemService(Item);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['invoice', 'customer', 'appointment'], {}, { title: 'ASC' });
+    const result = await service.paginate(page, ['invoice', 'customer', 'appointment'], {}, { id: 'ASC' });
     return res.send(result);
 };
 
