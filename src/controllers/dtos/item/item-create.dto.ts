@@ -11,7 +11,6 @@ export class ItemCreateDto {
     total: number;
 
     @IsOptional()
-    @IsArray()
     @Type(() => Invoice)
-    invoices: Invoice[];
+    invoice: Invoice;
 }

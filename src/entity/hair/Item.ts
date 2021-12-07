@@ -14,12 +14,18 @@ export class Item extends DataEntity {
     @Column('float', { precision: 11, scale: 2 })
     total: number;
 
-    @ManyToMany(() => Invoice, (invoice) => invoice.items)
-    invoices: Invoice[];
+    @ManyToOne(() => Invoice, (invoice) => invoice.items, {
+        cascade: true
+    })
+    invoice: Invoice;
 
-    @ManyToOne(() => Customer, (customer) => customer.items)
+    @ManyToOne(() => Customer, (customer) => customer.items, {
+        cascade: true
+    })
     customer: Customer;
 
-    @ManyToOne(() => Appointment, (appointment) => appointment.items)
+    @ManyToOne(() => Appointment, (appointment) => appointment.items, {
+        cascade: true
+    })
     appointment: Appointment;
 }

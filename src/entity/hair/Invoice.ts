@@ -24,7 +24,6 @@ export class Invoice extends DataEntity {
     })
     transactions: Transaction[];
 
-    @ManyToMany(() => Item, (item) => item.invoices)
-    @JoinTable({ name: 'invoice_items' })
+    @OneToMany(() => Item, (item) => item.invoice)
     items: Item[];
 }

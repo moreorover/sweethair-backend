@@ -32,8 +32,6 @@ export class Customer extends DataEntity {
     })
     transactions: Transaction[];
 
-    @OneToMany(() => Item, (item) => item.customer, {
-        cascade: true
-    })
+    @OneToMany(() => Item, (item) => item.customer)
     items: Item[];
 }

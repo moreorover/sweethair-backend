@@ -14,9 +14,8 @@ export class ItemUpdateDto {
     total: number;
 
     @IsOptional()
-    @IsArray()
     @Type(() => Invoice)
-    invoices: Invoice[];
+    invoice: Invoice;
 
     @IsOptional()
     @Type(() => Customer)
