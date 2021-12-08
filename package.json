@@ -15,7 +15,8 @@
         "typeorm:revert": "npm run typeorm migration:revert",
         "typeorm:show": "npm run typeorm migration:show",
         "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
-        "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
+        "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
+        "clean": "del-cli dist"
     },
     "repository": {
         "type": "git",
