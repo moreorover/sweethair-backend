@@ -7,20 +7,20 @@ import { Request, Response } from 'express';
 
 export const all = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
-    const results = await service.all(['role']);
+    const results = await service.all({ relations: ['role'] });
     return res.send(results);
 };
 
 export const paginate = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
     const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
-    const result = await service.paginate(page, ['role']);
+    const result = await service.paginate(page, { relations: ['role'] });
     return res.send(result);
 };
 
 export const findById = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
-    const results: User = await service.findOne({ id: req.params.id }, ['role']);
+    const results: User = await service.findOne({ id: parseInt(req.params.id) }, { relations: ['role'] });
     let { password, ...data } = results;
     res.json(data);
 };
@@ -35,12 +35,12 @@ export const findById = async (req: Request, res: Response) => {
 export const update = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
     const body: UserUpdateDto = plainToClass(UserUpdateDto, req.body);
-    const savedUser = await service.update(req.params.id, body);
+    const savedUser = await service.update(parseInt(req.params.id), body);
     let { password, ...data } = savedUser;
     return res.send(data);
 };
 
 export const deleteById = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
-    return res.send(await service.delete(req.params.id));
+    return res.send(await service.delete(parseInt(req.params.id)));
 };
