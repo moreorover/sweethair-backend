@@ -1,3 +1,4 @@
+import { Customer } from './../entity/hair/Customer';
 import { Appointment } from './../entity/hair/Appointment';
 import { plainToClass } from 'class-transformer';
 import { AppointmentService } from '../services/appointment.service';
@@ -43,4 +44,10 @@ export const update = async (req: Request, res: Response) => {
 export const deleteById = async (req: Request, res: Response) => {
     const service: AppointmentService = new AppointmentService(Appointment);
     return res.send(await service.delete(parseInt(req.params.id)));
+};
+
+export const fetchTransactions = async (req: Request, res: Response) => {
+    const service: AppointmentService = new AppointmentService(Appointment);
+    const { transactions } = await service.findOne({ id: parseInt(req.params.id) }, { relations: ['transactions', 'transactions.customer'] });
+    return res.send(transactions);
 };
