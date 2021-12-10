@@ -11,7 +11,7 @@ export const login = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
 
     const body: UserLoginDto = plainToClass(UserLoginDto, req.body);
-    const user = await service.findOne({ email: body.email }, { relations: ['role'] });
+    const user = await service.findOne({ email: body.email }, ['role']);
 
     if (!user) {
         return res.status(404).send({
@@ -27,8 +27,7 @@ export const login = async (req: Request, res: Response) => {
 
     const { password, ...result } = user;
 
-    user.password = '';
-    req.session.user = user;
+    req.session.user = result;
 
     res.json(result);
 };
@@ -62,7 +61,7 @@ export const register = async (req: Request, res: Response) => {
 
     const savedUser = await service.create(body);
 
-    const results: User = await service.findOne({ id: savedUser.id }, { relations: ['role'] });
+    const results: User = await service.findOne({ id: savedUser.id }, ['role']);
     results.password = '';
     req.session.user = results;
 

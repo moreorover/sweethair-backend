@@ -8,7 +8,7 @@ import { Request, Response } from 'express';
 
 export const all = async (req: Request, res: Response) => {
     const service: RoleService = new RoleService(Role);
-    const results = await service.all({});
+    const results = await service.all();
     return res.send(results);
 };
 
@@ -21,7 +21,7 @@ export const paginate = async (req: Request, res: Response) => {
 
 export const findById = async (req: Request, res: Response) => {
     const service: RoleService = new RoleService(Role);
-    const results = await service.findOne({ id: parseInt(req.params.id) });
+    const results = await service.findOne({ id: req.params.id });
     return res.send(results);
 };
 
@@ -35,11 +35,11 @@ export const create = async (req: Request, res: Response) => {
 export const update = async (req: Request, res: Response) => {
     const service: RoleService = new RoleService(Role);
     const body: RoleUpdateDto = plainToClass(RoleUpdateDto, req.body);
-    const savedRole = await service.update(parseInt(req.params.id), body);
+    const savedRole = await service.update(req.params.id, body);
     return res.send(savedRole);
 };
 
 export const deleteById = async (req: Request, res: Response) => {
     const service: RoleService = new RoleService(Role);
-    return res.send(await service.delete(parseInt(req.params.id)));
+    return res.send(await service.delete(req.params.id));
 };

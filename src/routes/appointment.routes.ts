@@ -3,7 +3,7 @@ import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { AppointmentCreateDto } from '../controllers/dtos/appointment/appointment-create.dto';
 import { AppointmentUpdateDto } from '../controllers/dtos/appointment/appointment-update.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-import { all, paginate, create, findById, update, deleteById, fetchTransactions } from '../controllers/appointment.controller';
+import { all, paginate, create, findById, update, deleteById } from '../controllers/appointment.controller';
 import { validateDto } from '../middleware/validateBodyToDto';
 
 const router = Router();
@@ -14,5 +14,5 @@ router.post('', authenticateToken, validateDto(AppointmentCreateDto), create);
 router.get('/:id', authenticateToken, findById);
 router.patch('/:id', authenticateToken, validateDto(AppointmentUpdateDto), update);
 router.delete('/:id', authenticateToken, deleteById);
-router.get('/:id/transactions', authenticateToken, fetchTransactions);
+
 module.exports = router;
