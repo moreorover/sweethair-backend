@@ -11,6 +11,10 @@ export class AbstractService<T, C, U> {
         return await this.repository.find({ relations, order });
     }
 
+    public async allByCondition(where = {}, relations = [], order = {}, select = []): Promise<T[]> {
+        return await this.repository.find({ where, relations, order, select });
+    }
+
     public async paginate(page = 1, relations = [], where = {}, order = {}) {
         const take = 15;
 
