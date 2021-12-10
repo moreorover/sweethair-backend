@@ -2,8 +2,8 @@ import { Router } from 'express';
 import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { UserUpdateDto } from '../controllers/dtos/user/user-update.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-const { all, paginate, findById, update, deleteById } = require('../controllers/user.controller');
-const { validateDto } = require('../middleware/validateBodyToDto');
+import { all, paginate, findById, update, deleteById } from '../controllers/user.controller';
+import { validateDto } from '../middleware/validateBodyToDto';
 
 const router = Router();
 

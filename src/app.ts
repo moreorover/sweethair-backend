@@ -13,6 +13,7 @@ var cors = require('cors');
 import redis = require('redis');
 import session = require('express-session');
 require('dotenv').config();
+import { Request, Response } from 'express';
 
 const express = require('express');
 
@@ -39,7 +40,7 @@ const main = async () => {
     app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
     app.use(bodyParser.json());
 
-    app.get('/', (req, res) => {
+    app.get('/', (req: Request, res: Response) => {
         res.send('Hello World!');
     });
 

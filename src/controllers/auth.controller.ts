@@ -5,8 +5,9 @@ import { UserCreateDto } from './dtos/user/user-create.dto';
 import { UserLoginDto } from './dtos/user/user-login.dto';
 import argon2 = require('argon2');
 require('dotenv').config();
+import { Request, Response } from 'express';
 
-const login = async (req, res) => {
+export const login = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
 
     const body: UserLoginDto = plainToClass(UserLoginDto, req.body);
@@ -31,7 +32,7 @@ const login = async (req, res) => {
     res.json(result);
 };
 
-const me = async (req, res) => {
+export const me = async (req: Request, res: Response) => {
     if (req.session.user) {
         return res.json(req.session.user);
     }
@@ -40,7 +41,7 @@ const me = async (req, res) => {
     });
 };
 
-const register = async (req, res) => {
+export const register = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
 
     const body: UserCreateDto = plainToClass(UserCreateDto, req.body);
@@ -61,22 +62,14 @@ const register = async (req, res) => {
     const savedUser = await service.create(body);
 
     const results: User = await service.findOne({ id: savedUser.id }, ['role']);
-    let { password, ...result } = results;
+    results.password = '';
+    req.session.user = results;
 
-    req.session.user = result;
-
-    return res.json(result);
+    return res.json(results);
 };
 
-const logout = async (req, res) => {
-    req.session.destroy();
+export const logout = async (req: Request, res: Response) => {
+    req.session.destroy(() => {});
     res.clearCookie('squid');
     res.status(200).send();
-};
-
-module.exports = {
-    login,
-    me,
-    register,
-    logout
 };

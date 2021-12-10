@@ -1,6 +1,6 @@
 import { Repository, EntityTarget, getRepository } from 'typeorm';
 
-export class AbstractService<T> {
+export class AbstractService<T, C, U> {
     readonly repository: Repository<T>;
 
     constructor(repo: EntityTarget<T>) {
@@ -28,7 +28,7 @@ export class AbstractService<T> {
         };
     }
 
-    public async create(data): Promise<any> {
+    public async create(data: C): Promise<any> {
         return this.repository.save(data);
     }
 
@@ -36,7 +36,7 @@ export class AbstractService<T> {
         return this.repository.findOne(condition, { relations });
     }
 
-    public async update(id: string | number, data): Promise<any> {
+    public async update(id: string | number, data: U): Promise<any> {
         const toUpdate = await this.findOne({ id });
         await this.repository.save({ ...toUpdate, ...data });
         return this.findOne({ id });

@@ -9,6 +9,7 @@ export class SeedUser1638294163479 implements MigrationInterface {
             lastName: 'Sweet',
             email: 'test@gmail.com',
             password: 'adminadmin',
+            passwordConfirm: 'adminadmin',
             role_id: 1
         };
 

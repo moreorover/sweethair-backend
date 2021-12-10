@@ -1,8 +1,9 @@
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
+import { Request, Response, NextFunction } from 'express';
 
-function validateDto(schema) {
-    return async (req, res, next) => {
+export function validateDto(schema) {
+    return async (req: Request, res: Response, next: NextFunction) => {
         const bodyToClass = plainToClass(schema, req.body);
         validateOrReject(bodyToClass)
             .then(() => {
@@ -17,5 +18,3 @@ function validateDto(schema) {
             });
     };
 }
-
-module.exports = { validateDto };

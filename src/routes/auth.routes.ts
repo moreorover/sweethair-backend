@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { UserCreateDto } from '../controllers/dtos/user/user-create.dto';
 import { UserLoginDto } from '../controllers/dtos/user/user-login.dto';
-const { login, me, register, logout } = require('../controllers/auth.controller');
-const { validateDto } = require('../middleware/validateBodyToDto');
+import { login, me, register, logout } from '../controllers/auth.controller';
+import { validateDto } from '../middleware/validateBodyToDto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
 
 const router = Router();

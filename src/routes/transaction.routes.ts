@@ -3,8 +3,8 @@ import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { TransactionCreateDto } from '../controllers/dtos/transaction/transaction-create.dto';
 import { TransactionUpdateDto } from '../controllers/dtos/transaction/transaction-update.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-const { all, paginate, create, findById, update, deleteById } = require('../controllers/transaction.controller');
-const { validateDto } = require('../middleware/validateBodyToDto');
+import { all, paginate, create, findById, update, deleteById } from '../controllers/transaction.controller';
+import { validateDto } from '../middleware/validateBodyToDto';
 
 const router = Router();
 
