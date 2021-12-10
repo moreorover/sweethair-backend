@@ -10,9 +10,9 @@ export class UserService extends AbstractService<User, UserCreateDto, UserUpdate
         return this.repository.save({ ...data, role: { id: 2 } });
     }
 
-    public async update(id: string | number, data: UserUpdateDto): Promise<User> {
+    public async update(id: number, data: UserUpdateDto): Promise<User> {
         const { role_id, ...body } = data;
         this.repository.update(id, { ...body, role: { id: data.role_id } });
-        return super.findOne({ id: id }, ['role']);
+        return super.findOne({ id }, { relations: ['role'] });
     }
 }

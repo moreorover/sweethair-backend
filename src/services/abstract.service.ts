@@ -1,4 +1,4 @@
-import { Repository, EntityTarget, getRepository } from 'typeorm';
+import { Repository, EntityTarget, getRepository, FindManyOptions, FindConditions, DeleteResult } from 'typeorm';
 
 export class AbstractService<T, C, U> {
     readonly repository: Repository<T>;
@@ -7,23 +7,17 @@ export class AbstractService<T, C, U> {
         this.repository = getRepository<T>(repo);
     }
 
-    public async all(relations = [], order = {}): Promise<T[]> {
-        return await this.repository.find({ relations, order });
+    public async all(options: FindManyOptions<T> = {}) {
+        return await this.repository.find(options);
     }
 
-    public async allByCondition(where = {}, relations = [], order = {}, select = []): Promise<T[]> {
-        return await this.repository.find({ where, relations, order, select });
-    }
-
-    public async paginate(page = 1, relations = [], where = {}, order = {}) {
+    public async paginate(page = 1, options: FindManyOptions<T> = {}) {
         const take = 15;
 
         const [data, total] = await this.repository.findAndCount({
             take,
             skip: (page - 1) * take,
-            relations,
-            where,
-            order
+            ...options
         });
 
         return {
@@ -36,17 +30,17 @@ export class AbstractService<T, C, U> {
         return this.repository.save(data);
     }
 
-    public async findOne(condition, relations = []): Promise<any> {
-        return this.repository.findOne(condition, { relations });
+    public async findOne(conditions: FindConditions<T>, options: FindManyOptions<T> = {}) {
+        return this.repository.findOne(conditions, options);
     }
 
-    public async update(id: string | number, data: U): Promise<any> {
-        const toUpdate = await this.findOne({ id });
+    public async update(id: number, data: U) {
+        const toUpdate = await this.findOne(id);
         await this.repository.save({ ...toUpdate, ...data });
-        return this.findOne({ id });
+        return this.findOne(id);
     }
 
-    public async delete(id: string | number): Promise<any> {
+    public async delete(id: number): Promise<DeleteResult> {
         return this.repository.delete(id);
     }
 }
