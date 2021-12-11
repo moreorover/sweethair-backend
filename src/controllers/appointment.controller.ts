@@ -49,5 +49,23 @@ export const deleteById = async (req: Request, res: Response) => {
 export const fetchTransactions = async (req: Request, res: Response) => {
     const service: AppointmentService = new AppointmentService(Appointment);
     const { transactions } = await service.findOne({ id: parseInt(req.params.id) }, { relations: ['transactions', 'transactions.customer'] });
-    return res.send(transactions);
+    const t = transactions.map((t) => {
+        return { ...t, customer: { id: t.customer?.id || null } };
+    });
+    return res.send(t);
+};
+
+export const fetchCustomers = async (req: Request, res: Response) => {
+    const service: AppointmentService = new AppointmentService(Appointment);
+    const { customers } = await service.findOne({ id: parseInt(req.params.id) }, { relations: ['customers'] });
+    return res.send(customers);
+};
+
+export const fetchItems = async (req: Request, res: Response) => {
+    const service: AppointmentService = new AppointmentService(Appointment);
+    const { items } = await service.findOne({ id: parseInt(req.params.id) }, { relations: ['items', 'items.customer'] });
+    const i = items.map((i) => {
+        return { ...i, customer: { id: i.customer?.id || null } };
+    });
+    return res.send(i);
 };
