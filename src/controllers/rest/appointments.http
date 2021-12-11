@@ -37,3 +37,13 @@ Content-Type: application/json
 
 GET {{baseUrl}}:{{basePort}}/{{basePath}}/5/transactions HTTP/1.1
 Content-Type: application/json
+
+###
+
+GET {{baseUrl}}:{{basePort}}/{{basePath}}/5/customers HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET {{baseUrl}}:{{basePort}}/{{basePath}}/5/items HTTP/1.1
+Content-Type: application/json
