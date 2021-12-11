@@ -22,7 +22,7 @@ export const paginate = async (req: Request, res: Response) => {
 
 export const findById = async (req: Request, res: Response) => {
     const service: AppointmentService = new AppointmentService(Appointment);
-    const results = await service.findOne({ id: parseInt(req.params.id) }, { relations: ['customers', 'transactions', 'items'] });
+    const results = await service.findOne({ id: parseInt(req.params.id) });
     return res.send(results);
 };
 
