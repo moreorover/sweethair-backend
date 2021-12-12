@@ -1,10 +1,14 @@
-import { Repository, EntityTarget, getRepository, FindManyOptions, FindConditions, DeleteResult } from 'typeorm';
+import { Repository, EntityTarget, getRepository, FindManyOptions, FindConditions, DeleteResult, DeepPartial } from 'typeorm';
 
 export class AbstractService<T, C, U> {
     readonly repository: Repository<T>;
 
     constructor(repo: EntityTarget<T>) {
         this.repository = getRepository<T>(repo);
+    }
+
+    getQueryBuilder(alias: string) {
+        return this.repository.createQueryBuilder(alias);
     }
 
     public async all(options: FindManyOptions<T> = {}) {
@@ -34,10 +38,12 @@ export class AbstractService<T, C, U> {
         return this.repository.findOne(conditions, options);
     }
 
-    public async update(id: number, data: U) {
-        const toUpdate = await this.findOne(id);
-        await this.repository.save({ ...toUpdate, ...data });
-        return this.findOne(id);
+    public async findByIds(ids: number[], options: FindManyOptions<T> = {}) {
+        return this.repository.findByIds(ids, options);
+    }
+
+    public async update(id: number, data: DeepPartial<T>) {
+        return await this.repository.update(id, data);
     }
 
     public async delete(id: number): Promise<DeleteResult> {
