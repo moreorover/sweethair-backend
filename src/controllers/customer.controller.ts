@@ -44,3 +44,10 @@ export const deleteById = async (req: Request, res: Response) => {
     const service: CustomerService = new CustomerService(Customer);
     return res.send(await service.delete(parseInt(req.params.id)));
 };
+
+export const customersBase = async (req: Request, res: Response) => {
+    const service: CustomerService = new CustomerService(Customer);
+    const customers = await service.all({ select: ['id', 'fullName'], order: { id: 'ASC' } });
+
+    return res.json(customers);
+};
