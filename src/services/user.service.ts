@@ -9,10 +9,4 @@ export class UserService extends AbstractService<User, UserCreateDto, UserUpdate
         data.password = await argon2.hash(data.password);
         return this.repository.save({ ...data, role: { id: 2 } });
     }
-
-    public async update(id: number, data: UserUpdateDto): Promise<User> {
-        const { role_id, ...body } = data;
-        this.repository.update(id, { ...body, role: { id: data.role_id } });
-        return super.findOne({ id }, { relations: ['role'] });
-    }
 }
