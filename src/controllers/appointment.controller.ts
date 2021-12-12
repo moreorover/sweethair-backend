@@ -69,3 +69,41 @@ export const fetchItems = async (req: Request, res: Response) => {
     });
     return res.send(i);
 };
+
+export const addCustomers = async (req: Request, res: Response) => {
+  const appointmentService: AppointmentService = new AppointmentService(
+    Appointment
+  );
+  const body: AppointmentSaveCustomersDto = plainToClass(
+    AppointmentSaveCustomersDto,
+    req.body
+  );
+
+  try {
+    const appointment = await appointmentService.findOne(
+      { id: parseInt(req.params.id) },
+      { relations: ['customers'] }
+    );
+
+    const customersIds: number[] = appointment.customers.map((c) => c.id);
+
+    const css = body.customers.filter((c) => !customersIds.includes(c.id));
+
+    if (!css.length) return res.status(404).send({ error: 'Already added' });
+
+    await appointmentService.repository
+      .createQueryBuilder('appointment')
+      .relation(Appointment, 'customers')
+      .of(appointment)
+      .add(css);
+
+    const { customers } = await appointmentService.findOne(
+      { id: parseInt(req.params.id) },
+      { relations: ['customers'] }
+    );
+
+    return res.send(customers);
+  } catch (err) {
+    return res.status(404).send({ error: 'Something went wrong updating' });
+  }
+};
