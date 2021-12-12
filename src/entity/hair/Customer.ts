@@ -27,9 +27,7 @@ export class Customer extends DataEntity {
     @JoinTable({ name: 'customer_appointments' })
     appointments: Appointment[];
 
-    @OneToMany(() => Transaction, (transaction) => transaction.customer, {
-        cascade: true
-    })
+    @OneToMany(() => Transaction, (transaction) => transaction.customer)
     transactions: Transaction[];
 
     @OneToMany(() => Item, (item) => item.customer)
