@@ -5,23 +5,23 @@ import { Customer } from '../../../entity/hair/Customer';
 import { Invoice } from '../../../entity/hair/Invoice';
 @Expose()
 export class ItemUpdateDto {
-    @IsOptional()
-    @IsNotEmpty()
-    title: string;
+  @IsOptional()
+  @IsNotEmpty()
+  title: string;
 
-    @IsOptional()
-    @IsNumber()
-    total: number;
+  @IsOptional()
+  @IsNumber()
+  total: number;
 
-    @IsOptional()
-    @Type(() => Invoice)
-    invoice: Invoice;
+  @IsOptional()
+  @Type(() => Invoice)
+  invoice: Invoice;
 
-    @IsOptional()
-    @Type(() => Customer)
-    customer: Customer;
+  @IsOptional()
+  @Type(() => Customer)
+  customer: Customer;
 
-    @IsOptional()
-    @Type(() => Customer)
-    appointment: Appointment;
+  @IsOptional()
+  @Type(() => Customer)
+  appointment: Appointment;
 }

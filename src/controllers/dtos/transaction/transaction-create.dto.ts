@@ -6,25 +6,25 @@ import { Invoice } from '../../../entity/hair/Invoice';
 
 @Expose()
 export class TransactionCreateDto {
-    @IsNumber()
-    total: number;
+  @IsNumber()
+  total: number;
 
-    @IsOptional()
-    @IsBoolean()
-    isPaid: boolean;
+  @IsOptional()
+  @IsBoolean()
+  isPaid: boolean;
 
-    @IsDateString()
-    scheduledAt: Date;
+  @IsDateString()
+  scheduledAt: Date;
 
-    @IsOptional()
-    @Type(() => Customer)
-    customer: Customer;
+  @IsOptional()
+  @Type(() => Customer)
+  customer: Customer;
 
-    @IsOptional()
-    @Type(() => Appointment)
-    appointment: Appointment;
+  @IsOptional()
+  @Type(() => Appointment)
+  appointment: Appointment;
 
-    @IsOptional()
-    @Type(() => Invoice)
-    invoice: Invoice;
+  @IsOptional()
+  @Type(() => Invoice)
+  invoice: Invoice;
 }

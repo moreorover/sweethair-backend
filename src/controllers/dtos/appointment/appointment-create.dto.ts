@@ -4,15 +4,15 @@ import { Expose, Type } from 'class-transformer';
 
 @Expose()
 export class AppointmentCreateDto {
-    @IsDateString()
-    scheduledAt: Date;
+  @IsDateString()
+  scheduledAt: Date;
 
-    @IsOptional()
-    @IsNotEmpty()
-    title: string;
+  @IsOptional()
+  @IsNotEmpty()
+  title: string;
 
-    @IsOptional()
-    @IsArray()
-    @Type(() => Customer)
-    customers: Customer[];
+  @IsOptional()
+  @IsArray()
+  @Type(() => Customer)
+  customers: Customer[];
 }

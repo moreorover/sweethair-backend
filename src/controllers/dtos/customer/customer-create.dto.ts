@@ -6,35 +6,35 @@ import { Transaction } from './../../../entity/hair/Transaction';
 
 @Expose()
 export class CustomerCreateDto {
-    @IsNotEmpty()
-    fullName: string;
+  @IsNotEmpty()
+  fullName: string;
 
-    @IsOptional()
-    location: string;
+  @IsOptional()
+  location: string;
 
-    @IsOptional()
-    about: string;
+  @IsOptional()
+  about: string;
 
-    @IsOptional()
-    @IsNotEmpty()
-    @IsEmail()
-    email: string;
+  @IsOptional()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
 
-    @IsOptional()
-    instagram: string;
+  @IsOptional()
+  instagram: string;
 
-    @IsOptional()
-    @IsArray()
-    @Type(() => Appointment)
-    appointments: Appointment[];
+  @IsOptional()
+  @IsArray()
+  @Type(() => Appointment)
+  appointments: Appointment[];
 
-    @IsOptional()
-    @IsArray()
-    @Type(() => Transaction)
-    transactions: Transaction[];
+  @IsOptional()
+  @IsArray()
+  @Type(() => Transaction)
+  transactions: Transaction[];
 
-    @IsOptional()
-    @IsArray()
-    @Type(() => Item)
-    items: Item[];
+  @IsOptional()
+  @IsArray()
+  @Type(() => Item)
+  items: Item[];
 }

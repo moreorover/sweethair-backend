@@ -18,46 +18,51 @@ import { Request, Response } from 'express';
 const express = require('express');
 
 const main = async () => {
-    await createConnection();
+  await createConnection();
 
-    const app = express();
+  const app = express();
 
-    const RedisStore = require('connect-redis')(session);
-    const redisClient = redis.createClient({ host: process.env.REDIS_HOST });
+  const RedisStore = require('connect-redis')(session);
+  const redisClient = redis.createClient({ host: process.env.REDIS_HOST });
 
-    app.use(
-        session({
-            name: 'squid',
-            store: new RedisStore({ client: redisClient, disableTouch: true }),
-            cookie: { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true, secure: false, sameSite: 'none' },
-            saveUninitialized: false,
-            secret: process.env.JWT_ACCESS_TOKEN,
-            resave: false
-        })
-    );
+  app.use(
+    session({
+      name: 'squid',
+      store: new RedisStore({ client: redisClient, disableTouch: true }),
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 365,
+        httpOnly: true,
+        secure: false,
+        sameSite: 'none',
+      },
+      saveUninitialized: false,
+      secret: process.env.JWT_ACCESS_TOKEN,
+      resave: false,
+    }),
+  );
 
-    // app.use(cors({ credentials: true, origin: '***IP address of where the site is hosted***' }));
-    app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
-    app.use(bodyParser.json());
+  // app.use(cors({ credentials: true, origin: '***IP address of where the site is hosted***' }));
+  app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
+  app.use(bodyParser.json());
 
-    app.get('/', (req: Request, res: Response) => {
-        res.send('Hello World!');
-    });
+  app.get('/', (req: Request, res: Response) => {
+    res.send('Hello World!');
+  });
 
-    app.use('/appointments', appointmentRoutes);
-    app.use('/users', userRoutes);
-    app.use('/roles', roleRoutes);
-    app.use('/auth', authRoutes);
-    app.use('/items', itemRoutes);
-    app.use('/customers', customerRoutes);
-    app.use('/transactions', transactionRoutes);
-    app.use('/invoices', invoiceRoutes);
+  app.use('/appointments', appointmentRoutes);
+  app.use('/users', userRoutes);
+  app.use('/roles', roleRoutes);
+  app.use('/auth', authRoutes);
+  app.use('/items', itemRoutes);
+  app.use('/customers', customerRoutes);
+  app.use('/transactions', transactionRoutes);
+  app.use('/invoices', invoiceRoutes);
 
-    console.log(all_routes(app));
+  console.log(all_routes(app));
 
-    app.listen(3000, () => {
-        console.log('server started on http://localhost:3000');
-    });
+  app.listen(3000, () => {
+    console.log('server started on http://localhost:3000');
+  });
 };
 
 main();

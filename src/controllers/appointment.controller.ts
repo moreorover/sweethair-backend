@@ -36,7 +36,7 @@ export const create = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
   const body: AppointmentCreateDto = plainToClass(
     AppointmentCreateDto,
-    req.body
+    req.body,
   );
   const savedCustomer: Promise<Appointment> = await service.create(body);
   return res.send(savedCustomer);
@@ -47,12 +47,12 @@ export const update = async (req: Request, res: Response) => {
   const body: AppointmentUpdateDto = plainToClass(
     AppointmentUpdateDto,
     req.body,
-    { strategy: 'excludeAll' }
+    { strategy: 'excludeAll' },
   );
   await service.update(parseInt(req.params.id), body);
   const savedCustomer = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['customers', 'transactions', 'items'] }
+    { relations: ['customers', 'transactions', 'items'] },
   );
   return res.send(savedCustomer);
 };
@@ -66,7 +66,7 @@ export const fetchTransactions = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
   const { transactions } = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['transactions', 'transactions.customer'] }
+    { relations: ['transactions', 'transactions.customer'] },
   );
   const t = transactions.map((t) => {
     return { ...t, customer: { id: t.customer?.id || null } };
@@ -78,7 +78,7 @@ export const fetchCustomers = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
   const { customers } = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['customers'] }
+    { relations: ['customers'] },
   );
   return res.send(customers);
 };
@@ -87,7 +87,7 @@ export const fetchItems = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
   const { items } = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['items', 'items.customer'] }
+    { relations: ['items', 'items.customer'] },
   );
   const i = items.map((i) => {
     return { ...i, customer: { id: i.customer?.id || null } };
@@ -97,17 +97,17 @@ export const fetchItems = async (req: Request, res: Response) => {
 
 export const addCustomers = async (req: Request, res: Response) => {
   const appointmentService: AppointmentService = new AppointmentService(
-    Appointment
+    Appointment,
   );
   const body: AppointmentSaveCustomersDto = plainToClass(
     AppointmentSaveCustomersDto,
-    req.body
+    req.body,
   );
 
   try {
     const appointment = await appointmentService.findOne(
       { id: parseInt(req.params.id) },
-      { relations: ['customers'] }
+      { relations: ['customers'] },
     );
 
     const customersIds: number[] = appointment.customers.map((c) => c.id);
@@ -124,7 +124,7 @@ export const addCustomers = async (req: Request, res: Response) => {
 
     const { customers } = await appointmentService.findOne(
       { id: parseInt(req.params.id) },
-      { relations: ['customers'] }
+      { relations: ['customers'] },
     );
 
     return res.send(customers);

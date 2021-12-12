@@ -3,4 +3,8 @@ import { CustomerCreateDto } from './../controllers/dtos/customer/customer-creat
 import { Customer } from '../entity/hair/Customer';
 import { AbstractService } from './abstract.service';
 
-export class CustomerService extends AbstractService<Customer, CustomerCreateDto, CustomerUpdateDto> {}
+export class CustomerService extends AbstractService<
+  Customer,
+  CustomerCreateDto,
+  CustomerUpdateDto
+> {}

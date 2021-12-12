@@ -4,7 +4,7 @@ import { Expose, Type } from 'class-transformer';
 
 @Expose()
 export class AppointmentSaveCustomersDto {
-    @IsArray()
-    @Type(() => EntityBaseDto)
-    customers: EntityBaseDto[];
+  @IsArray()
+  @Type(() => EntityBaseDto)
+  customers: EntityBaseDto[];
 }

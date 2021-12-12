@@ -3,6 +3,6 @@ import { DataEntity } from './DataEntity';
 
 @Entity()
 export class Role extends DataEntity {
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 }

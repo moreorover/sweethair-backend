@@ -8,20 +8,20 @@ import { Item } from './Item';
 @Entity()
 @Expose()
 export class Appointment extends DataEntity {
-    @Column()
-    scheduledAt: Date;
+  @Column()
+  scheduledAt: Date;
 
-    @Column({ default: '', nullable: true })
-    title: string;
+  @Column({ default: '', nullable: true })
+  title: string;
 
-    @ManyToMany(() => Customer, (customer) => customer.appointments)
-    customers: Customer[];
+  @ManyToMany(() => Customer, (customer) => customer.appointments)
+  customers: Customer[];
 
-    @OneToMany(() => Transaction, (transaction) => transaction.appointment, {
-        cascade: true
-    })
-    transactions: Transaction[];
+  @OneToMany(() => Transaction, (transaction) => transaction.appointment, {
+    cascade: true,
+  })
+  transactions: Transaction[];
 
-    @OneToMany(() => Item, (item) => item.appointment)
-    items: Item[];
+  @OneToMany(() => Item, (item) => item.appointment)
+  items: Item[];
 }

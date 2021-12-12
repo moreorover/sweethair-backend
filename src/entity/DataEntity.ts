@@ -1,12 +1,16 @@
-import { CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export abstract class DataEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @CreateDateColumn()
-    createdOn: Date;
+  @CreateDateColumn()
+  createdOn: Date;
 
-    @UpdateDateColumn()
-    modifiedOn: Date;
+  @UpdateDateColumn()
+  modifiedOn: Date;
 }

@@ -4,13 +4,13 @@ import { Invoice } from './../../../entity/hair/Invoice';
 
 @Expose()
 export class ItemCreateDto {
-    @IsNotEmpty()
-    title: string;
+  @IsNotEmpty()
+  title: string;
 
-    @IsNumber()
-    total: number;
+  @IsNumber()
+  total: number;
 
-    @IsOptional()
-    @Type(() => Invoice)
-    invoice: Invoice;
+  @IsOptional()
+  @Type(() => Invoice)
+  invoice: Invoice;
 }

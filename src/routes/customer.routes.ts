@@ -3,7 +3,15 @@ import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { CustomerCreateDto } from '../controllers/dtos/customer/customer-create.dto';
 import { CustomerUpdateDto } from '../controllers/dtos/customer/customer-update.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-import { all, paginate, create, findById, update, deleteById, customersBase } from '../controllers/customer.controller';
+import {
+  all,
+  paginate,
+  create,
+  findById,
+  update,
+  deleteById,
+  customersBase,
+} from '../controllers/customer.controller';
 import { validateDto } from '../middleware/validateBodyToDto';
 
 const router = Router();

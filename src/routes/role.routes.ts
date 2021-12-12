@@ -3,7 +3,14 @@ import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { RoleCreateDto } from '../controllers/dtos/role/role-create.dto';
 import { RoleUpdateDto } from '../controllers/dtos/role/role-update.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-import { all, paginate, create, findById, update, deleteById } from '../controllers/role.controller';
+import {
+  all,
+  paginate,
+  create,
+  findById,
+  update,
+  deleteById,
+} from '../controllers/role.controller';
 import { validateDto } from '../middleware/validateBodyToDto';
 
 const router = Router();

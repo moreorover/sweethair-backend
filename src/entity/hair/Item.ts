@@ -8,18 +8,18 @@ import { Expose } from 'class-transformer';
 @Entity()
 @Expose()
 export class Item extends DataEntity {
-    @Column()
-    title: string;
+  @Column()
+  title: string;
 
-    @Column('float', { precision: 11, scale: 2 })
-    total: number;
+  @Column('float', { precision: 11, scale: 2 })
+  total: number;
 
-    @ManyToOne(() => Invoice, (invoice) => invoice.items)
-    invoice: Invoice;
+  @ManyToOne(() => Invoice, (invoice) => invoice.items)
+  invoice: Invoice;
 
-    @ManyToOne(() => Customer, (customer) => customer.items)
-    customer: Customer;
+  @ManyToOne(() => Customer, (customer) => customer.items)
+  customer: Customer;
 
-    @ManyToOne(() => Appointment, (appointment) => appointment.items)
-    appointment: Appointment;
+  @ManyToOne(() => Appointment, (appointment) => appointment.items)
+  appointment: Appointment;
 }

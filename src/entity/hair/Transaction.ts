@@ -8,21 +8,21 @@ import { Expose } from 'class-transformer';
 @Entity()
 @Expose()
 export class Transaction extends DataEntity {
-    @Column('float', { precision: 11, scale: 2 })
-    total: number;
+  @Column('float', { precision: 11, scale: 2 })
+  total: number;
 
-    @Column({ default: false, type: 'boolean' })
-    isPaid: boolean;
+  @Column({ default: false, type: 'boolean' })
+  isPaid: boolean;
 
-    @Column({ default: null })
-    scheduledAt: Date;
+  @Column({ default: null })
+  scheduledAt: Date;
 
-    @ManyToOne(() => Customer, (customer) => customer.transactions)
-    customer: Customer;
+  @ManyToOne(() => Customer, (customer) => customer.transactions)
+  customer: Customer;
 
-    @ManyToOne(() => Appointment, (appointment) => appointment.transactions)
-    appointment: Appointment;
+  @ManyToOne(() => Appointment, (appointment) => appointment.transactions)
+  appointment: Appointment;
 
-    @ManyToOne(() => Invoice, (invoice) => invoice.transactions)
-    invoice: Invoice;
+  @ManyToOne(() => Invoice, (invoice) => invoice.transactions)
+  invoice: Invoice;
 }

@@ -3,7 +3,14 @@ import { ItemCreateDto } from './../controllers/dtos/item/item-create.dto';
 import { Router } from 'express';
 import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-import { all, paginate, findById, create, update, deleteById } from '../controllers/item.controller';
+import {
+  all,
+  paginate,
+  findById,
+  create,
+  update,
+  deleteById,
+} from '../controllers/item.controller';
 import { validateDto } from '../middleware/validateBodyToDto';
 
 const router = Router();

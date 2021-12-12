@@ -2,7 +2,13 @@ import { Router } from 'express';
 import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { UserUpdateDto } from '../controllers/dtos/user/user-update.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
-import { all, paginate, findById, update, deleteById } from '../controllers/user.controller';
+import {
+  all,
+  paginate,
+  findById,
+  update,
+  deleteById,
+} from '../controllers/user.controller';
 import { validateDto } from '../middleware/validateBodyToDto';
 
 const router = Router();
