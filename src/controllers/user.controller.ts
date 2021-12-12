@@ -36,8 +36,7 @@ export const update = async (req: Request, res: Response) => {
     const service: UserService = new UserService(User);
     const body: UserUpdateDto = plainToClass(UserUpdateDto, req.body);
     const savedUser = await service.update(parseInt(req.params.id), body);
-    let { password, ...data } = savedUser;
-    return res.send(data);
+    return res.send(savedUser);
 };
 
 export const deleteById = async (req: Request, res: Response) => {
