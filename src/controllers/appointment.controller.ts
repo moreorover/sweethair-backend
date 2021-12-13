@@ -49,12 +49,12 @@ export const update = async (req: Request, res: Response) => {
     req.body,
     { strategy: 'excludeAll' }
   );
-  await service.update(parseInt(req.params.id), body);
-  const savedCustomer = await service.findOne(
-    { id: parseInt(req.params.id) },
-    { relations: ['customers', 'transactions', 'items'] }
+  const updatedAppointment = await service.update(
+    parseInt(req.params.id),
+    body
   );
-  return res.send(savedCustomer);
+
+  return res.send(updatedAppointment);
 };
 
 export const deleteById = async (req: Request, res: Response) => {
