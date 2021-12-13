@@ -22,7 +22,7 @@ export const findById = async (req: Request, res: Response) => {
   const service: UserService = new UserService(User);
   const results: User = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['role'] },
+    { relations: ['role'] }
   );
   let { password, ...data } = results;
   res.json(data);

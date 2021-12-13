@@ -11,7 +11,7 @@ define(Invoice, (faker: typeof Faker) => {
   invoice.isPaid = Math.random() < 0.5;
   invoice.scheduledAt = faker.date.between(
     moment().subtract(1, 'month').toDate(),
-    moment().add(1, 'month').toDate(),
+    moment().add(1, 'month').toDate()
   );
 
   return invoice;

@@ -35,7 +35,7 @@ export const create = async (req: Request, res: Response) => {
   const service: TransactionService = new TransactionService(Transaction);
   const body: TransactionCreateDto = plainToClass(
     TransactionCreateDto,
-    req.body,
+    req.body
   );
   const saved = await service.create(body);
   const savedTransaction = await service.findOne(saved.id, {
@@ -49,12 +49,12 @@ export const update = async (req: Request, res: Response) => {
   const body: TransactionUpdateDto = plainToClass(
     TransactionUpdateDto,
     req.body,
-    { strategy: 'excludeAll' },
+    { strategy: 'excludeAll' }
   );
   await service.update(parseInt(req.params.id), body);
   const savedTransaction = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['customer', 'appointment', 'invoice'] },
+    { relations: ['customer', 'appointment', 'invoice'] }
   );
   return res.send(savedTransaction);
 };

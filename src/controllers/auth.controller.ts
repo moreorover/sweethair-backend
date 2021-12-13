@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
   const body: UserLoginDto = plainToClass(UserLoginDto, req.body);
   const user = await service.findOne(
     { email: body.email },
-    { relations: ['role'] },
+    { relations: ['role'] }
   );
 
   if (!user) {
@@ -67,7 +67,7 @@ export const register = async (req: Request, res: Response) => {
 
   const results: User = await service.findOne(
     { id: savedUser.id },
-    { relations: ['role'] },
+    { relations: ['role'] }
   );
   results.password = '';
   req.session.user = results;

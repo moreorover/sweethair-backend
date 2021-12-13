@@ -44,7 +44,7 @@ export class AbstractService<T, C, U> {
 
   public async findOne(
     conditions: FindConditions<T>,
-    options: FindManyOptions<T> = {},
+    options: FindManyOptions<T> = {}
   ) {
     return this.repository.findOne(conditions, options);
   }

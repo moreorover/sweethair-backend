@@ -38,7 +38,7 @@ const main = async () => {
       saveUninitialized: false,
       secret: process.env.JWT_ACCESS_TOKEN,
       resave: false,
-    }),
+    })
   );
 
   // app.use(cors({ credentials: true, origin: '***IP address of where the site is hosted***' }));

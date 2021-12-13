@@ -7,7 +7,7 @@ define(Appointment, (faker: typeof Faker) => {
   const appointment = new Appointment();
   appointment.scheduledAt = faker.date.between(
     moment().subtract(1, 'month').toDate(),
-    moment().add(1, 'month').toDate(),
+    moment().add(1, 'month').toDate()
   );
   appointment.title = faker.lorem.words(2);
 

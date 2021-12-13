@@ -29,7 +29,7 @@ export const findById = async (req: Request, res: Response) => {
   const service: CustomerService = new CustomerService(Customer);
   const results = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['appointments', 'transactions', 'items'] },
+    { relations: ['appointments', 'transactions', 'items'] }
   );
   return res.send(results);
 };
@@ -49,7 +49,7 @@ export const update = async (req: Request, res: Response) => {
   await service.update(parseInt(req.params.id), body);
   const savedCustomer = await service.findOne(
     { id: parseInt(req.params.id) },
-    { relations: ['appointments', 'transactions', 'items'] },
+    { relations: ['appointments', 'transactions', 'items'] }
   );
   return res.send(savedCustomer);
 };

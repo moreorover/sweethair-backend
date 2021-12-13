@@ -7,13 +7,13 @@ export class AppointmentItemRelationship1638397155783
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE \`sweet-hair-dev\`.\`item\` ADD \`appointmentId\` int NULL`,
+      `ALTER TABLE \`sweet-hair-dev\`.\`item\` ADD \`appointmentId\` int NULL`
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE \`sweet-hair-dev\`.\`item\` DROP COLUMN \`appointmentId\``,
+      `ALTER TABLE \`sweet-hair-dev\`.\`item\` DROP COLUMN \`appointmentId\``
     );
   }
 }

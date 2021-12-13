@@ -9,7 +9,7 @@ define(Transaction, (faker: typeof Faker) => {
   transaction.isPaid = Math.random() < 0.5;
   transaction.scheduledAt = faker.date.between(
     moment().subtract(1, 'month').toDate(),
-    moment().add(1, 'month').toDate(),
+    moment().add(1, 'month').toDate()
   );
 
   return transaction;

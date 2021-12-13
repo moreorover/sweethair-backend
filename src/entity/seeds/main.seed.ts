@@ -14,11 +14,11 @@ export default class Main implements Seeder {
     await factory(Invoice)()
       .map(async (invoice) => {
         invoice.items = await factory(Item)().createMany(
-          Faker.datatype.number({ min: 6, max: 35 }),
+          Faker.datatype.number({ min: 6, max: 35 })
         );
         invoice.total = invoice.items.reduce((p, c) => p + c.total, 0);
         invoice.transactions = await factory(Transaction)().createMany(
-          Faker.datatype.number({ min: 1, max: 3 }),
+          Faker.datatype.number({ min: 1, max: 3 })
         );
         return invoice;
       })
@@ -34,7 +34,7 @@ export default class Main implements Seeder {
     for (let appointment of appointments) {
       const cs = Faker.random.arrayElements(
         customers,
-        Faker.datatype.number({ min: 1, max: 2 }),
+        Faker.datatype.number({ min: 1, max: 2 })
       );
       appointment.customers = cs;
 
@@ -43,7 +43,7 @@ export default class Main implements Seeder {
         .find({ customer: null, appointment: null });
       const randomItems = Faker.random.arrayElements(
         items,
-        Faker.datatype.number({ min: 0, max: 2 }),
+        Faker.datatype.number({ min: 0, max: 2 })
       );
       randomItems.forEach((rI) => {
         rI.customer = Faker.random.arrayElements(cs, 1)[0];
@@ -59,13 +59,13 @@ export default class Main implements Seeder {
         .find({ appointment: null, invoice: null });
       const randomTransactions = Faker.random.arrayElements(
         transactions,
-        Faker.datatype.number(4),
+        Faker.datatype.number(4)
       );
       appointment.transactions = randomTransactions;
       for (let transaction of randomTransactions) {
         transaction.customer = Faker.random.arrayElements(
           cs,
-          Faker.datatype.number(1),
+          Faker.datatype.number(1)
         )[0];
         await connection.getRepository(Transaction).save(transaction);
       }

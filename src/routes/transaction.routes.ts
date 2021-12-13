@@ -23,7 +23,7 @@ router.patch(
   '/:id',
   authenticateToken,
   validateDto(TransactionUpdateDto),
-  update,
+  update
 );
 router.delete('/:id', authenticateToken, deleteById);
 

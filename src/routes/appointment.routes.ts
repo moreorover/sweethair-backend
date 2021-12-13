@@ -28,7 +28,7 @@ router.patch(
   '/:id',
   authenticateToken,
   validateDto(AppointmentUpdateDto),
-  update,
+  update
 );
 router.delete('/:id', authenticateToken, deleteById);
 
@@ -37,7 +37,7 @@ router.post(
   '/:id/customers',
   authenticateToken,
   validateDto(AppointmentSaveCustomersDto),
-  addCustomers,
+  addCustomers
 );
 router.get('/:id/items', authenticateToken, fetchItems);
 router.get('/:id/transactions', authenticateToken, fetchTransactions);
