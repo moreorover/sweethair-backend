@@ -1,4 +1,4 @@
-import { AppointmentSaveTransactionDto } from './../controllers/dtos/appointment/appointment-save-transaction.dto';
+import { TransactionCreateDto } from './../controllers/dtos/transaction/transaction-create.dto';
 import { Router } from 'express';
 import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { AppointmentCreateDto } from '../controllers/dtos/appointment/appointment-create.dto';
@@ -46,7 +46,7 @@ router.get('/:id/transactions', authenticateToken, fetchTransactions);
 router.post(
   '/:id/transactions',
   authenticateToken,
-  validateDto(AppointmentSaveTransactionDto),
+  validateDto(TransactionCreateDto),
   addTransaction
 );
 module.exports = router;

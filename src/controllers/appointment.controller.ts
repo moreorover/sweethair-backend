@@ -1,3 +1,4 @@
+import { TransactionCreateDto } from './dtos/transaction/transaction-create.dto';
 import { Transaction } from './../entity/hair/Transaction';
 import { TransactionService } from './../services/transaction.service';
 import { Appointment } from './../entity/hair/Appointment';
@@ -8,7 +9,6 @@ import { Request, Response } from 'express';
 import { AppointmentCreateDto } from './dtos/appointment/appointment-create.dto';
 import { AppointmentUpdateDto } from './dtos/appointment/appointment-update.dto';
 import { AppointmentSaveCustomersDto } from './dtos/appointment/appointment-save-customers.dto';
-import { AppointmentSaveTransactionDto } from './dtos/appointment/appointment-save-transaction.dto';
 
 export const all = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
@@ -141,16 +141,15 @@ export const addTransaction = async (req: Request, res: Response) => {
     Transaction
   );
 
-  const body: AppointmentSaveTransactionDto = plainToClass(
-    AppointmentSaveTransactionDto,
+  const body: TransactionCreateDto = plainToClass(
+    TransactionCreateDto,
     req.body
   );
 
   try {
-    const savedTransaction = await transactionService.repository.save({
-      ...body.transaction,
-      appointment: { id: parseInt(req.params.id) },
-    });
+    if (body.appointment.id !== parseInt(req.params.id))
+      throw 'Appointment Ids do not match';
+    const savedTransaction = await transactionService.repository.save(body);
 
     return res.send(savedTransaction);
   } catch (err) {
