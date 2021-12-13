@@ -1,3 +1,4 @@
+import { Appointment } from './../../../entity/hair/Appointment';
 import { Customer } from './../../../entity/hair/Customer';
 import { IsArray, IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
 import { Expose, Type } from 'class-transformer';
@@ -10,9 +11,4 @@ export class AppointmentCreateDto {
   @IsOptional()
   @IsNotEmpty()
   title: string;
-
-  @IsOptional()
-  @IsArray()
-  @Type(() => Customer)
-  customers: Customer[];
 }
