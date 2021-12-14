@@ -43,16 +43,13 @@ export class Customer extends BaseEntity {
   @Column({ type: 'text', unique: true, nullable: true })
   instagram: string;
 
-  @Field((type) => [Appointment])
   @ManyToMany(() => Appointment, (appointment) => appointment.customers)
   @JoinTable({ name: 'customer_appointments' })
-  appointments: Appointment[];
+  appointments!: Appointment[];
 
-  @Field((type) => [Transaction])
   @OneToMany(() => Transaction, (transaction) => transaction.customer)
   transactions: Transaction[];
 
-  @Field((type) => [Item])
   @OneToMany(() => Item, (item) => item.customer)
   items: Item[];
 

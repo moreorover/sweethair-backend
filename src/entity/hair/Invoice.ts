@@ -36,13 +36,11 @@ export class Invoice extends BaseEntity {
   @Column({ default: null })
   scheduledAt!: Date;
 
-  @Field((type) => [Transaction])
   @OneToMany(() => Transaction, (transaction) => transaction.invoice, {
     cascade: true,
   })
   transactions: Transaction[];
 
-  @Field((type) => [Item])
   @OneToMany(() => Item, (item) => item.invoice)
   items: Item[];
 

@@ -30,15 +30,12 @@ export class Appointment extends BaseEntity {
   @Column({ default: '', nullable: true })
   title: string;
 
-  @Field((type) => [Customer])
   @ManyToMany(() => Customer, (customer) => customer.appointments)
   customers: Customer[];
 
-  @Field((type) => [Transaction])
   @OneToMany(() => Transaction, (transaction) => transaction.appointment)
   transactions: Transaction[];
 
-  @Field((type) => [Item])
   @OneToMany(() => Item, (item) => item.appointment)
   items: Item[];
 

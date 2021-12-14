@@ -33,7 +33,6 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
-  @Field((type) => Role)
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id' })
   role: Role;

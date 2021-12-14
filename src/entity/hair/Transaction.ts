@@ -33,15 +33,12 @@ export class Transaction extends BaseEntity {
   @Column({ default: null })
   scheduledAt!: Date;
 
-  @Field((type) => Customer)
   @ManyToOne(() => Customer, (customer) => customer.transactions)
   customer: Customer;
 
-  @Field((type) => Appointment)
   @ManyToOne(() => Appointment, (appointment) => appointment.transactions)
   appointment: Appointment;
 
-  @Field((type) => Invoice)
   @ManyToOne(() => Invoice, (invoice) => invoice.transactions)
   invoice: Invoice;
 
