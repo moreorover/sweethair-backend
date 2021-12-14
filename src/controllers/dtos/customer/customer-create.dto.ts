@@ -10,31 +10,31 @@ export class CustomerCreateDto {
   fullName: string;
 
   @IsOptional()
-  location: string;
+  location?: string;
 
   @IsOptional()
-  about: string;
+  about?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  email?: string;
 
   @IsOptional()
-  instagram: string;
+  instagram?: string;
 
   @IsOptional()
   @IsArray()
   @Type(() => Appointment)
-  appointments: Appointment[];
+  appointments?: Appointment[];
 
   @IsOptional()
   @IsArray()
   @Type(() => Transaction)
-  transactions: Transaction[];
+  transactions?: Transaction[];
 
   @IsOptional()
   @IsArray()
   @Type(() => Item)
-  items: Item[];
+  items?: Item[];
 }

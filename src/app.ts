@@ -1,3 +1,6 @@
+import { createCustomerLoader } from './utils/createCustomerLoader';
+import 'reflect-metadata';
+import { CustomerResolver } from './resolvers/customer.resolver';
 import { createConnection } from 'typeorm';
 import appointmentRoutes = require('./routes/appointment.routes');
 import userRoutes = require('./routes/user.routes');
@@ -14,6 +17,9 @@ import redis = require('redis');
 import session = require('express-session');
 require('dotenv').config();
 import { Request, Response } from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import { buildSchema } from 'type-graphql';
+import { UserResolver } from './resolvers/user.resolver';
 
 const express = require('express');
 
@@ -42,7 +48,12 @@ const main = async () => {
   );
 
   // app.use(cors({ credentials: true, origin: '***IP address of where the site is hosted***' }));
-  app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
+  app.use(
+    cors({
+      credentials: true,
+      origin: ['http://localhost:8080', 'https://studio.apollographql.com'],
+    })
+  );
   app.use(bodyParser.json());
 
   app.get('/', (req: Request, res: Response) => {
@@ -58,10 +69,33 @@ const main = async () => {
   app.use('/transactions', transactionRoutes);
   app.use('/invoices', invoiceRoutes);
 
-  console.log(all_routes(app));
+  // console.log(all_routes(app));
+
+  const apolloServer = new ApolloServer({
+    schema: await buildSchema({
+      resolvers: [UserResolver, CustomerResolver],
+      validate: false,
+    }),
+    context: ({ req, res }) => ({
+      req,
+      res,
+      redis,
+      // customerLoader: createCustomerLoader(),
+    }),
+  });
+
+  await apolloServer.start();
+
+  apolloServer.applyMiddleware({
+    app,
+    cors: false,
+  });
 
   app.listen(3000, () => {
-    console.log('server started on http://localhost:3000');
+    console.log(
+      'server started on http://localhost:3000',
+      'http://localhost:3000/graphql'
+    );
   });
 };
 
