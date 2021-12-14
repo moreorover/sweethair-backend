@@ -5,6 +5,8 @@ import { PaginateDto } from './dtos/common/paginate.dto';
 import { Request, Response } from 'express';
 import { TransactionCreateDto } from './dtos/transaction/transaction-create.dto';
 import { TransactionUpdateDto } from './dtos/transaction/transaction-update.dto';
+import { SpareCustomersTransactions } from './dtos/transaction/spare-customers-transactions.dto';
+import { IsNull } from 'typeorm';
 
 export const all = async (req: Request, res: Response) => {
   const service: TransactionService = new TransactionService(Transaction);
@@ -62,4 +64,41 @@ export const update = async (req: Request, res: Response) => {
 export const deleteById = async (req: Request, res: Response) => {
   const service: TransactionService = new TransactionService(Transaction);
   return res.send(await service.delete(parseInt(req.params.id)));
+};
+
+export const spareCustomersTransactions = async (
+  req: Request,
+  res: Response
+) => {
+  const service: TransactionService = new TransactionService(Transaction);
+  const body: SpareCustomersTransactions = plainToClass(
+    SpareCustomersTransactions,
+    req.body
+  );
+
+  try {
+    const transactions = await service
+      .getQueryBuilder('transaction')
+      .leftJoinAndSelect('transaction.appointment', 'appointment')
+      .leftJoinAndSelect('transaction.customer', 'customer')
+      .where('transaction.customer IN (:...ids)', { ids: body.customers })
+      .andWhere('transaction.appointment is NULL', {
+        appointment: IsNull(),
+      })
+      .getMany();
+
+    const transformed = transactions.map((t) => {
+      return {
+        ...t,
+        customer: {
+          id: t.customer.id,
+        },
+      };
+    });
+
+    res.send(transformed);
+  } catch (err) {
+    res.status(404).send({ error: 'Something went wrong.' });
+    console.log(err);
+  }
 };

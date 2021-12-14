@@ -1,3 +1,4 @@
+import { SpareCustomersTransactions } from './../controllers/dtos/transaction/spare-customers-transactions.dto';
 import { Router } from 'express';
 import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { TransactionCreateDto } from '../controllers/dtos/transaction/transaction-create.dto';
@@ -10,6 +11,7 @@ import {
   findById,
   update,
   deleteById,
+  spareCustomersTransactions,
 } from '../controllers/transaction.controller';
 import { validateDto } from '../middleware/validateBodyToDto';
 
@@ -17,6 +19,12 @@ const router = Router();
 
 router.get('', authenticateToken, all);
 router.post('/paginate', authenticateToken, validateDto(PaginateDto), paginate);
+router.post(
+  '/spares',
+  authenticateToken,
+  validateDto(SpareCustomersTransactions),
+  spareCustomersTransactions
+);
 router.post('', authenticateToken, validateDto(TransactionCreateDto), create);
 router.get('/:id', authenticateToken, findById);
 router.patch(

@@ -40,3 +40,12 @@ Content-Type: application/json
 
 GET {{baseUrl}}:{{basePort}}/{{basePath}}/5/transactions HTTP/1.1
 Content-Type: application/json
+
+###
+
+POST {{baseUrl}}:{{basePort}}/{{basePath}}/spares HTTP/1.1
+Content-Type: application/json
+
+{
+    "customers": [1, 16]
+}
