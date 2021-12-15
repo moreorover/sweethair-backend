@@ -1,5 +1,9 @@
+import { createTransactionLoader } from './utils/createTransactionLoader';
 import { TransactionResolver } from './resolvers/transaction.resolver';
-import { createCustomerLoader } from './utils/createCustomerLoader';
+import {
+  createCustomerLoader,
+  createCustomerTransactionsLoader,
+} from './utils/CustomerLoader';
 import 'reflect-metadata';
 import { CustomerResolver } from './resolvers/customer.resolver';
 import { createConnection } from 'typeorm';
@@ -88,6 +92,8 @@ const main = async () => {
       res,
       redis,
       customerLoader: createCustomerLoader(),
+      customerTransactionsLoader: createCustomerTransactionsLoader(),
+      transactionLoader: createTransactionLoader(),
     }),
   });
 

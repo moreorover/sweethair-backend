@@ -1,4 +1,5 @@
-import { createCustomerLoader } from './utils/createCustomerLoader';
+import { createTransactionLoader } from './utils/createTransactionLoader';
+import { createCustomerLoader } from './utils/CustomerLoader';
 import { Request, Response } from 'express';
 import { Redis } from 'ioredis';
 import { Session } from 'express-session';
@@ -8,4 +9,6 @@ export type MyContext = {
   redis: Redis;
   res: Response;
   customerLoader: ReturnType<typeof createCustomerLoader>;
+  customerTransactionsLoader: ReturnType<typeof createTransactionLoader>;
+  transactionLoader: ReturnType<typeof createTransactionLoader>;
 };
