@@ -1,11 +1,30 @@
+import { Transaction } from './../entity/hair/Transaction';
 import { CustomerInput } from './types/customer.types';
 import { Customer } from '../entity/hair/Customer';
-import { Resolver, Query, Arg, Mutation, UseMiddleware } from 'type-graphql';
+import {
+  Resolver,
+  Query,
+  Arg,
+  Mutation,
+  UseMiddleware,
+  Ctx,
+  FieldResolver,
+  Root,
+} from 'type-graphql';
 import { CustomerService } from '../services/customer.service';
 import { isAuth } from '../middleware/isAUth';
+import { MyContext } from '../types';
 
-@Resolver()
+@Resolver(Customer)
 export class CustomerResolver {
+  @FieldResolver(() => [Transaction])
+  transactions(
+    @Root() customer: Customer,
+    @Ctx() { customerTransactionsLoader }: MyContext
+  ) {
+    return customerTransactionsLoader.load(customer.id);
+  }
+
   @Query(() => [Customer])
   @UseMiddleware(isAuth)
   customers() {
