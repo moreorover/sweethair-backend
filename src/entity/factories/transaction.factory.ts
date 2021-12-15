@@ -1,7 +1,7 @@
 import { Transaction } from './../hair/Transaction';
 import { define } from 'typeorm-seeding';
 import Faker from 'faker';
-import * as moment from 'moment';
+import moment from 'moment';
 
 define(Transaction, (faker: typeof Faker) => {
   const transaction = new Transaction();

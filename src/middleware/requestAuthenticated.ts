@@ -8,5 +8,5 @@ export function authenticateToken(
   if (!req.session.user) {
     return res.sendStatus(401);
   }
-  next();
+  return next();
 }

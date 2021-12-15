@@ -19,7 +19,7 @@ import { Field, ID, ObjectType } from 'type-graphql';
 @Entity()
 @Expose()
 export class Customer extends BaseEntity {
-  @Field((type) => ID)
+  @Field((_type) => ID)
   @PrimaryGeneratedColumn()
   readonly id!: number;
 

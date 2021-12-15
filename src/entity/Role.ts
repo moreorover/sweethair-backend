@@ -11,7 +11,7 @@ import {
 @ObjectType()
 @Entity()
 export class Role extends BaseEntity {
-  @Field((type) => ID)
+  @Field((_type) => ID)
   @PrimaryGeneratedColumn()
   readonly id!: number;
 

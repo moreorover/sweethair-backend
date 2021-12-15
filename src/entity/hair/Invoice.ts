@@ -16,11 +16,11 @@ import { ObjectType, Field, ID, Float } from 'type-graphql';
 @Entity()
 @Expose()
 export class Invoice extends BaseEntity {
-  @Field((type) => ID)
+  @Field((_type) => ID)
   @PrimaryGeneratedColumn()
   readonly id!: number;
 
-  @Field((type) => Float)
+  @Field((_type) => Float)
   @Column('float', { precision: 11, scale: 2 })
   total!: number;
 

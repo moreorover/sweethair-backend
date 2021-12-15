@@ -8,7 +8,7 @@ import {
   DeepPartial,
 } from 'typeorm';
 
-export class AbstractService<T, C, U> {
+export class AbstractService<T, C> {
   readonly repository: Repository<T>;
 
   constructor(repo: EntityTarget<T>) {

@@ -18,7 +18,7 @@ import { Field, ID, ObjectType } from 'type-graphql';
 @Entity()
 @Expose()
 export class Appointment extends BaseEntity {
-  @Field((type) => ID)
+  @Field((_type) => ID)
   @PrimaryGeneratedColumn()
   readonly id!: number;
 

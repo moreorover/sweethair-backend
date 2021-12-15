@@ -1,10 +1,7 @@
-import { InputType, Field, ID, Int } from 'type-graphql';
+import { InputType, Field } from 'type-graphql';
 
 @InputType()
 export class CustomerInput {
-  //   @Field((type) => ID)
-  //   recipeId: string;
-
   @Field()
   fullName!: string;
 

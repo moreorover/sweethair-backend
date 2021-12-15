@@ -2,7 +2,7 @@ import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 
-export function validateDto(schema) {
+export function validateDto(schema: any) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const bodyToClass = plainToClass(schema, req.body);
     validateOrReject(bodyToClass)
