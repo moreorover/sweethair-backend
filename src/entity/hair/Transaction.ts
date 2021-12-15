@@ -17,11 +17,11 @@ import { Field, Float, ID, ObjectType } from 'type-graphql';
 @Entity()
 @Expose()
 export class Transaction extends BaseEntity {
-  @Field((type) => ID)
+  @Field((_type) => ID)
   @PrimaryGeneratedColumn()
   readonly id!: number;
 
-  @Field((type) => Float)
+  @Field((_type) => Float)
   @Column('float', { precision: 11, scale: 2 })
   total!: number;
 
@@ -32,6 +32,10 @@ export class Transaction extends BaseEntity {
   @Field()
   @Column({ default: null })
   scheduledAt!: Date;
+
+  @Field({ nullable: true })
+  @Column()
+  customerId: number;
 
   @ManyToOne(() => Customer, (customer) => customer.transactions)
   customer: Customer;

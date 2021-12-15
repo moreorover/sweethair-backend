@@ -1,3 +1,4 @@
+import { TransactionResolver } from './resolvers/transaction.resolver';
 import { createCustomerLoader } from './utils/createCustomerLoader';
 import 'reflect-metadata';
 import { CustomerResolver } from './resolvers/customer.resolver';
@@ -20,6 +21,7 @@ import { Request, Response } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './resolvers/user.resolver';
+import { AppointmentResolver } from './resolvers/appointment.resolver';
 
 const express = require('express');
 
@@ -73,14 +75,19 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver, CustomerResolver],
+      resolvers: [
+        UserResolver,
+        CustomerResolver,
+        AppointmentResolver,
+        TransactionResolver,
+      ],
       validate: false,
     }),
     context: ({ req, res }) => ({
       req,
       res,
       redis,
-      // customerLoader: createCustomerLoader(),
+      customerLoader: createCustomerLoader(),
     }),
   });
 

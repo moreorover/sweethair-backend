@@ -7,7 +7,5 @@ export type MyContext = {
   req: Request & { session?: Session & { userId?: number } };
   redis: Redis;
   res: Response;
-  // customerLoader: ReturnType<typeof createCustomerLoader>;
-  //   customerLoader: ReturnType<typeof createUserLoader>;
-  //   updootLoader: ReturnType<typeof createUpdootLoader>;
+  customerLoader: ReturnType<typeof createCustomerLoader>;
 };
