@@ -26,6 +26,12 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './resolvers/user.resolver';
 import { AppointmentResolver } from './resolvers/appointment.resolver';
+import {
+  createAppointmentCustomersLoader,
+  createAppointmentItemsLoader,
+  createAppointmentLoader,
+  createAppointmentTransactionsLoader,
+} from './utils/AppointmentLoader';
 
 const express = require('express');
 
@@ -91,6 +97,10 @@ const main = async () => {
       req,
       res,
       redis,
+      appointmentLoader: createAppointmentLoader(),
+      appointmentCustomersLoader: createAppointmentCustomersLoader(),
+      appointmentItemsLoader: createAppointmentItemsLoader(),
+      appointmentTransactionsLoader: createAppointmentTransactionsLoader(),
       customerLoader: createCustomerLoader(),
       customerTransactionsLoader: createCustomerTransactionsLoader(),
       transactionLoader: createTransactionLoader(),
