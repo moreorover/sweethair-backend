@@ -5,6 +5,7 @@ import {
   InputType,
   Mutation,
   ObjectType,
+  Query,
   Resolver,
 } from 'type-graphql';
 import { User } from '../entity/User';
@@ -73,6 +74,16 @@ export class UserResolver {
     return {
       user,
     };
+  }
+
+  @Query(() => User, { nullable: true })
+  me(@Ctx() { req }: MyContext) {
+    // you are not logged in
+    if (!req.session.userId) {
+      return null;
+    }
+
+    return User.findOne(req.session.userId);
   }
 
   @Mutation(() => Boolean)
