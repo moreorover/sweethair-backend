@@ -45,7 +45,7 @@ export class Customer extends BaseEntity {
 
   @ManyToMany(() => Appointment, (appointment) => appointment.customers)
   @JoinTable({ name: 'customer_appointments' })
-  appointments!: Appointment[];
+  appointments: Appointment[];
 
   @OneToMany(() => Transaction, (transaction) => transaction.customer)
   transactions: Transaction[];
