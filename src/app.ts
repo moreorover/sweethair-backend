@@ -97,12 +97,16 @@ const main = async () => {
       req,
       res,
       redis,
-      appointmentLoader: createAppointmentLoader(),
-      appointmentCustomersLoader: createAppointmentCustomersLoader(),
-      appointmentItemsLoader: createAppointmentItemsLoader(),
-      appointmentTransactionsLoader: createAppointmentTransactionsLoader(),
-      customerLoader: createCustomerLoader(),
-      customerTransactionsLoader: createCustomerTransactionsLoader(),
+      appointmentLoaders: {
+        appointment: createAppointmentLoader(),
+        customers: createAppointmentCustomersLoader(),
+        items: createAppointmentItemsLoader(),
+        transactions: createAppointmentTransactionsLoader(),
+      },
+      customerLoaders: {
+        customer: createCustomerLoader(),
+        transactions: createCustomerTransactionsLoader(),
+      },
       transactionLoader: createTransactionLoader(),
     }),
   });

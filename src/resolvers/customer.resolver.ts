@@ -20,13 +20,13 @@ export class CustomerResolver {
   @FieldResolver(() => [Transaction])
   transactions(
     @Root() customer: Customer,
-    @Ctx() { customerTransactionsLoader }: MyContext
+    @Ctx() { customerLoaders }: MyContext
   ) {
-    return customerTransactionsLoader.load(customer.id);
+    return customerLoaders.transactions.load(customer.id);
   }
 
   @Query(() => [Customer])
-  @UseMiddleware(isAuth)
+  // @UseMiddleware(isAuth)
   customers() {
     const service: CustomerService = new CustomerService(Customer);
     return service.all();

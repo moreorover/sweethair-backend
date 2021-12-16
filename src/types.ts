@@ -15,15 +15,15 @@ export type MyContext = {
   redis: Redis;
   res: Response;
 
-  appointmentLoader: ReturnType<typeof createAppointmentLoader>;
-  appointmentCustomersLoader: ReturnType<
-    typeof createAppointmentCustomersLoader
-  >;
-  appointmentItemsLoader: ReturnType<typeof createAppointmentItemsLoader>;
-  appointmentTransactionsLoader: ReturnType<
-    typeof createAppointmentTransactionsLoader
-  >;
-  customerLoader: ReturnType<typeof createCustomerLoader>;
-  customerTransactionsLoader: ReturnType<typeof createTransactionLoader>;
+  appointmentLoaders: {
+    appointment: ReturnType<typeof createAppointmentLoader>;
+    customers: ReturnType<typeof createAppointmentCustomersLoader>;
+    items: ReturnType<typeof createAppointmentItemsLoader>;
+    transactions: ReturnType<typeof createAppointmentTransactionsLoader>;
+  };
+  customerLoaders: {
+    customer: ReturnType<typeof createCustomerLoader>;
+    transactions: ReturnType<typeof createTransactionLoader>;
+  };
   transactionLoader: ReturnType<typeof createTransactionLoader>;
 };

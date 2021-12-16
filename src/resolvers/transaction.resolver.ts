@@ -17,10 +17,10 @@ export class TransactionResolver {
   @FieldResolver(() => Customer, { nullable: true })
   customer(
     @Root() transaction: Transaction,
-    @Ctx() { customerLoader }: MyContext
+    @Ctx() { customerLoaders }: MyContext
   ) {
     return transaction.customerId
-      ? customerLoader.load(transaction.customerId)
+      ? customerLoaders.customer.load(transaction.customerId)
       : null;
   }
 

@@ -10,6 +10,8 @@ import {
   Ctx,
   FieldResolver,
   Root,
+  Mutation,
+  Arg,
 } from 'type-graphql';
 import { isAuth } from '../middleware/isAUth';
 import { MyContext } from '../types';
@@ -19,25 +21,25 @@ export class AppointmentResolver {
   @FieldResolver(() => [Customer])
   customers(
     @Root() appointment: Appointment,
-    @Ctx() { appointmentCustomersLoader }: MyContext
+    @Ctx() { appointmentLoaders }: MyContext
   ) {
-    return appointmentCustomersLoader.load(appointment.id);
+    return appointmentLoaders.customers.load(appointment.id);
   }
 
   @FieldResolver(() => [Item])
   items(
     @Root() appointment: Appointment,
-    @Ctx() { appointmentTransactionsLoader }: MyContext
+    @Ctx() { appointmentLoaders }: MyContext
   ) {
-    return appointmentTransactionsLoader.load(appointment.id);
+    return appointmentLoaders.items.load(appointment.id);
   }
 
   @FieldResolver(() => [Transaction])
   transactions(
     @Root() appointment: Appointment,
-    @Ctx() { appointmentTransactionsLoader }: MyContext
+    @Ctx() { appointmentLoaders }: MyContext
   ) {
-    return appointmentTransactionsLoader.load(appointment.id);
+    return appointmentLoaders.transactions.load(appointment.id);
   }
 
   @Query(() => [Appointment])
@@ -45,5 +47,11 @@ export class AppointmentResolver {
   appointments() {
     const service: AppointmentService = new AppointmentService(Appointment);
     return service.all();
+  }
+
+  @Query(() => Appointment)
+  async appointment(@Arg('appointmentId') appointmentId: number) {
+    const appointment = await Appointment.findOne(appointmentId);
+    return appointment;
   }
 }
