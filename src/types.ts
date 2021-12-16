@@ -1,4 +1,4 @@
-import { createTransactionLoader } from './utils/createTransactionLoader';
+import { createTransactionLoader } from './utils/TransactionLoader';
 import { createCustomerLoader } from './utils/CustomerLoader';
 import { Request, Response } from 'express';
 import { Redis } from 'ioredis';

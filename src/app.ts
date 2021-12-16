@@ -1,4 +1,4 @@
-import { createTransactionLoader } from './utils/createTransactionLoader';
+import { createTransactionLoader } from './utils/TransactionLoader';
 import { TransactionResolver } from './resolvers/transaction.resolver';
 import {
   createCustomerLoader,
