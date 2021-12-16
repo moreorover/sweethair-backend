@@ -1,4 +1,4 @@
-import { Transaction } from './../entity/hair/Transaction';
+import { Transaction } from '../entity/hair/Transaction';
 import { getConnection } from 'typeorm';
 import DataLoader from 'dataloader';
 
