@@ -1,49 +1,14 @@
 import {
   AppointmentCreate,
+  AppointmentCustomersUpdate,
 } from './types/appointment.types';
-import { Customer } from './../entity/hair/Customer';
-import { Item } from './../entity/hair/Item';
-import { Transaction } from './../entity/hair/Transaction';
 import { Appointment } from './../entity/hair/Appointment';
 import { AppointmentService } from './../services/appointment.service';
-import {
-  Resolver,
-  Query,
-  Ctx,
-  FieldResolver,
-  Root,
-  Arg,
-  Mutation,
-} from 'type-graphql';
-import { MyContext } from '../types';
+import { Resolver, Query, Arg, Mutation } from 'type-graphql';
 import { getConnection } from 'typeorm';
 
 @Resolver(Appointment)
 export class AppointmentResolver {
-  @FieldResolver(() => [Customer])
-  customers(
-    @Root() appointment: Appointment,
-    @Ctx() { appointmentLoaders }: MyContext
-  ) {
-    return appointmentLoaders.customers.load(appointment.id);
-  }
-
-  @FieldResolver(() => [Item])
-  items(
-    @Root() appointment: Appointment,
-    @Ctx() { appointmentLoaders }: MyContext
-  ) {
-    return appointmentLoaders.items.load(appointment.id);
-  }
-
-  @FieldResolver(() => [Transaction])
-  transactions(
-    @Root() appointment: Appointment,
-    @Ctx() { appointmentLoaders }: MyContext
-  ) {
-    return appointmentLoaders.transactions.load(appointment.id);
-  }
-
   @Query(() => [Appointment])
   // @UseMiddleware(isAuth)
   appointments() {
@@ -76,4 +41,14 @@ export class AppointmentResolver {
     return result;
   }
 
+  @Mutation(() => Appointment)
+  async updateAppointmentCustomers(
+    @Arg('appointmentId') appointmentId: number,
+    @Arg('customers') customers: AppointmentCustomersUpdate
+  ): Promise<Appointment> {
+    const result = await getConnection()
+      .getRepository(Appointment)
+      .save({ id: appointmentId });
+    return result;
+  }
 }

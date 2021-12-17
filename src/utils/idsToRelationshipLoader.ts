@@ -1,9 +1,4 @@
-import {
-  EntityTarget,
-  getConnection,
-  getRepository,
-  Repository,
-} from 'typeorm';
+import { EntityTarget, getRepository, Repository } from 'typeorm';
 import DataLoader from 'dataloader';
 
 export const createIdsToRelationshipsLoader = <I, O>(

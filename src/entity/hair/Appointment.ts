@@ -14,6 +14,7 @@ import { Transaction } from './Transaction';
 import { Expose } from 'class-transformer';
 import { Item } from './Item';
 import { Field, ID, ObjectType } from 'type-graphql';
+import { TypeormLoader } from 'type-graphql-dataloader';
 
 @ObjectType()
 @Entity()
@@ -31,6 +32,8 @@ export class Appointment extends BaseEntity {
   @Column({ default: '', nullable: true })
   title: string;
 
+  @Field((type) => [Customer])
+  @TypeormLoader()
   @ManyToMany(() => Customer, (customer) => customer.appointments)
   customers?: Customer[];
 
@@ -38,6 +41,8 @@ export class Appointment extends BaseEntity {
   // @RelationId((appointment: Appointment) => appointment.customers)
   // customerIds: number[];
 
+  @Field((type) => [Transaction])
+  @TypeormLoader()
   @OneToMany(() => Transaction, (transaction) => transaction.appointment)
   transactions?: Transaction[];
 
@@ -45,6 +50,8 @@ export class Appointment extends BaseEntity {
   // @RelationId((appointment: Appointment) => appointment.transactions)
   // transactionIds: number[];
 
+  @Field((type) => [Item])
+  @TypeormLoader()
   @OneToMany(() => Item, (item) => item.appointment)
   items?: Item[];
 

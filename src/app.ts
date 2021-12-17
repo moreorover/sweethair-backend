@@ -1,3 +1,4 @@
+import { InvoiceResolver } from './resolvers/invoice.resolver';
 import { ItemResolver } from './resolvers/item.resolver';
 import { Invoice } from './entity/hair/Invoice';
 import { Item } from './entity/hair/Item';
@@ -88,6 +89,7 @@ const main = async () => {
         CustomerResolver,
         AppointmentResolver,
         TransactionResolver,
+        InvoiceResolver,
         ItemResolver,
       ],
       validate: false,
@@ -96,67 +98,6 @@ const main = async () => {
       req,
       res,
       redis,
-      appointmentLoaders: {
-        appointment: createIdsToRelationshipsLoader<Appointment, Appointment>(
-          Appointment
-        ),
-        customers: createIdsToRelationshipsLoader<Appointment, Customer[]>(
-          Appointment,
-          'customers'
-        ),
-        items: createIdsToRelationshipsLoader<Appointment, Item[]>(
-          Appointment,
-          'items'
-        ),
-        transactions: createIdsToRelationshipsLoader<
-          Appointment,
-          Transaction[]
-        >(Appointment, 'transactions'),
-      },
-      customerLoaders: {
-        customer: createIdsToRelationshipsLoader<Customer, Customer>(Customer),
-        appointments: createIdsToRelationshipsLoader<Customer, Appointment[]>(
-          Customer,
-          'appointments'
-        ),
-        items: createIdsToRelationshipsLoader<Customer, Item[]>(
-          Customer,
-          'items'
-        ),
-        transactions: createIdsToRelationshipsLoader<Customer, Transaction[]>(
-          Customer,
-          'transactions'
-        ),
-      },
-      itemLoaders: {
-        item: createIdsToRelationshipsLoader<Item, Item>(Item),
-        appointment: createIdsToRelationshipsLoader<Item, Appointment>(
-          Item,
-          'appointment'
-        ),
-        customer: createIdsToRelationshipsLoader<Item, Customer>(
-          Item,
-          'customer'
-        ),
-        invoice: createIdsToRelationshipsLoader<Item, Invoice>(Item, 'invoice'),
-      },
-      transactionLoaders: {
-        transaction: createIdsToRelationshipsLoader<Transaction, Transaction>(
-          Transaction
-        ),
-        appointment: createIdsToRelationshipsLoader<Transaction, Appointment>(
-          Transaction,
-          'appointment'
-        ),
-        customer: createIdsToRelationshipsLoader<Transaction, Customer>(
-          Transaction,
-          'customer'
-        ),
-        invoice: createIdsToRelationshipsLoader<Transaction, Invoice>(
-          Transaction,
-          'invoice'
-        ),
-      },
     }),
     plugins: [
       ApolloServerLoaderPlugin({

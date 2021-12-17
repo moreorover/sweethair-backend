@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 import { ObjectType, Field, ID, Float } from 'type-graphql';
+import { TypeormLoader } from 'type-graphql-dataloader';
 
 @ObjectType()
 @Entity()
@@ -36,11 +37,15 @@ export class Invoice extends BaseEntity {
   @Column({ default: null })
   scheduledAt!: Date;
 
+  @Field((type) => [Transaction])
+  @TypeormLoader()
   @OneToMany(() => Transaction, (transaction) => transaction.invoice, {
     cascade: true,
   })
   transactions: Transaction[];
 
+  @Field((type) => [Item])
+  @TypeormLoader()
   @OneToMany(() => Item, (item) => item.invoice)
   items: Item[];
 

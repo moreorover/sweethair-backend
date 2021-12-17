@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 import { Field, Float, ID, ObjectType } from 'type-graphql';
+import { TypeormLoader } from 'type-graphql-dataloader';
 
 @ObjectType()
 @Entity()
@@ -37,6 +38,8 @@ export class Transaction extends BaseEntity {
   @Column()
   customerId: number;
 
+  @Field((type) => Customer, { nullable: true })
+  @TypeormLoader()
   @ManyToOne(() => Customer, (customer) => customer.transactions)
   customer: Customer;
 
@@ -44,6 +47,8 @@ export class Transaction extends BaseEntity {
   @Column()
   appointmentId: number;
 
+  @Field((type) => Appointment, { nullable: true })
+  @TypeormLoader()
   @ManyToOne(() => Appointment, (appointment) => appointment.transactions)
   appointment: Appointment;
 
@@ -51,6 +56,8 @@ export class Transaction extends BaseEntity {
   @Column()
   invoiceId: number;
 
+  @Field((type) => Invoice, { nullable: true })
+  @TypeormLoader()
   @ManyToOne(() => Invoice, (invoice) => invoice.transactions)
   invoice: Invoice;
 

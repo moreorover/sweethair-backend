@@ -10,11 +10,11 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   BaseEntity,
-  RelationId,
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 import { Item } from './Item';
 import { Field, ID, ObjectType } from 'type-graphql';
+import { TypeormLoader } from 'type-graphql-dataloader';
 
 @ObjectType()
 @Entity()
@@ -44,6 +44,8 @@ export class Customer extends BaseEntity {
   @Column({ type: 'text', unique: true, nullable: true })
   instagram: string;
 
+  @Field((type) => [Appointment])
+  @TypeormLoader()
   @ManyToMany(() => Appointment, (appointment) => appointment.customers)
   @JoinTable({ name: 'customer_appointments' })
   appointments: Appointment[];
@@ -51,9 +53,13 @@ export class Customer extends BaseEntity {
   // @RelationId((customer: Customer) => customer.appointments)
   // appointmentIds: number[];
 
+  @Field((type) => [Transaction])
+  @TypeormLoader()
   @OneToMany(() => Transaction, (transaction) => transaction.customer)
   transactions: Transaction[];
 
+  @Field((type) => [Item])
+  @TypeormLoader()
   @OneToMany(() => Item, (item) => item.customer)
   items: Item[];
 
