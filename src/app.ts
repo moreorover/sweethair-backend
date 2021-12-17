@@ -28,6 +28,9 @@ import { UserResolver } from './resolvers/user.resolver';
 import { AppointmentResolver } from './resolvers/appointment.resolver';
 import { createIdsToRelationshipsLoader } from './utils/idsToRelationshipLoader';
 
+import { ApolloServerLoaderPlugin } from 'type-graphql-dataloader';
+import { getConnection } from 'typeorm';
+
 const express = require('express');
 
 const main = async () => {
@@ -155,6 +158,11 @@ const main = async () => {
         ),
       },
     }),
+    plugins: [
+      ApolloServerLoaderPlugin({
+        typeormGetConnection: getConnection, // for use with TypeORM
+      }),
+    ],
   });
 
   await apolloServer.start();
