@@ -10,6 +10,7 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   BaseEntity,
+  RelationId,
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 import { Item } from './Item';
@@ -46,6 +47,9 @@ export class Customer extends BaseEntity {
   @ManyToMany(() => Appointment, (appointment) => appointment.customers)
   @JoinTable({ name: 'customer_appointments' })
   appointments: Appointment[];
+
+  // @RelationId((customer: Customer) => customer.appointments)
+  // appointmentIds: number[];
 
   @OneToMany(() => Transaction, (transaction) => transaction.customer)
   transactions: Transaction[];
