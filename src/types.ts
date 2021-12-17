@@ -1,14 +1,8 @@
-import { createTransactionLoader } from './utils/TransactionLoader';
-import { createCustomerLoader } from './utils/CustomerLoader';
 import { Request, Response } from 'express';
 import { Redis } from 'ioredis';
 import { Session } from 'express-session';
-import {
-  createAppointmentCustomersLoader,
-  createAppointmentItemsLoader,
-  createAppointmentLoader,
-  createAppointmentTransactionsLoader,
-} from './utils/AppointmentLoader';
+
+import { createIdsToRelationshipsLoader } from './utils/idsToRelationshipLoader';
 
 export type MyContext = {
   req: Request & { session?: Session & { userId?: number } };
@@ -16,14 +10,27 @@ export type MyContext = {
   res: Response;
 
   appointmentLoaders: {
-    appointment: ReturnType<typeof createAppointmentLoader>;
-    customers: ReturnType<typeof createAppointmentCustomersLoader>;
-    items: ReturnType<typeof createAppointmentItemsLoader>;
-    transactions: ReturnType<typeof createAppointmentTransactionsLoader>;
+    appointment: ReturnType<typeof createIdsToRelationshipsLoader>;
+    customers: ReturnType<typeof createIdsToRelationshipsLoader>;
+    items: ReturnType<typeof createIdsToRelationshipsLoader>;
+    transactions: ReturnType<typeof createIdsToRelationshipsLoader>;
   };
   customerLoaders: {
-    customer: ReturnType<typeof createCustomerLoader>;
-    transactions: ReturnType<typeof createTransactionLoader>;
+    customer: ReturnType<typeof createIdsToRelationshipsLoader>;
+    appointments: ReturnType<typeof createIdsToRelationshipsLoader>;
+    items: ReturnType<typeof createIdsToRelationshipsLoader>;
+    transactions: ReturnType<typeof createIdsToRelationshipsLoader>;
   };
-  transactionLoader: ReturnType<typeof createTransactionLoader>;
+  transactionLoaders: {
+    transaction: ReturnType<typeof createIdsToRelationshipsLoader>;
+    appointment: ReturnType<typeof createIdsToRelationshipsLoader>;
+    customer: ReturnType<typeof createIdsToRelationshipsLoader>;
+    invoice: ReturnType<typeof createIdsToRelationshipsLoader>;
+  };
+  itemLoaders: {
+    item: ReturnType<typeof createIdsToRelationshipsLoader>;
+    appointment: ReturnType<typeof createIdsToRelationshipsLoader>;
+    customer: ReturnType<typeof createIdsToRelationshipsLoader>;
+    invoice: ReturnType<typeof createIdsToRelationshipsLoader>;
+  };
 };

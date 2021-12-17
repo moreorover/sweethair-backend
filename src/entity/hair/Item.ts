@@ -29,11 +29,23 @@ export class Item extends BaseEntity {
   @Column('float', { precision: 11, scale: 2 })
   total!: number;
 
+  @Field({ nullable: true })
+  @Column()
+  invoiceId: number;
+
   @ManyToOne(() => Invoice, (invoice) => invoice.items)
   invoice: Invoice;
 
+  @Field({ nullable: true })
+  @Column()
+  customerId: number;
+
   @ManyToOne(() => Customer, (customer) => customer.items)
   customer: Customer;
+
+  @Field({ nullable: true })
+  @Column()
+  appointmentId: number;
 
   @ManyToOne(() => Appointment, (appointment) => appointment.items)
   appointment: Appointment;

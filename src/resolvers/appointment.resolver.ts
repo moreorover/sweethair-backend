@@ -3,17 +3,7 @@ import { Item } from './../entity/hair/Item';
 import { Transaction } from './../entity/hair/Transaction';
 import { Appointment } from './../entity/hair/Appointment';
 import { AppointmentService } from './../services/appointment.service';
-import {
-  Resolver,
-  Query,
-  UseMiddleware,
-  Ctx,
-  FieldResolver,
-  Root,
-  Mutation,
-  Arg,
-} from 'type-graphql';
-import { isAuth } from '../middleware/isAUth';
+import { Resolver, Query, Ctx, FieldResolver, Root, Arg } from 'type-graphql';
 import { MyContext } from '../types';
 
 @Resolver(Appointment)
@@ -43,7 +33,7 @@ export class AppointmentResolver {
   }
 
   @Query(() => [Appointment])
-  @UseMiddleware(isAuth)
+  // @UseMiddleware(isAuth)
   appointments() {
     const service: AppointmentService = new AppointmentService(Appointment);
     return service.all();

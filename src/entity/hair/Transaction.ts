@@ -40,8 +40,16 @@ export class Transaction extends BaseEntity {
   @ManyToOne(() => Customer, (customer) => customer.transactions)
   customer: Customer;
 
+  @Field({ nullable: true })
+  @Column()
+  appointmentId: number;
+
   @ManyToOne(() => Appointment, (appointment) => appointment.transactions)
   appointment: Appointment;
+
+  @Field({ nullable: true })
+  @Column()
+  invoiceId: number;
 
   @ManyToOne(() => Invoice, (invoice) => invoice.transactions)
   invoice: Invoice;
