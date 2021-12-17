@@ -44,4 +44,24 @@ export class AppointmentResolver {
     const appointment = await Appointment.findOne(appointmentId);
     return appointment;
   }
+
+  @Mutation(() => Appointment)
+  async createAppointment(
+    @Arg('input') input: AppointmentCreate
+  ): Promise<Appointment> {
+    return Appointment.create(input).save();
+  }
+
+  @Mutation(() => Appointment)
+  async updateAppointment(
+    @Arg('appointmentId') appointmentId: number,
+    @Arg('scheduledAt') scheduledAt: Date,
+    @Arg('title') title: string
+  ): Promise<Appointment> {
+    const result = await getConnection()
+      .getRepository(Appointment)
+      .save({ id: appointmentId, title, scheduledAt });
+    return result;
+  }
+
 }
