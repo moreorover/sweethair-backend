@@ -1,10 +1,22 @@
+import {
+  AppointmentCreate,
+} from './types/appointment.types';
 import { Customer } from './../entity/hair/Customer';
 import { Item } from './../entity/hair/Item';
 import { Transaction } from './../entity/hair/Transaction';
 import { Appointment } from './../entity/hair/Appointment';
 import { AppointmentService } from './../services/appointment.service';
-import { Resolver, Query, Ctx, FieldResolver, Root, Arg } from 'type-graphql';
+import {
+  Resolver,
+  Query,
+  Ctx,
+  FieldResolver,
+  Root,
+  Arg,
+  Mutation,
+} from 'type-graphql';
 import { MyContext } from '../types';
+import { getConnection } from 'typeorm';
 
 @Resolver(Appointment)
 export class AppointmentResolver {
