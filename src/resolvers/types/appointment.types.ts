@@ -1,7 +1,8 @@
-import { InputType, Field, ID } from 'type-graphql';
+import { Appointment } from './../../entity/hair/Appointment';
+import { InputType, Field, Int } from 'type-graphql';
 
 @InputType()
-export class AppointmentCreate {
+export class AppointmentCreate implements Partial<Appointment> {
   @Field()
   scheduledAt!: Date;
 
@@ -10,19 +11,13 @@ export class AppointmentCreate {
 }
 
 @InputType()
-export class AppointmentUpdate {
-  @Field()
-  scheduledAt?: Date;
+export class AppointmentUpdate implements Partial<Appointment> {
+  @Field((type) => Int)
+  id: number;
 
   @Field()
-  title?: string;
-}
+  scheduledAt: Date;
 
-@InputType()
-export class AppointmentCustomersUpdate {
   @Field()
-  appointmentId!: number;
-
-  //   @Field((type) => [ID!]!)
-  //   customers!: number[];
+  title: string;
 }
