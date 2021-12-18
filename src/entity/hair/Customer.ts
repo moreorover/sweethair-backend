@@ -13,14 +13,14 @@ import {
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 import { Item } from './Item';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import { TypeormLoader } from 'type-graphql-dataloader';
 
 @ObjectType()
 @Entity()
 @Expose()
 export class Customer extends BaseEntity {
-  @Field((_type) => ID)
+  @Field((_type) => Int)
   @PrimaryGeneratedColumn()
   readonly id!: number;
 

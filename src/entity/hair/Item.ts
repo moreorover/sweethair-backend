@@ -11,14 +11,14 @@ import {
 import { Customer } from './Customer';
 import { Invoice } from './Invoice';
 import { Expose } from 'class-transformer';
-import { ObjectType, Field, ID, Float } from 'type-graphql';
+import { ObjectType, Field, Int, Float } from 'type-graphql';
 import { TypeormLoader } from 'type-graphql-dataloader';
 
 @ObjectType()
 @Entity()
 @Expose()
 export class Item extends BaseEntity {
-  @Field((_type) => ID)
+  @Field((_type) => Int)
   @PrimaryGeneratedColumn()
   readonly id!: number;
 
