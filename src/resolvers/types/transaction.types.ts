@@ -1,5 +1,4 @@
-import { Transaction } from './../../entity/hair/Transaction';
-import { Appointment } from '../../entity/hair/Appointment';
+import { Transaction, TransactionType } from './../../entity/hair/Transaction';
 import { InputType, Field, Int, Float } from 'type-graphql';
 
 @InputType()
@@ -12,6 +11,9 @@ export class TransactionCreate implements Partial<Transaction> {
 
   @Field()
   scheduledAt: Date;
+
+  @Field((type) => TransactionType)
+  type: TransactionType;
 
   @Field({ nullable: true, defaultValue: null })
   customerId: number;
@@ -36,6 +38,9 @@ export class TransactionUpdate implements Partial<Transaction> {
 
   @Field()
   scheduledAt: Date;
+
+  @Field((type) => TransactionType)
+  type: TransactionType;
 
   @Field({ nullable: true, defaultValue: null })
   customerId: number;

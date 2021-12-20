@@ -11,8 +11,26 @@ import {
   BaseEntity,
 } from 'typeorm';
 import { Expose } from 'class-transformer';
-import { Field, Float, Int, ObjectType } from 'type-graphql';
+import { Field, Float, Int, ObjectType, registerEnumType } from 'type-graphql';
 import { TypeormLoader } from 'type-graphql-dataloader';
+
+export enum TransactionType {
+  IN = 'IN',
+  OUT = 'OUT',
+}
+
+registerEnumType(TransactionType, {
+  name: 'TransactionType',
+  description: 'The basic directions',
+  valuesConfig: {
+    IN: {
+      description: 'Marks transaction as income.',
+    },
+    OUT: {
+      description: 'Marks transaction as expense.',
+    },
+  },
+});
 
 @ObjectType()
 @Entity()
@@ -33,6 +51,14 @@ export class Transaction extends BaseEntity {
   @Field()
   @Column({ default: null })
   scheduledAt!: Date;
+
+  @Field()
+  @Column({
+    type: 'enum',
+    enum: TransactionType,
+    default: TransactionType.IN,
+  })
+  type: TransactionType;
 
   @Field({ nullable: true })
   @Column()
