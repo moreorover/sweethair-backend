@@ -1,38 +1,30 @@
-import { InvoiceResolver } from './resolvers/invoice.resolver';
-import { ItemResolver } from './resolvers/item.resolver';
-import { Invoice } from './entity/hair/Invoice';
-import { Item } from './entity/hair/Item';
-import { Appointment } from './entity/hair/Appointment';
-import { Transaction } from './entity/hair/Transaction';
-import { Customer } from './entity/hair/Customer';
-import { TransactionResolver } from './resolvers/transaction.resolver';
 import 'reflect-metadata';
-import { CustomerResolver } from './resolvers/customer.resolver';
-import { createConnection } from 'typeorm';
-import appointmentRoutes = require('./routes/appointment.routes');
-import userRoutes = require('./routes/user.routes');
-import itemRoutes = require('./routes/item.routes');
-import roleRoutes = require('./routes/role.routes');
-import authRoutes = require('./routes/auth.routes');
-import invoiceRoutes = require('./routes/invoice.routes');
-import customerRoutes = require('./routes/customer.routes');
-import transactionRoutes = require('./routes/transaction.routes');
-const bodyParser = require('body-parser');
+const express = require('express');
+require('dotenv').config();
 var cors = require('cors');
+const bodyParser = require('body-parser');
 import redis = require('redis');
 import session = require('express-session');
-require('dotenv').config();
 import { Request, Response } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
-import { UserResolver } from './resolvers/user.resolver';
-import { AppointmentResolver } from './resolvers/appointment.resolver';
-import { createIdsToRelationshipsLoader } from './utils/idsToRelationshipLoader';
-
 import { ApolloServerLoaderPlugin } from 'type-graphql-dataloader';
 import { getConnection } from 'typeorm';
-
-const express = require('express');
+import { InvoiceResolver } from './resolvers/invoice.resolver';
+import { ItemResolver } from './resolvers/item.resolver';
+import { TransactionResolver } from './resolvers/transaction.resolver';
+import { CustomerResolver } from './resolvers/customer.resolver';
+import { createConnection } from 'typeorm';
+import appointmentRoutes = require('./routes/appointment.routes');
+import authRoutes = require('./routes/auth.routes');
+import customerRoutes = require('./routes/customer.routes');
+import invoiceRoutes = require('./routes/invoice.routes');
+import itemRoutes = require('./routes/item.routes');
+import roleRoutes = require('./routes/role.routes');
+import transactionRoutes = require('./routes/transaction.routes');
+import userRoutes = require('./routes/user.routes');
+import { UserResolver } from './resolvers/user.resolver';
+import { AppointmentResolver } from './resolvers/appointment.resolver';
 
 const main = async () => {
   await createConnection();
