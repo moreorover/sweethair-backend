@@ -28,19 +28,19 @@ export class Customer extends BaseEntity {
   @Column({ default: '', nullable: false, unique: true })
   fullName!: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ default: '', nullable: true })
   location: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ default: '', nullable: true })
   about: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'text', unique: true, nullable: true })
   email: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'text', unique: true, nullable: true })
   instagram: string;
 
