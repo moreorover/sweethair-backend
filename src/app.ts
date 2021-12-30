@@ -106,9 +106,9 @@ const main = async () => {
   });
 
   app.listen(3000, () => {
+    console.log(`⚡️[server]: API Server is running at http://localhost:3000`);
     console.log(
-      'server started on http://localhost:3000',
-      'http://localhost:3000/graphql'
+      `⚡️[server]: GraphQL Server is running at http://localhost:3000/graphql`
     );
   });
 };
