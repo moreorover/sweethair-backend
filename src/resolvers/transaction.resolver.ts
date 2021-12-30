@@ -1,5 +1,5 @@
 import { Transaction } from './../entity/hair/Transaction';
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Int } from 'type-graphql';
 import { TransactionService } from '../services/transaction.service';
 import {
   TransactionCreate,
@@ -31,5 +31,14 @@ export class TransactionResolver {
       .getRepository(Transaction)
       .save(transaction);
     return result;
+  }
+
+  @Mutation(() => Transaction, { nullable: true })
+  async removeTransaction(
+    @Arg('transactionId', (type) => Int) transactionId: number
+  ): Promise<Transaction | undefined> {
+    const transaction = await Transaction.findOne(transactionId);
+    await Transaction.delete(transactionId);
+    return transaction;
   }
 }
