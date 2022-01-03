@@ -12,6 +12,7 @@ import {
   deleteById,
   addCustomers,
   addTransaction,
+  removeCustomer,
 } from '../controllers/appointment.controller';
 import { validateDto } from '../middleware/validateBodyToDto';
 import { AppointmentSaveCustomersDto } from '../controllers/dtos/appointment/appointment-save-customers.dto';
@@ -36,6 +37,7 @@ router.post(
   validateDto(AppointmentSaveCustomersDto),
   addCustomers
 );
+router.delete('/:id/customers/:customerId', authenticateToken, removeCustomer);
 router.post(
   '/:id/transactions',
   authenticateToken,

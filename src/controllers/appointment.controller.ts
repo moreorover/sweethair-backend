@@ -107,6 +107,52 @@ export const addCustomers = async (req: Request, res: Response) => {
   }
 };
 
+export const removeCustomer = async (req: Request, res: Response) => {
+  const appointmentService: AppointmentService = new AppointmentService(
+    Appointment
+  );
+
+  try {
+    const appointmentId: number = parseInt(req.params.id);
+    const customerId: number = parseInt(req.params.customerId);
+
+    const appointment = await appointmentService.findOne(
+      { id: appointmentId },
+      { relations: ['transactions'] }
+    );
+
+    const canRemoveCustomer: boolean = appointment.transactions
+      .map((t) => t.customerId)
+      .includes(customerId);
+
+    if (canRemoveCustomer)
+      return res
+        .status(404)
+        .send({
+          error:
+            'Unable to remove customer as there are transactions assigned.',
+        });
+
+    if (!customerId)
+      return res.status(404).send({ error: 'No customer ID provided.' });
+
+    await appointmentService.repository
+      .createQueryBuilder('appointment')
+      .relation(Appointment, 'customers')
+      .of(appointment)
+      .remove({ id: customerId });
+
+    const { customers } = await appointmentService.findOne(
+      { id: parseInt(req.params.id) },
+      { relations: ['customers'] }
+    );
+
+    return res.send(customers);
+  } catch (err) {
+    return res.status(404).send({ error: 'Something went wrong updating' });
+  }
+};
+
 export const addTransaction = async (req: Request, res: Response) => {
   const transactionService: TransactionService = new TransactionService(
     Transaction
