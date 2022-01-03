@@ -14,11 +14,20 @@ export class Item extends DataEntity {
   @Column('float', { precision: 11, scale: 2 })
   total: number;
 
+  @Column()
+  invoiceId: number;
+
   @ManyToOne(() => Invoice, (invoice) => invoice.items)
   invoice: Invoice;
 
+  @Column()
+  customerId: number;
+
   @ManyToOne(() => Customer, (customer) => customer.items)
   customer: Customer;
+
+  @Column()
+  appointmentId: number;
 
   @ManyToOne(() => Appointment, (appointment) => appointment.items)
   appointment: Appointment;

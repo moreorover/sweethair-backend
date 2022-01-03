@@ -17,11 +17,20 @@ export class Transaction extends DataEntity {
   @Column({ default: null })
   scheduledAt: Date;
 
+  @Column()
+  customerId: number;
+
   @ManyToOne(() => Customer, (customer) => customer.transactions)
   customer: Customer;
 
+  @Column()
+  appointmentId: number;
+
   @ManyToOne(() => Appointment, (appointment) => appointment.transactions)
   appointment: Appointment;
+
+  @Column()
+  invoiceId: number;
 
   @ManyToOne(() => Invoice, (invoice) => invoice.transactions)
   invoice: Invoice;

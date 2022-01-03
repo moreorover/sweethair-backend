@@ -1,4 +1,3 @@
-import { TransactionCreateDto } from './dtos/transaction/transaction-create.dto';
 import { Transaction } from './../entity/hair/Transaction';
 import { TransactionService } from './../services/transaction.service';
 import { Appointment } from './../entity/hair/Appointment';
@@ -9,6 +8,7 @@ import { Request, Response } from 'express';
 import { AppointmentCreateDto } from './dtos/appointment/appointment-create.dto';
 import { AppointmentUpdateDto } from './dtos/appointment/appointment-update.dto';
 import { AppointmentSaveCustomersDto } from './dtos/appointment/appointment-save-customers.dto';
+import { AppointmentCreateTransactionDto } from './dtos/appointment/appointment-create-transaction.dto';
 
 export const all = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
@@ -31,8 +31,12 @@ export const paginate = async (req: Request, res: Response) => {
 
 export const findById = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
-  const results = await service.findOne({ id: parseInt(req.params.id) });
-  return res.send(results);
+  const appointment = await service.findOne(
+    { id: parseInt(req.params.id) },
+    { relations: ['customers', 'transactions', 'items'] }
+  );
+
+  return res.send(appointment);
 };
 
 export const create = async (req: Request, res: Response) => {
@@ -63,39 +67,6 @@ export const update = async (req: Request, res: Response) => {
 export const deleteById = async (req: Request, res: Response) => {
   const service: AppointmentService = new AppointmentService(Appointment);
   return res.send(await service.delete(parseInt(req.params.id)));
-};
-
-export const fetchTransactions = async (req: Request, res: Response) => {
-  const service: AppointmentService = new AppointmentService(Appointment);
-  const { transactions } = await service.findOne(
-    { id: parseInt(req.params.id) },
-    { relations: ['transactions', 'transactions.customer'] }
-  );
-  const t = transactions.map((t) => {
-    return { ...t, customer: { id: t.customer?.id || null } };
-  });
-  return res.send(t);
-};
-
-export const fetchCustomers = async (req: Request, res: Response) => {
-  const service: AppointmentService = new AppointmentService(Appointment);
-  const { customers } = await service.findOne(
-    { id: parseInt(req.params.id) },
-    { relations: ['customers'] }
-  );
-  return res.send(customers);
-};
-
-export const fetchItems = async (req: Request, res: Response) => {
-  const service: AppointmentService = new AppointmentService(Appointment);
-  const { items } = await service.findOne(
-    { id: parseInt(req.params.id) },
-    { relations: ['items', 'items.customer'] }
-  );
-  const i = items.map((i) => {
-    return { ...i, customer: { id: i.customer?.id || null } };
-  });
-  return res.send(i);
 };
 
 export const addCustomers = async (req: Request, res: Response) => {
@@ -141,15 +112,21 @@ export const addTransaction = async (req: Request, res: Response) => {
     Transaction
   );
 
-  const body: TransactionCreateDto = plainToClass(
-    TransactionCreateDto,
+  const body: AppointmentCreateTransactionDto = plainToClass(
+    AppointmentCreateTransactionDto,
     req.body
   );
 
   try {
-    if (body.appointment.id !== parseInt(req.params.id))
+    if (body.appointmentId !== parseInt(req.params.id))
       throw 'Appointment Ids do not match';
-    const savedTransaction = await transactionService.repository.save(body);
+
+    if (!body.customerId) throw 'Customer Id not available';
+    const savedTransaction = await transactionService.repository.save({
+      ...body.transaction,
+      customerId: body.customerId,
+      appointmentId: body.appointmentId,
+    });
 
     return res.send(savedTransaction);
   } catch (err) {
