@@ -5,6 +5,7 @@ import { PaginateDto } from '../controllers/dtos/common/paginate.dto';
 import { authenticateToken } from '../middleware/requestAuthenticated';
 import {
   all,
+  allAvailable,
   paginate,
   findById,
   create,
@@ -16,6 +17,7 @@ import { validateDto } from '../middleware/validateBodyToDto';
 const router = Router();
 
 router.get('', authenticateToken, all);
+router.get('/available', authenticateToken, allAvailable);
 router.post('/paginate', authenticateToken, validateDto(PaginateDto), paginate);
 router.post('', authenticateToken, validateDto(ItemCreateDto), create);
 router.get('/:id', authenticateToken, findById);

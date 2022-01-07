@@ -15,6 +15,14 @@ export const all = async (req: Request, res: Response) => {
   return res.json(results);
 };
 
+export const allAvailable = async (req: Request, res: Response) => {
+  const service: ItemService = new ItemService(Item);
+  const results = await service.all({
+    where: { customerId: null },
+  });
+  return res.json(results);
+};
+
 export const paginate = async (req: Request, res: Response) => {
   const service: ItemService = new ItemService(Item);
   const { page }: PaginateDto = plainToClass(PaginateDto, req.body);
