@@ -1,5 +1,6 @@
 import userRoutes = require('./routes/user.routes');
 import authRoutes = require('./routes/auth.routes');
+import customerRoutes = require('./api/customer/customer.routes');
 const bodyParser = require('body-parser');
 import all_routes = require('express-list-endpoints');
 var cors = require('cors');
@@ -21,7 +22,7 @@ const main = async () => {
   // app.use('/roles', roleRoutes);
   app.use('/auth', authRoutes);
   // app.use('/items', itemRoutes);
-  // app.use('/customers', customerRoutes);
+  app.use('/customers', customerRoutes);
   // app.use('/transactions', transactionRoutes);
   // app.use('/invoices', invoiceRoutes);
 

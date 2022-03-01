@@ -1,12 +1,7 @@
 import { Router } from 'express';
-import { UserUpdateDto } from '../controllers/dtos/user/user-update.dto';
-import {
-  all,
-  findById,
-  update,
-  deleteById,
-} from '../controllers/user.controller';
-import { validateDto } from '../middleware/validateBodyToDto';
+import { all, findById, update, deleteById } from './user.controller';
+import { validateDto } from '../../middleware/validateBodyToDto';
+import { UserUpdateDto } from '../auth/user.dto';
 
 const router = Router();
 

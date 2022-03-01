@@ -1,10 +1,9 @@
 import { plainToClass } from 'class-transformer';
-import { UserCreateDto } from './dtos/user/user-create.dto';
-import { UserLoginDto } from './dtos/user/user-login.dto';
 import argon2 = require('argon2');
 require('dotenv').config();
 import { Request, Response } from 'express';
-import { prisma } from '../prisma';
+import { prisma } from '../../prisma';
+import { UserCreateDto, UserLoginDto } from './user.dto';
 
 export const login = async (req: Request, res: Response) => {
   const body: UserLoginDto = plainToClass(UserLoginDto, req.body);

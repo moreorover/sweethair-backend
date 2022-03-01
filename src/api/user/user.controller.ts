@@ -1,7 +1,7 @@
 import { plainToClass } from 'class-transformer';
-import { UserUpdateDto } from './dtos/user/user-update.dto';
 import { Request, Response } from 'express';
-import { prisma } from '../prisma';
+import { prisma } from '../../prisma';
+import { UserUpdateDto } from '../auth/user.dto';
 
 export const all = async (req: Request, res: Response) => {
   const users = await prisma.user.findMany({

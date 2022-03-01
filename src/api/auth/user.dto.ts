@@ -2,10 +2,32 @@ import { Exclude } from 'class-transformer';
 import {
   IsEmail,
   IsNotEmpty,
+  Length,
   IsOptional,
   IsPositive,
-  Length,
 } from 'class-validator';
+
+export class UserCreateDto {
+  @IsNotEmpty()
+  fullName: string;
+
+  @IsEmail()
+  email: string;
+
+  @Length(6)
+  password: string;
+
+  @Length(6)
+  passwordConfirm: string;
+}
+
+export class UserLoginDto {
+  @IsEmail()
+  email: string;
+
+  @Length(6)
+  password: string;
+}
 
 export class UserUpdateDto {
   @IsPositive()
