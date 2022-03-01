@@ -2,10 +2,7 @@ import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 
 export class UserCreateDto {
   @IsNotEmpty()
-  firstName: string;
-
-  @IsNotEmpty()
-  lastName: string;
+  fullName: string;
 
   @IsEmail()
   email: string;
@@ -15,7 +12,4 @@ export class UserCreateDto {
 
   @Length(6)
   passwordConfirm: string;
-
-  @IsNotEmpty()
-  role_id: number;
 }
