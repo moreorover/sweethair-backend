@@ -26,6 +26,79 @@ model Customer {
   email     String? @db.VarChar(255)
   instagram String? @db.VarChar(255)
 
+  sales Sale[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(255)
+  description String @db.VarChar(255)
+
+  stock Stock?
+
+  supplyings Supplying[]
+  sales      Sale[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Sale {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Supplier {
+  id        Int     @id @default(autoincrement())
+  fullName  String  @db.VarChar(255)
+  location  String? @db.VarChar(255)
+  about     String? @db.VarChar(255)
+  email     String? @db.VarChar(255)
+  instagram String? @db.VarChar(255)
+  url       String? @db.VarChar(255)
+
+  supplyings Supplying[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Supplying {
+  id        Int      @id @default(autoincrement())
+  quantity  Int
+  orderedAt DateTime @db.Timestamp(6)
+  arrivesAt DateTime @db.Timestamp(6)
+  arrived   Boolean  @default(false)
+
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplierId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Stock {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int     @unique
+
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
 }
