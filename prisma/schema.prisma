@@ -90,7 +90,7 @@ model Sale {
   total  Decimal  @default(0) @db.Decimal(9, 2)
 
   customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId Int
+  customerId Int?
 
   saleDetails SaleDetail[]
 
