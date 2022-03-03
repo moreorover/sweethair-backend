@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "ProductMeasurment" AS ENUM ('KG', 'G', 'L', 'ML', 'UNIT');
+CREATE TYPE "ProductMeasurement" AS ENUM ('KG', 'G', 'L', 'ML', 'UNIT');
 
 -- CreateTable
 CREATE TABLE "Appointment" (
@@ -30,8 +30,8 @@ CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "description" VARCHAR(255) NOT NULL,
-    "measurment" "ProductMeasurment" NOT NULL,
-    "reorderdeable" BOOLEAN NOT NULL DEFAULT false,
+    "measurement" "ProductMeasurement" NOT NULL,
+    "canReorder" BOOLEAN NOT NULL DEFAULT false,
     "stock" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE "PurchaseDetail" (
 CREATE TABLE "Sale" (
     "id" SERIAL NOT NULL,
     "soldAt" TIMESTAMP(6) NOT NULL,
-    "total" DECIMAL(9,2) NOT NULL,
+    "total" DECIMAL(9,2) NOT NULL DEFAULT 0,
     "customerId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
