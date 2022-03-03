@@ -62,8 +62,8 @@ model Purchase {
   arrived   Boolean  @default(false)
   total     Decimal  @default(0) @db.Decimal(9, 2)
 
-  supplier   Supplier @relation(fields: [supplierId], references: [id])
-  supplierId Int
+  supplier   Supplier? @relation(fields: [supplierId], references: [id])
+  supplierId Int?
 
   purchaseDetails PurchaseDetail[]
 
