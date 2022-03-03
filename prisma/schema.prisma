@@ -60,7 +60,7 @@ model Purchase {
   orderedAt DateTime @db.Timestamp(6)
   arrivesAt DateTime @db.Timestamp(6)
   arrived   Boolean  @default(false)
-  total     Decimal  @db.Decimal(9, 2)
+  total     Decimal  @default(0) @db.Decimal(9, 2)
 
   supplier   Supplier @relation(fields: [supplierId], references: [id])
   supplierId Int
