@@ -87,7 +87,7 @@ model PurchaseDetail {
 model Sale {
   id     Int      @id @default(autoincrement())
   soldAt DateTime @db.Timestamp(6)
-  total  Decimal  @db.Decimal(9, 2)
+  total  Decimal  @default(0) @db.Decimal(9, 2)
 
   customer   Customer? @relation(fields: [customerId], references: [id])
   customerId Int
