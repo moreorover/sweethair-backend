@@ -20,20 +20,20 @@ export const findById = async (req: Request, res: Response) => {
 export const create = async (req: Request, res: Response) => {
   const body: ProductCreateDto = plainToClass(ProductCreateDto, req.body);
 
-  const user = await prisma.product.create({
+  const product = await prisma.product.create({
     data: { ...body },
   });
-  return res.send(user);
+  return res.send(product);
 };
 
 export const update = async (req: Request, res: Response) => {
   const body: ProductUpdateDto = plainToClass(ProductUpdateDto, req.body);
 
-  const user = await prisma.product.update({
+  const product = await prisma.product.update({
     where: { id: parseInt(req.params.id) },
     data: { ...body },
   });
-  return res.send(user);
+  return res.send(product);
 };
 
 export const deleteById = async (req: Request, res: Response) => {
