@@ -32,29 +32,80 @@ model Customer {
   updatedAt DateTime @updatedAt
 }
 
+enum ProductMeasurement {
+  KG
+  G
+  L
+  ML
+  UNIT
+}
+
 model Product {
-  id          Int    @id @default(autoincrement())
-  title       String @db.VarChar(255)
-  description String @db.VarChar(255)
+  id          Int                @id @default(autoincrement())
+  title       String             @db.VarChar(255)
+  description String             @db.VarChar(255)
+  measurement ProductMeasurement
+  canReorder  Boolean            @default(false)
+  stock       Int                @default(0)
 
-  stock Stock?
+  purchaseDetails PurchaseDetail[]
+  saleDetails     SaleDetail[]
 
-  supplyings Supplying[]
-  sales      Sale[]
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Purchase {
+  id        Int      @id @default(autoincrement())
+  orderedAt DateTime @db.Timestamp(6)
+  arrivesAt DateTime @db.Timestamp(6)
+  arrived   Boolean  @default(false)
+  total     Decimal  @db.Decimal(9, 2)
+
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplierId Int
+
+  purchaseDetails PurchaseDetail[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model PurchaseDetail {
+  id Int @id @default(autoincrement())
+
+  purchase   Purchase @relation(fields: [purchaseId], references: [id])
+  purchaseId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
 }
 
 model Sale {
-  id       Int @id @default(autoincrement())
-  quantity Int
-
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
+  id     Int      @id @default(autoincrement())
+  soldAt DateTime @db.Timestamp(6)
+  total  Decimal  @db.Decimal(9, 2)
 
   customer   Customer @relation(fields: [customerId], references: [id])
   customerId Int
+
+  saleDetails SaleDetail[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model SaleDetail {
+  id Int @id @default(autoincrement())
+
+  sale   Sale @relation(fields: [saleId], references: [id])
+  saleId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
@@ -69,35 +120,7 @@ model Supplier {
   instagram String? @db.VarChar(255)
   url       String? @db.VarChar(255)
 
-  supplyings Supplying[]
-
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  updatedAt DateTime @updatedAt
-}
-
-model Supplying {
-  id        Int      @id @default(autoincrement())
-  quantity  Int
-  orderedAt DateTime @db.Timestamp(6)
-  arrivesAt DateTime @db.Timestamp(6)
-  arrived   Boolean  @default(false)
-
-  supplier   Supplier @relation(fields: [supplierId], references: [id])
-  supplierId Int
-
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
-
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  updatedAt DateTime @updatedAt
-}
-
-model Stock {
-  id       Int @id @default(autoincrement())
-  quantity Int
-
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int     @unique
+  purchases Purchase[]
 
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
