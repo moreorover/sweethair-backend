@@ -32,7 +32,8 @@ CREATE TABLE "Product" (
     "description" VARCHAR(255) NOT NULL,
     "measurement" "ProductMeasurement" NOT NULL,
     "canReorder" BOOLEAN NOT NULL DEFAULT false,
-    "stock" INTEGER NOT NULL DEFAULT 0,
+    "startingStock" DECIMAL(9,2),
+    "currentStock" DECIMAL(9,2) NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -45,8 +46,8 @@ CREATE TABLE "Purchase" (
     "orderedAt" TIMESTAMP(6) NOT NULL,
     "arrivesAt" TIMESTAMP(6) NOT NULL,
     "arrived" BOOLEAN NOT NULL DEFAULT false,
-    "total" DECIMAL(9,2) NOT NULL,
-    "supplierId" INTEGER NOT NULL,
+    "total" DECIMAL(9,2) NOT NULL DEFAULT 0,
+    "supplierId" INTEGER,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -56,6 +57,8 @@ CREATE TABLE "Purchase" (
 -- CreateTable
 CREATE TABLE "PurchaseDetail" (
     "id" SERIAL NOT NULL,
+    "quantity" DECIMAL(9,2) NOT NULL,
+    "total" DECIMAL(9,2) NOT NULL,
     "purchaseId" INTEGER NOT NULL,
     "productId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -69,7 +72,7 @@ CREATE TABLE "Sale" (
     "id" SERIAL NOT NULL,
     "soldAt" TIMESTAMP(6) NOT NULL,
     "total" DECIMAL(9,2) NOT NULL DEFAULT 0,
-    "customerId" INTEGER NOT NULL,
+    "customerId" INTEGER,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -79,6 +82,8 @@ CREATE TABLE "Sale" (
 -- CreateTable
 CREATE TABLE "SaleDetail" (
     "id" SERIAL NOT NULL,
+    "quantity" DECIMAL(9,2) NOT NULL,
+    "total" DECIMAL(9,2) NOT NULL,
     "saleId" INTEGER NOT NULL,
     "productId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -121,7 +126,7 @@ CREATE UNIQUE INDEX "User_fullName_key" ON "User"("fullName");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "Supplier"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "Supplier"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PurchaseDetail" ADD CONSTRAINT "PurchaseDetail_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -130,7 +135,7 @@ ALTER TABLE "PurchaseDetail" ADD CONSTRAINT "PurchaseDetail_productId_fkey" FORE
 ALTER TABLE "PurchaseDetail" ADD CONSTRAINT "PurchaseDetail_purchaseId_fkey" FOREIGN KEY ("purchaseId") REFERENCES "Purchase"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Sale" ADD CONSTRAINT "Sale_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Sale" ADD CONSTRAINT "Sale_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "SaleDetail" ADD CONSTRAINT "SaleDetail_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -46,7 +46,17 @@ model Product {
   description String             @db.VarChar(255)
   measurement ProductMeasurement
   canReorder  Boolean            @default(false)
-  stock       Int                @default(0)
+
+  // accumulates when making purchase
+  // decreases when deleting purchase
+  startingStock Decimal? @db.Decimal(9, 2)
+
+  // accumulates when creating purchase
+  // decreases when deleting purchase
+
+  // decreases when creating saleDetail DONE
+  // accumulates when deleting saleDetail DONE
+  currentStock Decimal @default(0) @db.Decimal(9, 2)
 
   purchaseDetails PurchaseDetail[]
   saleDetails     SaleDetail[]
@@ -72,7 +82,9 @@ model Purchase {
 }
 
 model PurchaseDetail {
-  id Int @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
+  quantity Decimal @db.Decimal(9, 2)
+  total    Decimal @db.Decimal(9, 2)
 
   purchase   Purchase @relation(fields: [purchaseId], references: [id])
   purchaseId Int
@@ -99,7 +111,9 @@ model Sale {
 }
 
 model SaleDetail {
-  id Int @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
+  quantity Decimal @db.Decimal(9, 2)
+  total    Decimal @db.Decimal(9, 2)
 
   sale   Sale @relation(fields: [saleId], references: [id])
   saleId Int

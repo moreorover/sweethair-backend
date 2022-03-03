@@ -17,7 +17,11 @@ export class ProductCreateDto {
 
   @IsOptional()
   @IsPositive()
-  stock: number;
+  startingStock: number;
+
+  @IsOptional()
+  @IsPositive()
+  currentStock: number;
 }
 
 export class ProductUpdateDto {
@@ -39,5 +43,9 @@ export class ProductUpdateDto {
 
   @IsOptional()
   @IsPositive()
-  stock: number;
+  startingStock: number;
+
+  @IsOptional()
+  @IsPositive()
+  currentStock: number;
 }

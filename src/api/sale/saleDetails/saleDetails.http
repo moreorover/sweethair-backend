@@ -1,12 +1,15 @@
 @baseUrl = http://127.0.0.1
 @basePort = 3000
 @basePath = sales
+@baseUri = http://127.0.0.1:3000/sales/
 
-POST {{baseUrl}}:{{basePort}}/{{basePath}}/ HTTP/1.1
+POST {{baseUrl}}:{{basePort}}/{{basePath}}/1/saleDetails/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "soldAt": "2022-03-03T20:02:18.966Z"
+    "quantity": 100,
+    "total": 300,
+    "productId": 1
 }
 
 ###
@@ -21,16 +24,7 @@ Content-Type: application/json
 
 ###
 
-PATCH {{baseUrl}}:{{basePort}}/{{basePath}}/1 HTTP/1.1
-Content-Type: application/json
-
-{
-    "canReorder": true
-}
-
-###
-
-DELETE {{baseUrl}}:{{basePort}}/{{basePath}}/5 HTTP/1.1
+DELETE {{baseUrl}}:{{basePort}}/{{basePath}}/1/saleDetails/1 HTTP/1.1
 Content-Type: application/json
 
 ###
