@@ -1,0 +1,28 @@
+@baseUrl = http://127.0.0.1
+@basePort = 3000
+@basePath = auth
+
+POST {{baseUrl}}:{{basePort}}/{{basePath}}/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "fullName": "Super Admin",
+    "email": "test@gmail.com",
+    "password": "adminadmin",
+    "passwordConfirm": "adminadmin"
+}
+
+###
+
+GET {{baseUrl}}:{{basePort}}/{{basePath}}/logout HTTP/1.1
+Content-Type: application/json
+
+###
+
+POST {{baseUrl}}:{{basePort}}/{{basePath}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "adminadmin"
+}

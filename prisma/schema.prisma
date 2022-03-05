@@ -1,0 +1,151 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Appointment {
+  id    Int    @id @default(autoincrement())
+  title String @default("") @db.VarChar(255)
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Customer {
+  id        Int     @id @default(autoincrement())
+  fullName  String  @db.VarChar(255)
+  location  String? @db.VarChar(255)
+  about     String? @db.VarChar(255)
+  email     String? @db.VarChar(255)
+  instagram String? @db.VarChar(255)
+
+  sales Sale[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+enum ProductMeasurement {
+  KG
+  G
+  L
+  ML
+  UNIT
+}
+
+model Product {
+  id          Int                @id @default(autoincrement())
+  title       String             @db.VarChar(255)
+  description String             @db.VarChar(255)
+  measurement ProductMeasurement
+  canReorder  Boolean            @default(false)
+
+  // accumulates when making purchase
+  // decreases when deleting purchase
+  startingStock Decimal? @db.Decimal(9, 2)
+
+  // accumulates when creating purchase
+  // decreases when deleting purchase
+
+  // decreases when creating saleDetail DONE
+  // accumulates when deleting saleDetail DONE
+  currentStock Decimal @default(0) @db.Decimal(9, 2)
+
+  purchaseDetails PurchaseDetail[]
+  saleDetails     SaleDetail[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Purchase {
+  id        Int      @id @default(autoincrement())
+  orderedAt DateTime @db.Timestamp(6)
+  arrivesAt DateTime @db.Timestamp(6)
+  arrived   Boolean  @default(false)
+  total     Decimal  @default(0) @db.Decimal(9, 2)
+
+  supplier   Supplier? @relation(fields: [supplierId], references: [id])
+  supplierId Int?
+
+  purchaseDetails PurchaseDetail[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model PurchaseDetail {
+  id       Int     @id @default(autoincrement())
+  quantity Decimal @db.Decimal(9, 2)
+  total    Decimal @db.Decimal(9, 2)
+
+  purchase   Purchase @relation(fields: [purchaseId], references: [id])
+  purchaseId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Sale {
+  id     Int      @id @default(autoincrement())
+  soldAt DateTime @db.Timestamp(6)
+  total  Decimal  @default(0) @db.Decimal(9, 2)
+
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId Int?
+
+  saleDetails SaleDetail[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model SaleDetail {
+  id       Int     @id @default(autoincrement())
+  quantity Decimal @db.Decimal(9, 2)
+  total    Decimal @db.Decimal(9, 2)
+
+  sale   Sale @relation(fields: [saleId], references: [id])
+  saleId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model Supplier {
+  id        Int     @id @default(autoincrement())
+  fullName  String  @db.VarChar(255)
+  location  String? @db.VarChar(255)
+  about     String? @db.VarChar(255)
+  email     String? @db.VarChar(255)
+  instagram String? @db.VarChar(255)
+  url       String? @db.VarChar(255)
+
+  purchases Purchase[]
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  fullName String @unique @db.VarChar(255)
+  email    String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+}
