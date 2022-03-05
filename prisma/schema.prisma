@@ -47,12 +47,12 @@ model Product {
   measurement ProductMeasurement
   canReorder  Boolean            @default(false)
 
-  // accumulates when making purchase
-  // decreases when deleting purchase
+  // accumulates when making purchase DONE
+  // decreases when deleting purchase DONE
   startingStock Decimal? @db.Decimal(9, 2)
 
-  // accumulates when creating purchase
-  // decreases when deleting purchase
+  // accumulates when creating purchase  DONE
+  // decreases when deleting purchase DONEs
 
   // decreases when creating saleDetail DONE
   // accumulates when deleting saleDetail DONE

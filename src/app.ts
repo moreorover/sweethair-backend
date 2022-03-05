@@ -5,6 +5,8 @@ import productRoutes = require('./api/product/product.routes');
 import supplierRoutes = require('./api/supplier/supplier.routes');
 import saleRoutes = require('./api/sale/sale.routes');
 import saleDetailsRoutes = require('./api/sale/saleDetails/saleDetails.routes');
+import purchaseRoutes = require('./api/purchase/purchase.routes');
+import purchaseDetailsRoutes = require('./api/purchase/purchaseDetails/purchaseDetails.routes');
 const bodyParser = require('body-parser');
 import all_routes = require('express-list-endpoints');
 var cors = require('cors');
@@ -28,6 +30,8 @@ const main = async () => {
   app.use('/suppliers', supplierRoutes);
   app.use('/sales', saleRoutes);
   app.use('/sales', saleDetailsRoutes);
+  app.use('/purchases', purchaseRoutes);
+  app.use('/purchases', purchaseDetailsRoutes);
 
   console.log(all_routes(app));
 
