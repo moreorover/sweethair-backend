@@ -4,13 +4,14 @@ import { prisma } from '../../prisma';
 import { PurchaseCreateDto, PurchaseUpdateDto } from './purchase.dto';
 
 export const all = async (req: Request, res: Response) => {
-  const all = await prisma.purchase.findMany();
+  const all = await prisma.purchase.findMany({ include: { supplier: true } });
   return res.send(all);
 };
 
 export const findById = async (req: Request, res: Response) => {
   const purchase = await prisma.purchase.findUnique({
     where: { id: parseInt(req.params.id) },
+    include: { supplier: true },
   });
 
   if (!purchase) return res.json(`No purchase with id: ${req.params.id}`);
@@ -22,6 +23,7 @@ export const create = async (req: Request, res: Response) => {
 
   const purchase = await prisma.purchase.create({
     data: { ...body },
+    include: { supplier: true },
   });
   return res.send(purchase);
 };
@@ -32,6 +34,7 @@ export const update = async (req: Request, res: Response) => {
   const purchase = await prisma.purchase.update({
     where: { id: parseInt(req.params.id) },
     data: { ...body },
+    include: { supplier: true },
   });
   return res.send(purchase);
 };
