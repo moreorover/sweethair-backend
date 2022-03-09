@@ -5,7 +5,11 @@ import { PurchaseCreateDto, PurchaseUpdateDto } from './purchase.dto';
 
 export const all = async (req: Request, res: Response) => {
   const all = await prisma.purchase.findMany({ include: { supplier: true } });
-  return res.send(all);
+
+  const remapped = all.map((p) => {
+    return { ...p, total: p.total.toNumber() };
+  });
+  return res.send(remapped);
 };
 
 export const findById = async (req: Request, res: Response) => {
