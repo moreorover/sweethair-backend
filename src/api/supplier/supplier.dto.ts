@@ -5,24 +5,20 @@ export class SupplierCreateDto {
   fullName: string;
 
   @IsOptional()
-  @IsNotEmpty()
   location: string;
 
   @IsOptional()
-  @IsNotEmpty()
   about: string;
 
   @IsOptional()
-  @IsEmail()
+  // @IsEmail()
   email: string;
 
   @IsOptional()
-  @IsNotEmpty()
   instagram: string;
 
   @IsOptional()
-  @IsNotEmpty()
-  @IsUrl()
+  // @IsUrl()
   url: string;
 }
 
@@ -32,23 +28,19 @@ export class SupplierUpdateDto {
   fullName: string;
 
   @IsOptional()
-  @IsNotEmpty()
   location: string;
 
   @IsOptional()
-  @IsNotEmpty()
   about: string;
 
   @IsOptional()
-  @IsEmail()
+  // @IsEmail()
   email: string;
 
   @IsOptional()
-  @IsNotEmpty()
   instagram: string;
 
   @IsOptional()
-  @IsNotEmpty()
-  @IsUrl()
+  // @IsUrl()
   url: string;
 }
