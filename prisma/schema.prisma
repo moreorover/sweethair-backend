@@ -128,11 +128,11 @@ model SaleDetail {
 model Supplier {
   id        Int     @id @default(autoincrement())
   fullName  String  @db.VarChar(255)
-  location  String? @db.VarChar(255)
-  about     String? @db.VarChar(255)
-  email     String? @db.VarChar(255)
-  instagram String? @db.VarChar(255)
-  url       String? @db.VarChar(255)
+  location  String  @default("") @db.VarChar(255)
+  about     String  @default("") @db.VarChar(255)
+  email     String  @default("") @db.VarChar(255)
+  instagram String  @default("") @db.VarChar(255)
+  url       String  @default("") @db.VarChar(255)
 
   purchases Purchase[]
 
