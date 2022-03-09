@@ -3,6 +3,7 @@ import {
   IsDateString,
   IsOptional,
   IsPositive,
+  Min,
 } from 'class-validator';
 
 export class PurchaseCreateDto {
@@ -17,7 +18,7 @@ export class PurchaseCreateDto {
   arrived: boolean;
 
   @IsOptional()
-  @IsPositive()
+  @Min(0)
   total: number;
 
   @IsOptional()
@@ -39,7 +40,7 @@ export class PurchaseUpdateDto {
   arrived: boolean;
 
   @IsOptional()
-  @IsPositive()
+  @Min(0)
   total: number;
 
   @IsOptional()
