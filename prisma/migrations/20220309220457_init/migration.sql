@@ -15,10 +15,10 @@ CREATE TABLE "Appointment" (
 CREATE TABLE "Customer" (
     "id" SERIAL NOT NULL,
     "fullName" VARCHAR(255) NOT NULL,
-    "location" VARCHAR(255),
-    "about" VARCHAR(255),
-    "email" VARCHAR(255),
-    "instagram" VARCHAR(255),
+    "location" VARCHAR(255) NOT NULL DEFAULT E'',
+    "about" VARCHAR(255) NOT NULL DEFAULT E'',
+    "email" VARCHAR(255) NOT NULL DEFAULT E'',
+    "instagram" VARCHAR(255) NOT NULL DEFAULT E'',
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -96,11 +96,11 @@ CREATE TABLE "SaleDetail" (
 CREATE TABLE "Supplier" (
     "id" SERIAL NOT NULL,
     "fullName" VARCHAR(255) NOT NULL,
-    "location" VARCHAR(255),
-    "about" VARCHAR(255),
-    "email" VARCHAR(255),
-    "instagram" VARCHAR(255),
-    "url" VARCHAR(255),
+    "location" VARCHAR(255) NOT NULL DEFAULT E'',
+    "about" VARCHAR(255) NOT NULL DEFAULT E'',
+    "email" VARCHAR(255) NOT NULL DEFAULT E'',
+    "instagram" VARCHAR(255) NOT NULL DEFAULT E'',
+    "url" VARCHAR(255) NOT NULL DEFAULT E'',
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
