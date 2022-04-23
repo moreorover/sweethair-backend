@@ -5,7 +5,16 @@ import { ProductCreateDto, ProductUpdateDto } from './product.dto';
 
 export const all = async (req: Request, res: Response) => {
   const all = await prisma.product.findMany();
-  return res.send(all);
+
+  const remapped = all.map((p) => {
+    return {
+      ...p,
+      startingStock: p.startingStock.toNumber(),
+      currentStock: p.currentStock.toNumber(),
+    };
+  });
+
+  return res.send(remapped);
 };
 
 export const findById = async (req: Request, res: Response) => {
