@@ -15,11 +15,13 @@ export const all = async (req: Request, res: Response) => {
 export const findById = async (req: Request, res: Response) => {
   const purchase = await prisma.purchase.findUnique({
     where: { id: parseInt(req.params.id) },
-    include: { supplier: true },
+    include: { supplier: true, purchaseDetails: true },
   });
 
+  const remapped = { ...purchase, total: purchase.total.toNumber() };
+
   if (!purchase) return res.json(`No purchase with id: ${req.params.id}`);
-  res.json(purchase);
+  res.json(remapped);
 };
 
 export const create = async (req: Request, res: Response) => {
@@ -38,7 +40,7 @@ export const update = async (req: Request, res: Response) => {
   const purchase = await prisma.purchase.update({
     where: { id: parseInt(req.params.id) },
     data: { ...body },
-    include: { supplier: true },
+    include: { supplier: true, purchaseDetails: true },
   });
   return res.send(purchase);
 };
