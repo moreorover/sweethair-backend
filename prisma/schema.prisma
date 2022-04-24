@@ -45,7 +45,7 @@ model Product {
   title       String             @db.VarChar(255)
   description String             @db.VarChar(255)
   measurement ProductMeasurement
-  canReorder  Boolean            @default(false)
+  unique  Boolean            @default(false)
 
   // accumulates when making purchase DONE
   // decreases when deleting purchase DONE

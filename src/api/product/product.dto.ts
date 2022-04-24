@@ -13,14 +13,12 @@ export class ProductCreateDto {
 
   @IsOptional()
   @IsBoolean()
-  canReorder: boolean;
+  unique: boolean;
 
   @IsOptional()
-  @IsPositive()
   startingStock: number;
 
   @IsOptional()
-  @IsPositive()
   currentStock: number;
 }
 
@@ -39,7 +37,7 @@ export class ProductUpdateDto {
 
   @IsOptional()
   @IsBoolean()
-  canReorder: boolean;
+  unique: boolean;
 
   @IsOptional()
   @IsPositive()
