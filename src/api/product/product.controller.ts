@@ -9,7 +9,7 @@ export const all = async (req: Request, res: Response) => {
   const remapped = all.map((p) => {
     return {
       ...p,
-      startingStock: p.startingStock.toNumber(),
+      startingStock: p.startingStock ? p.startingStock.toNumber() : null,
       currentStock: p.currentStock.toNumber(),
     };
   });
@@ -22,8 +22,18 @@ export const findById = async (req: Request, res: Response) => {
     where: { id: parseInt(req.params.id) },
   });
 
-  if (!product) return res.json(`No product with id: ${req.params.id}`);
-  res.json(product);
+  if (!product)
+    return res.status(500).json(`No product with id: ${req.params.id}`);
+
+  const remapped = {
+    ...product,
+    startingStock: product.startingStock
+      ? product.startingStock.toNumber()
+      : null,
+    currentStock: product.currentStock.toNumber(),
+  };
+
+  res.json(remapped);
 };
 
 export const create = async (req: Request, res: Response) => {
@@ -32,7 +42,13 @@ export const create = async (req: Request, res: Response) => {
   const product = await prisma.product.create({
     data: { ...body },
   });
-  return res.send(product);
+
+  const remapped = {
+    ...product,
+    currentStock: product.currentStock.toNumber(),
+  };
+
+  return res.send(remapped);
 };
 
 export const update = async (req: Request, res: Response) => {
@@ -42,7 +58,15 @@ export const update = async (req: Request, res: Response) => {
     where: { id: parseInt(req.params.id) },
     data: { ...body },
   });
-  return res.send(product);
+
+  const remapped = {
+    ...product,
+    startingStock: product.startingStock
+      ? product.startingStock.toNumber()
+      : null,
+    currentStock: product.currentStock.toNumber(),
+  };
+  return res.send(remapped);
 };
 
 export const deleteById = async (req: Request, res: Response) => {

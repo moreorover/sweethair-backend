@@ -18,9 +18,23 @@ export const findById = async (req: Request, res: Response) => {
     include: { supplier: true, purchaseDetails: true },
   });
 
-  const remapped = { ...purchase, total: purchase.total.toNumber() };
+  if (!purchase)
+    return res.status(500).json(`No purchase with id: ${req.params.id}`);
 
-  if (!purchase) return res.json(`No purchase with id: ${req.params.id}`);
+  const remappedPurchaseDetails = purchase.purchaseDetails.map((pd) => {
+    return {
+      ...pd,
+      quantity: pd.quantity.toNumber(),
+      total: pd.total.toNumber(),
+    };
+  });
+
+  const remapped = {
+    ...purchase,
+    total: purchase.total.toNumber(),
+    purchaseDetails: remappedPurchaseDetails,
+  };
+
   res.json(remapped);
 };
 
@@ -29,7 +43,6 @@ export const create = async (req: Request, res: Response) => {
 
   const purchase = await prisma.purchase.create({
     data: { ...body },
-    include: { supplier: true },
   });
   return res.send(purchase);
 };
@@ -42,7 +55,21 @@ export const update = async (req: Request, res: Response) => {
     data: { ...body },
     include: { supplier: true, purchaseDetails: true },
   });
-  return res.send(purchase);
+
+  const remappedPurchaseDetails = purchase.purchaseDetails.map((pd) => {
+    return {
+      ...pd,
+      quantity: pd.quantity.toNumber(),
+      total: pd.total.toNumber(),
+    };
+  });
+
+  const remapped = {
+    ...purchase,
+    total: purchase.total.toNumber(),
+    purchaseDetails: remappedPurchaseDetails,
+  };
+  return res.send(remapped);
 };
 
 export const deleteById = async (req: Request, res: Response) => {

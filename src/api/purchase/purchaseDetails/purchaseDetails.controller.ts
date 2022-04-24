@@ -5,7 +5,15 @@ import { PurchaseDetailsCreateDto } from './purchaseDetails.dto';
 
 export const all = async (req: Request, res: Response) => {
   const all = await prisma.purchaseDetail.findMany();
-  return res.send(all);
+
+  const remapped = all.map((pd) => {
+    return {
+      ...pd,
+      total: pd.total.toNumber(),
+      quantity: pd.quantity.toNumber(),
+    };
+  });
+  return res.send(remapped);
 };
 
 export const findById = async (req: Request, res: Response) => {
@@ -14,8 +22,14 @@ export const findById = async (req: Request, res: Response) => {
   });
 
   if (!purchaseDetail)
-    return res.json(`No purchaseDetail with id: ${req.params.id}`);
-  res.json(purchaseDetail);
+    return res.status(500).json(`No purchaseDetail with id: ${req.params.id}`);
+
+  const remapped = {
+    ...purchaseDetail,
+    total: purchaseDetail.total.toNumber(),
+    quantity: purchaseDetail.quantity.toNumber(),
+  };
+  res.json(remapped);
 };
 
 export const findByPurchaseId = async (req: Request, res: Response) => {
@@ -28,13 +42,14 @@ export const findByPurchaseId = async (req: Request, res: Response) => {
   });
 
   if (!purchaseDetail)
-    return res.json(`No purchaseDetail with id: ${req.params.id}`);
+    return res.status(500).json(`No purchaseDetail with id: ${req.params.id}`);
+
   res.json(purchaseDetail);
 };
 
 export const create = async (req: Request, res: Response) => {
   const purchaseId = parseInt(req.params.purchaseId);
-  if (!purchaseId) return res.json('Purchase ID is invalid.');
+  if (!purchaseId) return res.status(500).json('Purchase ID is invalid.');
 
   const body: PurchaseDetailsCreateDto = plainToClass(
     PurchaseDetailsCreateDto,
@@ -44,22 +59,32 @@ export const create = async (req: Request, res: Response) => {
   const purchase = await prisma.purchase.findUnique({
     where: { id: purchaseId },
   });
-  if (!purchase) return res.json(`Purchase not found with id: ${purchaseId}`);
+  if (!purchase)
+    return res.status(500).json(`Purchase not found with id: ${purchaseId}`);
 
   const product = await prisma.product.findUnique({
     where: { id: body.productId },
   });
-  if (!product) return res.json(`Product not found with id: ${body.productId}`);
+  if (!product)
+    return res.status(500).json(`Product not found with id: ${body.productId}`);
 
   const purchaseDetail = await prisma.purchaseDetail.create({
     data: { purchaseId, ...body },
   });
 
+  const remapped = {
+    ...purchaseDetail,
+    total: purchaseDetail.total.toNumber(),
+    quantity: purchaseDetail.quantity.toNumber(),
+  };
+
   await prisma.product.update({
     where: { id: product.id },
     data: {
       currentStock: product.currentStock.toNumber() + body.quantity,
-      startingStock: product.startingStock.toNumber() + body.quantity,
+      startingStock: product.startingStock
+        ? product.startingStock.toNumber() + body.quantity
+        : body.quantity,
     },
   });
   await prisma.purchase.update({
@@ -67,7 +92,7 @@ export const create = async (req: Request, res: Response) => {
     data: { total: purchase.total.toNumber() + body.total },
   });
 
-  return res.send(purchaseDetail);
+  return res.send(remapped);
 };
 
 export const deleteById = async (req: Request, res: Response) => {
