@@ -28,5 +28,4 @@ public class UserRepositoryUserDetailsService
         throw new UsernameNotFoundException(
                 "User '" + username + "' not found");
     }
-
 }

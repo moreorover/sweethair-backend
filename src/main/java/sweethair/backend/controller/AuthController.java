@@ -1,16 +1,16 @@
 package sweethair.backend.controller;
 
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import sweethair.backend.entity.User;
-import sweethair.backend.repository.UserRepository;
-
-import java.net.URI;
+import sweethair.backend.service.UserService;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@RequiredArgsConstructor
 public class AuthController {
+
+    private final UserService userService;
 
 //    private UserRepository userRepo;
 //    private PasswordEncoder passwordEncoder;
@@ -40,5 +40,17 @@ public class AuthController {
 //                .toUri();
 //        return ResponseEntity.created(uri).body(savedUser);
 //    }
+
+    @PostMapping(consumes="application/json", path = "/signup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String save(@RequestBody NewUserDto newUserDto){
+        return this.userService.signup(newUserDto);
+    }
+
+    @PostMapping(consumes="application/json", path = "/signin")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String signin(@RequestBody NewUserDto newUserDto){
+        return this.userService.signin(newUserDto.username(), newUserDto.password());
+    }
 
 }
