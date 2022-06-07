@@ -3,7 +3,6 @@ package sweethair.backend.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sweethair.backend.controller.NewProductDto;
 import sweethair.backend.entity.Product;
 import sweethair.backend.repository.ProductRepository;
 
@@ -28,9 +27,9 @@ public class ProductService {
         return product.orElse(null);
     }
 
-    public Product save(NewProductDto newProductDto){
-        Product product = new Product();
-        product.setTitle(newProductDto.title());
-        return this.productRepository.save(product);
-    }
+//    public Product save(NewProductDto newProductDto){
+//        Product product = new Product();
+//        product.setTitle(newProductDto.title());
+//        return this.productRepository.save(product);
+//    }
 }

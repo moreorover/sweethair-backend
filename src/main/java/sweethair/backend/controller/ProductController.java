@@ -6,14 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import sweethair.backend.entity.Product;
 import sweethair.backend.repository.ProductRepository;
 import sweethair.backend.service.ProductService;
 
-import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -41,11 +38,11 @@ public class ProductController {
         return productRepository.findAll(page).getContent();
     }
 
-    @PostMapping(consumes="application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Product save(@RequestBody NewProductDto newProductDto){
-        return this.productService.save(newProductDto);
-    }
+//    @PostMapping(consumes="application/json")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Product save(@RequestBody NewProductDto newProductDto){
+//        return this.productService.save(newProductDto);
+//    }
 
     @PutMapping(path="/{id}", consumes="application/json")
     public Product update(
@@ -56,7 +53,6 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("#{hasRole('ADMIN')}")
     public void deleteOrder(@PathVariable("id") Long id) {
         try {
             productRepository.deleteById(id);

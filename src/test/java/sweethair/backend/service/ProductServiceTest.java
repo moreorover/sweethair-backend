@@ -9,7 +9,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import sweethair.backend.controller.NewProductDto;
 import sweethair.backend.entity.Product;
 import sweethair.backend.repository.ProductRepository;
 
