@@ -4,7 +4,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
 import sweethair.backend.config.UserType;
@@ -27,36 +26,32 @@ public class CognitoServiceImpl implements CognitoService {
     private CognitoIdentityProviderClient cognitoClient;
 
 
-    public Mono<String> createUser(String emailId, UserType userType, String messageAction) {
+    public String createUser(String emailId, UserType userType, String messageAction) {
 
         log.info("createUser -> (emailId) {} (userType) {}", emailId, userType);
 
-        return Mono.create(monoSink -> {
+        AdminCreateUserRequest adminCreateUserRequest =
+                AdminCreateUserRequest.builder()
+                        .userPoolId(USER_POOL_ID)
+                        .username(emailId)
+                        .desiredDeliveryMediums(DeliveryMediumType.EMAIL)
+                        .messageAction((String) messageAction)
+                        .forceAliasCreation(true)
+                        .temporaryPassword(PasswordGenerator.generatePasswordWithGuideline())
+                        .userAttributes(buildAllAttributeType(emailId))
+                        .build();
 
-            AdminCreateUserRequest adminCreateUserRequest =
-                    AdminCreateUserRequest.builder()
-                            .userPoolId(USER_POOL_ID)
-                            .username(emailId)
-                            .desiredDeliveryMediums(DeliveryMediumType.EMAIL)
-                            .messageAction((String) messageAction)
-                            .forceAliasCreation(true)
-                            .temporaryPassword(PasswordGenerator.generatePasswordWithGuideline())
-                            .userAttributes(buildAllAttributeType(emailId))
-                            .build();
-
-            try {
-                AdminCreateUserResponse adminCreateUserResponse = cognitoClient.adminCreateUser(adminCreateUserRequest);
-                addUserToGroupResult(adminCreateUserResponse.user().username(), userType).subscribe();
-                monoSink.success(adminCreateUserResponse.user().username());
-            } catch (UsernameExistsException e) {
-                log.error("UsernameExistsException occured -> ", e);
-                monoSink.error(new UserAlreadyExistsException("Found existing account in cognito with email " + emailId));
-            } catch (Exception e) {
-                log.error("Exception occured -> ", e);
-                monoSink.error(new InviteUserException("Unable to invite account with (email) " + emailId + ", please try again later"));
-            }
-
-        });
+        try {
+            AdminCreateUserResponse adminCreateUserResponse = cognitoClient.adminCreateUser(adminCreateUserRequest);
+            addUserToGroupResult(adminCreateUserResponse.user().username(), userType);
+            return adminCreateUserResponse.user().username();
+        } catch (UsernameExistsException e) {
+            log.error("UsernameExistsException occured -> ", e);
+            throw new UserAlreadyExistsException("Found existing account in cognito with email " + emailId);
+        } catch (Exception e) {
+            log.error("Exception occured -> ", e);
+            throw new InviteUserException("Unable to invite account with (email) " + emailId + ", please try again later");
+        }
     }
 
     private List<AttributeType> buildAllAttributeType(String emailId) {
@@ -72,18 +67,14 @@ public class CognitoServiceImpl implements CognitoService {
     }
 
 
-    public Mono<String> addUserToGroupResult(String username, UserType userType) {
-        return Mono.fromSupplier(() -> {
-            log.info("addUserToGroupResult -> (username) {} (userType) {}", username, userType);
+    public void addUserToGroupResult(String username, UserType userType) {
+        log.info("addUserToGroupResult -> (username) {} (userType) {}", username, userType);
 
-            AdminAddUserToGroupRequest adminAddUserToGroupRequest =
-                    AdminAddUserToGroupRequest.builder()
-                            .groupName(userType.toString())
-                            .userPoolId(USER_POOL_ID)
-                            .username(username)
-                            .build();
-
-            return cognitoClient.adminAddUserToGroup(adminAddUserToGroupRequest).toString();
-        });
+        AdminAddUserToGroupRequest adminAddUserToGroupRequest =
+                AdminAddUserToGroupRequest.builder()
+                        .groupName(userType.toString())
+                        .userPoolId(USER_POOL_ID)
+                        .username(username)
+                        .build();
     }
 }

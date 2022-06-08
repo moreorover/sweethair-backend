@@ -18,10 +18,10 @@ public class UserController {
     private CognitoService cognitoService;
 
     @PostMapping("/signup")
-    public Mono<Response> createUser(@RequestBody User user) {
-
-        return cognitoService.createUser(user.getEmail(), user.getType(), null)
-                .map(data -> Response.builder().data(data).build());
+    public Response createUser(@RequestBody User user) {
+        Response response = new Response();
+        response.setData(cognitoService.createUser(user.getEmail(), user.getType(), null));
+        return response;
     }
 
 
@@ -32,21 +32,28 @@ public class UserController {
     }
 
     @GetMapping("/adminType")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Mono<Response> getAdminUser(Principal user) {
-
-        return Mono.just(Response.builder().data("User with Admin Type").build());
+    public Response getAdminUser(Principal user) {
+        Response response = new Response();
+        response.setData("User with Admin Type");
+        return response;
     }
 
     @GetMapping("/userType")
+//    @PreAuthorize("hasAuthority('USER')")
     @PreAuthorize("hasAuthority('USER')")
-    public Mono<Response> getUser(Principal user) {
-        return Mono.just(Response.builder().data("User With User Type").build());
+    public Response getUser(Principal user) {
+        Response response = new Response();
+        response.setData("User With User Type");
+        return response;
     }
 
     @GetMapping("/userOrAdminType")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public Mono<Response> getUserorAdmin(Principal user) {
-        return Mono.just(Response.builder().data("User either With User Type or Admin Type").build());
+    public Response getUserorAdmin(Principal user) {
+        Response response = new Response();
+        response.setData("User either With User Type or Admin Type");
+        return response;
     }
 }
