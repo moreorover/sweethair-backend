@@ -38,6 +38,8 @@ public class JwtAuthenticationConfig {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .authorizeRequests(expressionInterceptUrlRegistry ->
+                        expressionInterceptUrlRegistry.anyRequest().authenticated())
                 .oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(grantedAuthoritiesExtractor())
