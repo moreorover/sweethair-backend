@@ -6,20 +6,20 @@
   "scripts": {
     "compile": "tsc",
     "watch": "npm run clean && tsc -w",
-    "dev": "nodemon dist/app.js",
-    "start": "node dist/app.js",
+    "dev": "nodemon dist/index.js",
+    "start": "node dist/index.js",
     "clean": "del-cli dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/moreorover/typescript-starter.git"
+    "url": "git+https://github.com/moreorover/sweethair-backendgit"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/moreorover/typescript-starter/issues"
+    "url": "https://github.com/moreorover/sweethair-backend/issues"
   },
-  "homepage": "https://github.com/moreorover/typescript-starter#readme",
+  "homepage": "https://github.com/moreorover/sweethair-backend#readme",
   "devDependencies": {
     "@types/body-parser": "^1.19.1",
     "@types/connect-redis": "^0.0.17",
