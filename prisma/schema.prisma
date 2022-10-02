@@ -8,12 +8,12 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("PRISMA_DATABASE_URL")
 }
 
 model User {
   id       Int    @id @default(autoincrement())
-  fullName String @unique @db.VarChar(255)
+  fullName String @db.VarChar(255)
   email    String @unique @db.VarChar(255)
   password String @db.VarChar(255)
 

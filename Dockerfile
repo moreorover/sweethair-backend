@@ -1,15 +1,8 @@
-FROM node:14
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-RUN npm run compile
-
-EXPOSE 3000
-
-CMD [ "npm", "run", "start" ]
+FROM node:16-alpine AS base
+WORKDIR /usr/src/app
+RUN apk update \ 
+  && apk add bash \
+  && rm -rf /var/cache/apk/*
+COPY . . 
+RUN npm ci
+RUN npx prisma generate

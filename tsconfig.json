@@ -1,16 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6", "dom"],
-    "target": "es2017",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "sourceMap": true,
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true
-    // "noUnusedParameters": true,
-    // "noUnusedLocals": true // prohibits unused imports in a file
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+    "strict": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true
+  }
 }
