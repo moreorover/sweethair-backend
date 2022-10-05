@@ -30,8 +30,15 @@ jobs:
     - run: npm run build --if-present
     - run: npx prisma generate
     - run: npm run test:unit
-    - name: Archive code coverage results
+    - name: Archive code coverage results for unit testing
       uses: actions/upload-artifact@v3
       with:
-        name: jest-coverage-report
+        name: jest-unit-coverage-report
+        path: coverage/lcov-report/*
+    - run: rm -r coverage
+    - run: npm run test:integration
+    - name: Archive code coverage results for integration testing
+      uses: actions/upload-artifact@v3
+      with:
+        name: jest-integration-coverage-report
         path: coverage/lcov-report/*
