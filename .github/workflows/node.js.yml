@@ -35,17 +35,10 @@ jobs:
       with:
         name: jest-unit-coverage-report
         path: coverage/lcov-report/*
-    - run: rm -r coverage
-    - run: docker compose -f docker-compose.test.yml up -d --build
-    - run: npx prisma db push
-    - name: Archive code coverage results for integration testing
-      uses: actions/upload-artifact@v3
-      with:
-        name: jest-integration-coverage-report
-        path: coverage/lcov-report/*
 
 
   integration_testing:
+    environment: test
 
     runs-on: ubuntu-latest
 
