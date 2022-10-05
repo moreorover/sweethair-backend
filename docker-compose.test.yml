@@ -1,38 +1,13 @@
-version: '3.7'
+version: '3.9'
 
 services:
-  server:
-    build:
-      context: '.'
-      target: base
-    environment:
-      SERVER_DATABASE_NAME: sweethair_test_db
-      PRISMA_DATABASE_URL: postgresql://postgres:postgres@database:5432/sweethair_test_db?schema=public
-    ports:
-      - 9999:80
-    volumes:
-      - ./src:/usr/src/app/src
-      - ./package.json:/usr/src/app/package.json
-    networks:
-      - test_vm
-    depends_on:
-      - database
-
-  database:
-    image: postgres:10.5
+  db:
+    image: postgres:13
     restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - database:/var/lib/mysql
-    expose:
-      - 5433
+    container_name: integration-tests-prisma
     ports:
-      - 5433:5432
-    networks:
-      - test_vm
-volumes:
-  database:
-networks:
-  test_vm:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+      POSTGRES_DB: tests
