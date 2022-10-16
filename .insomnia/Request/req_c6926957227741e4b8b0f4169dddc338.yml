@@ -1,0 +1,26 @@
+_id: req_c6926957227741e4b8b0f4169dddc338
+type: Request
+parentId: wrk_8a3c1ad215c7494b8f38f826644d6a9d
+modified: 1665929579973
+created: 1665928964734
+url: "{{ _.base_url }}/token"
+name: Auth Token
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: basic
+  useISO88591: false
+  disabled: false
+  username: "{{ _.user }}"
+  password: "{{ _.password }}"
+metaSortKey: -1665928964734
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
