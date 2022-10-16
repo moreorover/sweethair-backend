@@ -1,6 +1,6 @@
-package dev.danvega.jwt;
+package dev.martin.sweethair;
 
-import dev.danvega.jwt.config.RsaKeyProperties;
+import dev.martin.sweethair.config.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

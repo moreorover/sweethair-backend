@@ -1,4 +1,4 @@
-package dev.danvega.jwt.config;
+package dev.martin.sweethair.config;
 
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;

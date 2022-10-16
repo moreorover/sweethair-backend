@@ -1,6 +1,6 @@
-package dev.danvega.jwt.controller;
+package dev.martin.sweethair.controller;
 
-import dev.danvega.jwt.service.TokenService;
+import dev.martin.sweethair.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

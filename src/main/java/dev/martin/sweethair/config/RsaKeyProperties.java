@@ -1,4 +1,4 @@
-package dev.danvega.jwt.config;
+package dev.martin.sweethair.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
