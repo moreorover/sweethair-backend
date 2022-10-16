@@ -1,3 +1,21 @@
 rsa:
   private-key: classpath:certs/private.pem
   public-key: classpath:certs/public.pem
+
+logging:
+  level:
+    org:
+      springframework: error
+
+spring:
+  jpa:
+    properties:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate:
+        show_sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring
+    username: postgres
+    password: postgres
