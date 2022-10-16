@@ -2,13 +2,12 @@ package dev.martin.sweethair.controller;
 
 import dev.martin.sweethair.entity.User;
 import dev.martin.sweethair.entity.dto.UserCreateDto;
-import dev.martin.sweethair.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import dev.martin.sweethair.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -16,26 +15,33 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PreAuthorize("hasAuthority('SCOPE_read')")
     @GetMapping("/users")
-    public List<User> users() {
-        return userRepository.findAll();
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> users(Principal principal) {
+        this.logger.info(String.format("User %s viewing all users.", principal.getName()));
+        return this.userService.findAll();
     }
 
     @PreAuthorize("hasAuthority('SCOPE_read')")
     @PostMapping("/users")
-    public User createUser(@RequestBody UserCreateDto userCreateDto) {
-        User newUser = new User();
-        newUser.setEmailAddress(userCreateDto.emailAddress());
-        newUser.setFullName(userCreateDto.fullName());
-        this.userRepository.save(newUser);
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createUser(Principal principal, @RequestBody UserCreateDto userCreateDto) {
+        this.logger.info(String.format("User %s trying to create user", principal.getName()));
 
+        User newUser = this.userService.createUser(userCreateDto);
+
+        if (newUser == null) {
+            throw new RecordAlreadyExist();
+        }
         return newUser;
     }
 }
