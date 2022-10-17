@@ -1,7 +1,7 @@
 _id: req_dd2430ac542a4a579dc4ff1ce97f3681
 type: Request
 parentId: wrk_8a3c1ad215c7494b8f38f826644d6a9d
-modified: 1665931008056
+modified: 1666034097925
 created: 1665929643827
 url: "{{ _.base_url }}/users"
 name: User Create
@@ -11,8 +11,8 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"fullName": "Some Name 3",
-    	"emailAddress": "asdasda2@gmail.com"
+    	"fullName": "Some Name 44",
+    	"emailAddress": "asdasda24@gmail.com4"
     }
 parameters: []
 headers:
