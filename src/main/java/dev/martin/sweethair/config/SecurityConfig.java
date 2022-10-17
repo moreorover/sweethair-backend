@@ -7,12 +7,14 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import dev.martin.sweethair.service.AuthUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -46,12 +48,9 @@ public class SecurityConfig {
         this.jwtConfigProperties = jwtConfigProperties;
     }
 
-    @Bean
-    public AuthenticationManager authManager() {
-        var authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(this.authUserService);
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-        return new ProviderManager(authProvider);
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(this.authUserService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Bean
@@ -62,7 +61,6 @@ public class SecurityConfig {
                         .mvcMatchers("/token").permitAll()
                         .anyRequest().authenticated()
                 )
-                .authenticationManager(authManager())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .exceptionHandling((ex) -> ex

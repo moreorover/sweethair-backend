@@ -23,7 +23,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAnyRole('Admin', 'Manager')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_Admin', 'SCOPE_Manager')")
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public List<User> users(Principal principal) {
@@ -31,7 +31,7 @@ public class UserController {
         return this.userService.findAll();
     }
 
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasAnyAuthority('Admin')")
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     public User createUser(Principal principal, @RequestBody UserCreateDto userCreateDto) {
