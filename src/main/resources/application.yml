@@ -5,7 +5,7 @@ rsa:
 logging:
   level:
     org:
-      springframework: error
+      springframework: debug
 
 spring:
   jpa:
@@ -14,7 +14,7 @@ spring:
       hibernate:
         show_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
   datasource:
     url: jdbc:postgresql://localhost:5432/spring
     username: postgres
