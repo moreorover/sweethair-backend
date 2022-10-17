@@ -59,6 +59,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests( auth -> auth
                         .mvcMatchers("/token").permitAll()
+                        .mvcMatchers("/v3/api-docs/**",
+                                                "/v3/api-docs.yaml",
+                                                "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
