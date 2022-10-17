@@ -1,0 +1,10 @@
+_id: ut_e41765cb36f5479c831180b36f1d6afc
+type: UnitTest
+parentId: uts_fa60ceeacd4748af9b1c8ef94d854cfd
+modified: 1666032338702
+created: 1666032296288
+requestId: req_b3097617d6e444f7a485a21435eeed1c
+name: Get Users Unauthorized
+code: |-
+  const response1 = await insomnia.send();
+  expect(response1.status).to.equal(403);

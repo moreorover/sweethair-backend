@@ -1,19 +1,28 @@
-_id: req_b3097617d6e444f7a485a21435eeed1c
+_id: req_a11d23258ff045ccbe831d940b8f7be0
 type: Request
 parentId: wrk_8a3c1ad215c7494b8f38f826644d6a9d
-modified: 1666034130728
-created: 1665929597625
+modified: 1666034013716
+created: 1666030030222
 url: "{{ _.base_url }}/users"
 name: Users
 description: ""
-method: GET
-body: {}
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"fullName": "Some Name 44",
+    	"emailAddress": "asdasda24@gmail.com4"
+    }
 parameters: []
-headers: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_6edba7042a274499b3bbe039d5f1aa12
 authentication:
   type: bearer
   token: "{{ _.token }}"
-metaSortKey: -1665929597625
+metaSortKey: -1665929122956.75
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

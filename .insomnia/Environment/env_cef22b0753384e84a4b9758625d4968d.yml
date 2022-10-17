@@ -1,12 +1,12 @@
-_id: env_4668ff5d84ae4debb5aec4f8a874cd5d
+_id: env_cef22b0753384e84a4b9758625d4968d
 type: Environment
 parentId: env_227abda48a06101dd9c8184665198ab645a1174a
-modified: 1666030271425
-created: 1665929008539
-name: SweetHair Admin
+modified: 1666030273460
+created: 1666029845161
+name: SweetHair Manager
 data:
   base_url: http://localhost:8080
-  user: jane@gmail.com
+  user: jane1@gmail.com
   password: password1
   token: "{% response 'raw', 'req_c6926957227741e4b8b0f4169dddc338', '',
     'when-expired', 60 %}"
@@ -16,6 +16,6 @@ dataPropertyOrder:
     - user
     - password
     - token
-color: "#ff0000"
+color: "#be0000"
 isPrivate: false
-metaSortKey: 1665929008539
+metaSortKey: 1665929008589
