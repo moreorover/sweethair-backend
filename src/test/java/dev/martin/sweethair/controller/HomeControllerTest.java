@@ -1,12 +1,12 @@
 package dev.martin.sweethair.controller;
 
-import dev.martin.sweethair.config.SecurityConfig;
-import dev.martin.sweethair.service.TokenService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -16,8 +16,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest({HomeController.class, AuthController.class})
-@Import({SecurityConfig.class, TokenService.class})
+@SpringBootTest
+@AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
 class HomeControllerTest {
 
     @Autowired
@@ -32,7 +33,7 @@ class HomeControllerTest {
     @Test
     void rootWhenAuthenticatedThenSaysHelloUser() throws Exception {
         MvcResult result = this.mvc.perform(post("/token")
-                        .with(httpBasic("dvega", "password")))
+                        .with(httpBasic("jane@gmail.com", "password1")))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -40,7 +41,7 @@ class HomeControllerTest {
 
         this.mvc.perform(get("/")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(content().string("Hello, dvega"));
+                .andExpect(content().string("Hello, jane@gmail.com"));
     }
 
     @Test
@@ -48,6 +49,4 @@ class HomeControllerTest {
     public void rootWithMockUserStatusIsOK() throws Exception {
         this.mvc.perform(get("/")).andExpect(status().isOk());
     }
-
-
 }
