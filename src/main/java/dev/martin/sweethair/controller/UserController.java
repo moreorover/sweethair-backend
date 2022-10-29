@@ -2,6 +2,7 @@ package dev.martin.sweethair.controller;
 
 import dev.martin.sweethair.entity.User;
 import dev.martin.sweethair.entity.dto.UserCreateDto;
+import dev.martin.sweethair.model.RecordAlreadyExist;
 import dev.martin.sweethair.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
