@@ -30,7 +30,7 @@ jobs:
       - name: Generate RSA Private Key
         run: openssl genrsa -out ./src/main/resources/certs/keypair.pem 2048
       - name: Extract Public RSA Key
-        run: openssl rsa -in keypair.pem -pubout -out ./src/main/resources/certs/public.pem
+        run: openssl rsa -in ./src/main/resources/certs/keypair.pem -pubout -out ./src/main/resources/certs/public.pem
       - name: Format Private Key
         run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ./src/main/resources/certs/keypair.pem -out ./src/main/resources/certs/private.pem
       - name: Test Application
