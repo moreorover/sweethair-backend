@@ -13,6 +13,8 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate:
         show_sql: true
+        jdbc:
+          time_zone: UTC
     hibernate:
       ddl-auto: create-drop
   datasource:
