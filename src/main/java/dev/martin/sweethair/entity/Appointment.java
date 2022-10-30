@@ -16,7 +16,7 @@ public class Appointment {
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "scheduled_date")
+    @Column(name = "scheduled_date", nullable = false)
     private Date scheduledTime;
 
     @CreationTimestamp
@@ -28,4 +28,24 @@ public class Appointment {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     private Date modifyDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public Date getScheduledTime() {
+        return scheduledTime;
+    }
+
+    public void setScheduledTime(Date scheduledTime) {
+        this.scheduledTime = scheduledTime;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
 }

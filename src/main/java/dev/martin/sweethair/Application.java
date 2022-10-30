@@ -33,10 +33,10 @@ public class Application {
             Role managerRole = roleService.createRole(new RoleCreateDto("Manager"));
             Role assistantRole = roleService.createRole(new RoleCreateDto("Assistant"));
             Role userRole = roleService.createRole(new RoleCreateDto("User"));
-            userService.createUser(new UserCreateDto("Jane Doe", "jane@gmail.com", Optional.of("password1"), Optional.of(new HashSet<>(Arrays.asList(adminRole, managerRole, assistantRole, userRole)))));
-            userService.createUser(new UserCreateDto("Jane Doe 1", "jane1@gmail.com", Optional.of("password1"), Optional.of(new HashSet<>(Arrays.asList(managerRole, assistantRole, userRole)))));
-            userService.createUser(new UserCreateDto("Jane Doe 2", "jane2@gmail.com", Optional.of("password1"), Optional.of(new HashSet<>(Arrays.asList(assistantRole, userRole)))));
-            userService.createUser(new UserCreateDto("Jane Doe 3", "jane3@gmail.com", Optional.of("password1"), Optional.of(new HashSet<>(Arrays.asList(userRole)))));
+            userService.createUser(new UserCreateDto("Admin", "admin@gmail.com", Optional.of("password"), Optional.of(new HashSet<>(Arrays.asList(adminRole, managerRole, assistantRole, userRole)))));
+            userService.createUser(new UserCreateDto("Manager", "manager@gmail.com", Optional.of("password"), Optional.of(new HashSet<>(Arrays.asList(managerRole, assistantRole, userRole)))));
+            userService.createUser(new UserCreateDto("Assistant", "assistant@gmail.com", Optional.of("password"), Optional.of(new HashSet<>(Arrays.asList(assistantRole, userRole)))));
+            userService.createUser(new UserCreateDto("User", "user@gmail.com", Optional.of("password"), Optional.of(new HashSet<>(Arrays.asList(userRole)))));
         };
     }
 
