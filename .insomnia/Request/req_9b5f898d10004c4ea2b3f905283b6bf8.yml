@@ -1,0 +1,31 @@
+_id: req_9b5f898d10004c4ea2b3f905283b6bf8
+type: Request
+parentId: fld_7d11efc0b774471ba3247f419a5e6077
+modified: 1667157374704
+created: 1667155829936
+url: "{{ _.base_url }}/appointments"
+name: Appointment
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"scheduledDate": "{{ _.currentDateAddOneHour }}"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_323add985f3f48d5936aecf371245aed
+authentication:
+  type: bearer
+  token: "{{ _.token }}"
+metaSortKey: -1666542669857
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

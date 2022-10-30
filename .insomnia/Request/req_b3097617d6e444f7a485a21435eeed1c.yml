@@ -1,0 +1,23 @@
+_id: req_b3097617d6e444f7a485a21435eeed1c
+type: Request
+parentId: wrk_8a3c1ad215c7494b8f38f826644d6a9d
+modified: 1665929628815
+created: 1665929597625
+url: "{{ _.base_url }}/users"
+name: Users
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.token }}"
+metaSortKey: -1665929597625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
