@@ -15,26 +15,26 @@ on:
     branches: [ "master" ]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: Make CERTS directory
-        run: mkdir -p ./src/main/resources/certs
-      - name: Generate RSA Private Key
-        run: openssl genrsa -out ./src/main/resources/certs/keypair.pem 2048
-      - name: Extract Public RSA Key
-        run: openssl rsa -in ./src/main/resources/certs/keypair.pem -pubout -out ./src/main/resources/certs/public.pem
-      - name: Format Private Key
-        run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ./src/main/resources/certs/keypair.pem -out ./src/main/resources/certs/private.pem
-      - name: Test Application
-        run: mvn test -Dspring.profiles.active=test
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#          cache: maven
+#      - name: Make CERTS directory
+#        run: mkdir -p ./src/main/resources/certs
+#      - name: Generate RSA Private Key
+#        run: openssl genrsa -out ./src/main/resources/certs/keypair.pem 2048
+#      - name: Extract Public RSA Key
+#        run: openssl rsa -in ./src/main/resources/certs/keypair.pem -pubout -out ./src/main/resources/certs/public.pem
+#      - name: Format Private Key
+#        run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ./src/main/resources/certs/keypair.pem -out ./src/main/resources/certs/private.pem
+#      - name: Test Application
+#        run: mvn test -Dspring.profiles.active=test
 
   build:
     runs-on: ubuntu-latest
@@ -47,6 +47,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Make CERTS directory
+      run: mkdir -p ./src/main/resources/certs
+    - name: Generate RSA Private Key
+      run: openssl genrsa -out ./src/main/resources/certs/keypair.pem 2048
+    - name: Extract Public RSA Key
+      run: openssl rsa -in ./src/main/resources/certs/keypair.pem -pubout -out ./src/main/resources/certs/public.pem
+    - name: Format Private Key
+      run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ./src/main/resources/certs/keypair.pem -out ./src/main/resources/certs/private.pem
+    - name: Test Application
+      run: mvn test -Dspring.profiles.active=test
     - name: Build with Maven
       run: mvn -B package --file pom.xml -DskipTests=true
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
