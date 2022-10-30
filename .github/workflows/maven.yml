@@ -27,6 +27,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: LS
+      run: ls
     - name: Generate RSA Private Key
       run: ./src/resources/certs openssl genrsa -out keypair.pem 2048
     - name: Extract Public RSA Key
