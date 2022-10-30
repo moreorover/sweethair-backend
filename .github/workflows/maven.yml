@@ -27,16 +27,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: LS
-      run: ls
     - name: Make CERTS directory
       run: mkdir -p ./src/main/resources/certs
     - name: Generate RSA Private Key
-      run: ./src/main/resources/certs/ openssl genrsa -out keypair.pem 2048
+      run: openssl genrsa -out ./src/main/resources/certs/keypair.pem 2048
     - name: Extract Public RSA Key
-      run: ./src/main/resources/certs/ openssl rsa -in keypair.pem -pubout -out public.pem
+      run: openssl rsa -in keypair.pem -pubout -out ./src/main/resources/certs/public.pem
     - name: Format Private Key
-      run: ./src/main/resources/certs/ openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out private.pem
+      run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out ./src/main/resources/certs/private.pem
     - name: Test Application
       run: mvn test -Dspring.profiles.active=test
     - name: Build with Maven
