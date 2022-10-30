@@ -27,6 +27,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Test Application
+      run: mvn test -Dspring.profiles.active=test
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
