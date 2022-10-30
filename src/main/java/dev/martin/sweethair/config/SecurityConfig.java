@@ -10,6 +10,7 @@ import dev.martin.sweethair.service.AuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -50,17 +51,39 @@ public class SecurityConfig {
         auth.userDetailsService(this.authUserService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
+    @Profile("!test")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests( auth -> auth
                         .mvcMatchers("/token").permitAll()
-                        .mvcMatchers("/v3/api-docs/**",
-                                                "/v3/api-docs.yaml",
-                                                "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .exceptionHandling((ex) -> ex
+                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                )
+                .httpBasic(Customizer.withDefaults()) //
+                .build();
+    }
+
+    @Profile("test")
+    @Bean
+    public SecurityFilterChain securityFilterChainForTestProfile(HttpSecurity http) throws Exception {
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeRequests( auth -> auth
+                        .mvcMatchers("/token").permitAll()
+                        .mvcMatchers("/v3/api-docs/**",
+                                "/v3/api-docs.yaml",
+                                "/swagger-ui/**").permitAll()
+                        .antMatchers("/h2/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .headers().frameOptions().disable().and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .exceptionHandling((ex) -> ex
