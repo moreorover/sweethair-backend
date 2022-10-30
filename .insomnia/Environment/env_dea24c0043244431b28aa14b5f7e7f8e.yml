@@ -1,0 +1,21 @@
+_id: env_dea24c0043244431b28aa14b5f7e7f8e
+type: Environment
+parentId: env_227abda48a06101dd9c8184665198ab645a1174a
+modified: 1667152044261
+created: 1667152018398
+name: SweetHair Spring User
+data:
+  base_url: http://localhost:8080
+  user: user@gmail.com
+  password: password
+  token: "{% response 'raw', 'req_c6926957227741e4b8b0f4169dddc338', '',
+    'when-expired', 60 %}"
+dataPropertyOrder:
+  "&":
+    - base_url
+    - user
+    - password
+    - token
+color: "#420000"
+isPrivate: false
+metaSortKey: 1665929008689
