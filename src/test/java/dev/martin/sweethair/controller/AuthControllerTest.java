@@ -35,7 +35,7 @@ public class AuthControllerTest {
     @Test
     void tokenToReturnToken() throws Exception {
         MvcResult result = this.mockMvc.perform(post("/token")
-                        .with(httpBasic("jane@gmail.com", "password1")))
+                        .with(httpBasic("admin@gmail.com", "password")))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
@@ -51,7 +51,7 @@ public class AuthControllerTest {
     @Test
     void tokenToNotReturnToken() throws Exception {
         MvcResult result = this.mockMvc.perform(post("/token")
-                        .with(httpBasic("jane@gmail.com", "password11")))
+                        .with(httpBasic("admin@gmail.com", "password11")))
                 .andExpect(status().isUnauthorized())
                 .andDo(print())
                 .andReturn();
