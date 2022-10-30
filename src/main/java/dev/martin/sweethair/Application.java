@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    @Profile("test")
     @Bean
     CommandLineRunner commandLineRunner(UserService userService, RoleService roleService) {
         return args -> {

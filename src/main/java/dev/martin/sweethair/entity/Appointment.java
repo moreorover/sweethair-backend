@@ -5,18 +5,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "appointments")
+public class Appointment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "scheduled_date")
+    private Date scheduledTime;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,27 +28,4 @@ public class Role {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modify_date")
     private Date modifyDate;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
