@@ -1,0 +1,10 @@
+_id: ut_6a5bf25fee5349398cf86c6b37099a21
+type: UnitTest
+parentId: uts_c7ea09c4e32a40aaa40abf20d7fff4f0
+modified: 1667160782950
+created: 1667160772369
+requestId: req_9b5f898d10004c4ea2b3f905283b6bf8
+name: Creates Appointment
+code: |-
+  const response1 = await insomnia.send();
+  expect(response1.status).to.equal(200);
