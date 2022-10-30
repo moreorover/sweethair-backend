@@ -1,0 +1,23 @@
+_id: req_1222aec735974e2cb6a3e37dfe5587e7
+type: Request
+parentId: fld_7d11efc0b774471ba3247f419a5e6077
+modified: 1667157388231
+created: 1667155742089
+url: "{{ _.base_url }}/appointments"
+name: Appointments
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.token }}"
+metaSortKey: -1667155742089
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
