@@ -1,0 +1,5 @@
+FROM openjdk:17-alpine
+WORKDIR /app
+COPY . .
+EXPOSE 8080
+ENTRYPOINT ["mvn","spring-boot:run","Dspring-boot.run.profiles=test"]
