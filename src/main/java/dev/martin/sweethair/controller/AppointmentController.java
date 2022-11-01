@@ -3,6 +3,7 @@ package dev.martin.sweethair.controller;
 import dev.martin.sweethair.entity.Appointment;
 import dev.martin.sweethair.entity.dto.AppointmentCreateDto;
 import dev.martin.sweethair.model.RecordAlreadyExist;
+import dev.martin.sweethair.model.RecordDoesNotExist;
 import dev.martin.sweethair.service.AppointmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@RequestMapping("/appointments")
 public class AppointmentController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
@@ -25,7 +27,7 @@ public class AppointmentController {
     }
 
     @PreAuthorize("hasAnyAuthority('SCOPE_Admin', 'SCOPE_Manager')")
-    @GetMapping("/appointments")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Appointment> findAll(Principal principal) {
         LOG.info(String.format("User %s viewing all appointments.", principal.getName()));
@@ -33,7 +35,7 @@ public class AppointmentController {
     }
 
     @PreAuthorize("hasAnyAuthority('SCOPE_Admin', 'SCOPE_Manager')")
-    @PostMapping("/appointments")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Appointment create(Principal principal, @RequestBody AppointmentCreateDto dto) {
         LOG.info(String.format("User %s trying to create appointment", principal.getName()));
@@ -44,5 +46,26 @@ public class AppointmentController {
             throw new RecordAlreadyExist();
         }
         return appointment;
+    }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_Admin', 'SCOPE_Manager')")
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(Principal principal, @PathVariable("id") long id, @RequestBody AppointmentCreateDto dto) {
+        LOG.info(String.format("User %s trying to create appointment", principal.getName()));
+
+        this.appointmentService.update(id, dto);
+    }
+
+    @PreAuthorize("hasAnyAuthority('SCOPE_Admin', 'SCOPE_Manager')")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(Principal principal, @PathVariable("id") long id) {
+        LOG.info(String.format("User %s trying to delete appointment.", principal.getName()));
+        try {
+            this.appointmentService.delete(id);
+        } catch (Exception e) {
+            throw new RecordDoesNotExist();
+        }
     }
 }

@@ -37,4 +37,15 @@ public class AppointmentService {
             return null;
         }
     }
+
+    public void update(long id, AppointmentCreateDto dto) {
+        this.appointmentRepository.findById(id).ifPresent(appointment -> {
+            appointment.setScheduledDate(dto.scheduledDate());
+            this.appointmentRepository.save(appointment);
+        });
+    }
+
+    public void delete(long id) {
+        this.appointmentRepository.deleteById(id);
+    }
 }
