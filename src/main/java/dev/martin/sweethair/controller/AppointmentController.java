@@ -15,7 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/appointments")
+@RequestMapping(value = "/appointments", produces = "application/json")
 public class AppointmentController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
