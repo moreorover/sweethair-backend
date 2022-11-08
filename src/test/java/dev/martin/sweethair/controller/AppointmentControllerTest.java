@@ -46,7 +46,7 @@ class AppointmentControllerTest {
     @Test
     void createAppointmentWhenAdmin() throws Exception {
         MvcResult result = this.mvc.perform(post("/token")
-                        .with(httpBasic("admin@gmail.com", "password")))
+                        .with(httpBasic("admin@gmail.com", "password1")))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -70,7 +70,7 @@ class AppointmentControllerTest {
     @Test
     void createAppointmentWhenManager() throws Exception {
         MvcResult result = this.mvc.perform(post("/token")
-                        .with(httpBasic("manager@gmail.com", "password")))
+                        .with(httpBasic("manager@gmail.com", "password2")))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -94,7 +94,7 @@ class AppointmentControllerTest {
     @Test
     void createAppointmentWhenAssistant() throws Exception {
         MvcResult result = this.mvc.perform(post("/token")
-                        .with(httpBasic("assistant@gmail.com", "password")))
+                        .with(httpBasic("assistant@gmail.com", "password3")))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -111,7 +111,7 @@ class AppointmentControllerTest {
     @Test
     void createAppointmentWhenUser() throws Exception {
         MvcResult result = this.mvc.perform(post("/token")
-                        .with(httpBasic("user@gmail.com", "password")))
+                        .with(httpBasic("user@gmail.com", "password4")))
                 .andExpect(status().isOk())
                 .andReturn();
 
