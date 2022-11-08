@@ -24,7 +24,7 @@ public class AppointmentService {
     }
 
     public Appointment create(AppointmentCreateDto appointmentCreateDto) {
-        this.logger.info(String.format("RoleCreateDto scheduledDate: %s", appointmentCreateDto.scheduledDate()));
+        this.logger.info(String.format("AppointmentCreateDto scheduledDate: %s", appointmentCreateDto.scheduledDate()));
         Appointment appointment = new Appointment();
         appointment.setScheduledDate(appointmentCreateDto.scheduledDate());
 
