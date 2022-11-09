@@ -54,7 +54,7 @@ jobs:
         run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ./src/main/resources/certs/keypair.pem -out ./src/main/resources/certs/private.pem
       - uses: isbang/compose-action@v1.4.0
         with:
-          compose-file: "./docker/docker-compose.test.yml"
+          compose-file: "docker-compose.test.yml"
           up-flags: "--build"
       - name: Test REST
         run: pytest
