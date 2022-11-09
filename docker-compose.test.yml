@@ -1,13 +1,11 @@
 version: '3.9'
 
 services:
-  db:
-    image: postgres:13
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
     restart: always
-    container_name: integration-tests-prisma
+    container_name: rest-api
     ports:
-      - '5433:5432'
-    environment:
-      POSTGRES_USER: prisma
-      POSTGRES_PASSWORD: prisma
-      POSTGRES_DB: tests
+      - '8080:8080'

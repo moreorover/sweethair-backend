@@ -35,7 +35,7 @@ class HomeControllerTest {
     @Test
     void rootWhenAuthenticatedThenSaysHelloUser() throws Exception {
         MvcResult result = this.mvc.perform(post("/token")
-                        .with(httpBasic("admin@gmail.com", "password")))
+                        .with(httpBasic("admin@gmail.com", "password1")))
                 .andExpect(status().isOk())
                 .andReturn();
 
