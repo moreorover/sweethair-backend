@@ -1,12 +1,4 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Java CI with Maven
+name: Test and Build
 
 on:
   push:
@@ -35,33 +27,9 @@ jobs:
         run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ./src/main/resources/certs/keypair.pem -out ./src/main/resources/certs/private.pem
       - name: Test Application
         run: mvn test -Dspring.profiles.active=test
-  e2e-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          cache: 'pip' # caching pip dependencies
-      - run: pip install -r ./api_testing/requirements.txt
-      - name: Make CERTS directory
-        run: mkdir -p ./src/main/resources/certs
-      - name: Generate RSA Private Key
-        run: openssl genrsa -out ./src/main/resources/certs/keypair.pem 2048
-      - name: Extract Public RSA Key
-        run: openssl rsa -in ./src/main/resources/certs/keypair.pem -pubout -out ./src/main/resources/certs/public.pem
-      - name: Format Private Key
-        run: openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ./src/main/resources/certs/keypair.pem -out ./src/main/resources/certs/private.pem
-      - uses: isbang/compose-action@v1.4.0
-        with:
-          compose-file: "docker-compose.test.yml"
-          up-flags: "--build"
-          services: api
-      - name: Test REST
-        run: pytest
   build:
     runs-on: ubuntu-latest
-    needs: [unit-test, e2e-test]
+    needs: unit-test
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
