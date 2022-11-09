@@ -1,0 +1,5 @@
+FROM maven:3.8.6-amazoncorretto-17
+WORKDIR /usr/src/app
+COPY . .
+EXPOSE 8080
+ENTRYPOINT ["mvn","spring-boot:run","-Dspring-boot.run.profiles=test"]
