@@ -37,7 +37,7 @@ public class AuthControllerTest {
     @Test
     void tokenToReturnToken() throws Exception {
         MvcResult result = this.mockMvc.perform(post("/token")
-                        .with(httpBasic("admin@gmail.com", "password")))
+                        .with(httpBasic("admin@gmail.com", "password1")))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
