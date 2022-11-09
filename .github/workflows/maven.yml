@@ -36,6 +36,7 @@ jobs:
       - name: Test Application
         run: mvn test -Dspring.profiles.active=test
   e2e-test:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
