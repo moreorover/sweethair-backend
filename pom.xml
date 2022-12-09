@@ -51,12 +51,12 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.12</version>
+            <version>1.6.13</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-webflux-ui</artifactId>
-            <version>1.6.12</version>
+            <version>1.6.13</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -72,19 +72,17 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <configuration>
-                        <profiles>
-                            <profile>test</profile>
-                        </profiles>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>
+                        <profile>test</profile>
+                    </profiles>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

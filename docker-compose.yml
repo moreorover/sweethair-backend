@@ -1,9 +1,12 @@
-version: '3.9'
+version: '3'
 services:
-  web:
-    build: .
+  sh-database:
+    image: "postgres"
+    env_file:
+      - database.env
+    volumes:
+      - ./sh-database:/var/lib/postgresql/data/
     ports:
-      - '3000:3000'
-    environment:
-      DATABASE_URL: ''
-      JWT_ACCESS_TOKEN: ''
+      - '5432:5432'
+volumes:
+  sh-database:
