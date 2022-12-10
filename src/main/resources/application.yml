@@ -18,6 +18,6 @@ spring:
     hibernate:
       ddl-auto: create-drop
   datasource:
-    url: jdbc:postgresql://localhost:5432/horn
-    username: unicorn
-    password: rainbow
+    url: jdbc:postgresql://localhost:5432/sh-database
+    username: postgres
+    password: postgres
