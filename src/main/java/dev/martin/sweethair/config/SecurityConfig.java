@@ -57,7 +57,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests( auth -> auth
-                        .mvcMatchers("/token").permitAll()
+                        .requestMatchers("/token").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -76,11 +76,11 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests( auth -> auth
-                        .mvcMatchers("/token").permitAll()
-                        .mvcMatchers("/v3/api-docs/**",
+                        .requestMatchers("/token").permitAll()
+                        .requestMatchers("/v3/api-docs/**",
                                 "/v3/api-docs.yaml",
                                 "/swagger-ui/**").permitAll()
-                        .antMatchers("/h2/**").permitAll()
+                        .requestMatchers("/h2/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers().frameOptions().disable().and()
