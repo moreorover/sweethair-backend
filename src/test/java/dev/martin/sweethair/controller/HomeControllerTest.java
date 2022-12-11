@@ -47,7 +47,7 @@ class HomeControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = "admin@gmail.com", password = "password1", authorities = {"SCOPE_Admin"})
     public void rootWithMockUserStatusIsOK() throws Exception {
         this.mvc.perform(get("/")).andExpect(status().isOk());
     }
