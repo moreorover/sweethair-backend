@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.martin</groupId>
     <artifactId>sweethair</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${api_version}</version>
     <name>sweethair-backend</name>
     <description>Sweethair Backend API</description>
     <properties>
@@ -47,16 +47,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-webflux-ui</artifactId>
-            <version>1.6.13</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

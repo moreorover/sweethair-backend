@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="Application Test" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="test" />
     <module name="sweethair" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="dev.martin.sweethair.Application" />
     <extension name="net.ashald.envfile">
