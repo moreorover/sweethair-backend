@@ -19,5 +19,5 @@ spring:
       ddl-auto: create-drop
   datasource:
     url: jdbc:postgresql://localhost:5432/sh-database
-    username: postgres
-    password: postgres
+    username: sh-database_username
+    password: sh-database_password
