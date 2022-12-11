@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.martin</groupId>
     <artifactId>sweethair</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${api_version}</version>
     <name>sweethair-backend</name>
     <description>Sweethair Backend API</description>
     <properties>
