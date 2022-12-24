@@ -11,8 +11,8 @@
     <groupId>dev.martin</groupId>
     <artifactId>sweethair</artifactId>
     <version>${api_version}</version>
-    <name>sweethair-backend</name>
-    <description>Sweethair Backend API</description>
+    <name>SH API</name>
+    <description>Sweet Hair Backend API</description>
     <properties>
         <java.version>17</java.version>
     </properties>
