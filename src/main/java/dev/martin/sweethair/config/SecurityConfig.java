@@ -59,6 +59,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests( auth -> auth
                         .requestMatchers("/token").permitAll()
+                        .requestMatchers("/graphiql/**").permitAll()
+                        .requestMatchers("/graphql/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -78,6 +80,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests( auth -> auth
                         .requestMatchers("/token").permitAll()
+                        .requestMatchers("/graphiql/**").permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/h2/**")).permitAll()
                         .anyRequest().authenticated()
                 )

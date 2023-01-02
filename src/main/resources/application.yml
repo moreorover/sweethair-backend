@@ -8,6 +8,14 @@ logging:
       springframework: info
 
 spring:
+  graphql:
+    graphiql:
+      enabled: true
+    cors:
+      allowed-origins: "*"
+    schema:
+      printer:
+        enabled: true
   jpa:
     properties:
       dialect: org.hibernate.dialect.PostgreSQLDialect
